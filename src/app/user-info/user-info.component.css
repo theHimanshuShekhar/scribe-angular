@@ -1,0 +1,5 @@
+@media (max-width: 767px) {
+  #dropdownBasic1, .d-inline-block {
+    width: 100%;
+  }
+ }
