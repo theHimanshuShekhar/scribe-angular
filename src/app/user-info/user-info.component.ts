@@ -14,14 +14,18 @@ export class UserInfoComponent implements OnInit {
   username: string = null;
   avatar: string = null;
 
-  constructor(public auth: AuthService, public navbar: NavbarComponent) { }
-
-  ngOnInit() {
+  constructor(public auth: AuthService, public navbar: NavbarComponent) {
     this.auth.getAuthState().subscribe(
       () => {
-        this.user = this.auth.getUser();
-        this.avatar = this.user.photoURL;
+        if (this.auth) {
+          this.user = this.auth.getUser();
+          this.avatar = this.user.photoURL;
+        }
       });
+   }
+
+  ngOnInit() {
+
   }
 
   public login() {
