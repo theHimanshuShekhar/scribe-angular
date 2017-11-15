@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
-  private authState: Observable<firebase.User>
+  private authState: Observable<firebase.User>;
   private currentUser: firebase.User = null;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {

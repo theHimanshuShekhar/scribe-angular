@@ -4,7 +4,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 
 
 @Component({
-  selector: 'user-info',
+  selector: 'app-user-info',
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.css'],
   encapsulation: ViewEncapsulation.None
