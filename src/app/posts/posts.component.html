@@ -3,13 +3,13 @@
     <a class="list-group-item list-group-item-action flex-column align-items-start">
       <div class="d-flex w-100 justify-content-between">
         <h3 class="mb-1">{{ post.title }}</h3>
-        <small>3 days ago</small>
+        <small>{{ getDate(post.date) }} minutes ago.</small>
       </div>
       <p class="mb-1"><small>
         {{ post.body }}
       </small>
       </p>
-    <h5>by- {{ post.author }}</h5>
+    <h5>{{ post.author }}</h5>
     </a>
   </div>
 </div>

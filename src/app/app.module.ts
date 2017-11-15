@@ -5,6 +5,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 // Services
 import { PostsService } from './services/posts.service';
@@ -39,6 +40,7 @@ import { AddPostComponent } from './add-post/add-post.component';
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'angular-fire-project'),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,

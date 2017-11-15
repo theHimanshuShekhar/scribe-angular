@@ -1,19 +1,41 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from './../services/auth.service';
+import { PostsService } from './../services/posts.service';
+import * as firebase from 'firebase';
+import { AngularFirestore } from 'angularfire2/firestore';
+
 
 @Component({
-  selector: 'add-post',
+  selector: 'app-add-post',
   templateUrl: './add-post.component.html',
   styleUrls: ['./add-post.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class AddPostComponent implements OnInit {
 
-  public auth;
+  public 'title': string;
+  public 'body': string;
+  private author: string;
+  private pid: string;
+  private imgURL: string;
+  private likes: number;
+  private newPost;
 
-  constructor() {
+  constructor(private postService: PostsService, public auth: AuthService, private afs: AngularFirestore) {
   }
 
   ngOnInit() {
+  }
+
+  public addPost() {
+    const user = this.auth.getAuthState();
+    this.newPost = {
+      title: this.title,
+      body: this.body,
+      date: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    this.postService.addPost(this.newPost);
   }
 
 }
