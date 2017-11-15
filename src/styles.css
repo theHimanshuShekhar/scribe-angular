@@ -13,3 +13,6 @@
 .logo-text {
   font-family: 'pacifico-regular', cursive;
 }
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+}
