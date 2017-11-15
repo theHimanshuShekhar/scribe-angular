@@ -1,4 +1,3 @@
-import { UserService } from './../services/user.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from '../services/user.service';
 
