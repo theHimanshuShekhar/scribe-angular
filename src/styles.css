@@ -1,5 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+/* Bootstrap */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+/* Fonts */
+@import './assets/fonts/fonts.css';
 
 .test {
   border: 1px solid red;

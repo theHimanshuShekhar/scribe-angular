@@ -28,3 +28,8 @@
 #search-btn {
   height: 40px;
 }
+.navbar-brand {
+  font-family: 'pacifico-regular', cursive;
+  font-size: 30px;
+  line-height: 20px;
+}
