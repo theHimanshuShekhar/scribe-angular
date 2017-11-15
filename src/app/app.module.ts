@@ -8,6 +8,8 @@ import { environment } from './../environments/environment';
 
 // Services
 import { PostsService } from './services/posts.service';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -18,6 +20,9 @@ import { AboutComponent } from './about/about.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { FooterComponent } from './footer/footer.component';
 import { PostsComponent } from './posts/posts.component';
+import { TestComponent } from './test/test.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,10 @@ import { PostsComponent } from './posts/posts.component';
     AboutComponent,
     UserInfoComponent,
     FooterComponent,
-    PostsComponent
+    PostsComponent,
+    TestComponent,
+    ProfileComponent,
+    AccountComponent
     ],
   imports: [
     BrowserModule,
@@ -41,8 +49,20 @@ import { PostsComponent } from './posts/posts.component';
         component: HomeComponent
       },
       {
+        path: 'user/:username',
+        component: ProfileComponent
+      },
+      {
         path: 'about',
         component: AboutComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent
+      },
+      {
+        path: 'test',
+        component: TestComponent
       },
       {
         path: '**',
@@ -50,7 +70,11 @@ import { PostsComponent } from './posts/posts.component';
       }
     ])
   ],
-  providers: [],
+  providers: [
+    UserService,
+    PostsService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

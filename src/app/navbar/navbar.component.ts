@@ -11,7 +11,6 @@ export class NavbarComponent implements OnInit {
   isNavbarCollapsed: boolean;
   constructor() {
     this.closeNavbar();
-    console.log("isNavbarCollapsed- ",this.isNavbarCollapsed);
   }
 
   ngOnInit() {

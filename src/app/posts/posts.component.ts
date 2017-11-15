@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { PostsService } from '../services/posts.service';
 
 @Component({
   selector: 'posts',
@@ -10,14 +9,11 @@ import { Observable } from 'rxjs/Observable';
 })
 export class PostsComponent implements OnInit {
 
-  posts: Observable<any[]>;
-  constructor(private db: AngularFirestore) {
-    this.getPosts();
+  public posts;
+  constructor(postsService: PostsService) {
+    this.posts = postsService.getPosts();
   }
 
-  private getPosts(){
-    this.posts = this.db.collection('posts').valueChanges();
-  }
   ngOnInit() {
   }
 

@@ -1,0 +1,11 @@
+.display-picture {
+  height: 150px;
+  width: 150px;
+}
+.jumbotron {
+  vertical-align: text-bottom;
+  text-align: left;
+}
+#display-username {
+  text-align: left;
+}

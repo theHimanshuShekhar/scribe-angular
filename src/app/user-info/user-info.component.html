@@ -1,10 +1,20 @@
-<div class="row mr-sm-0">
+<div class="row ml-md-0">
   <div class="col">
-    <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{ username }}</button>
+    <div ngbDropdown class="d-inline-block" *ngIf="this.auth.getAuthState() | async; let user; else showLogin">
+      <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+        <img [src]="avatar" class="avatar">
+        {{ user.displayName }}
+      </button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button class="dropdown-item">Profile</button>
-        <button class="dropdown-item">Logout</button>
+        <button class="dropdown-item" routerLink="user/{{user.uid}}" (click)="this.navbar.closeNavbar()">Profile</button>
+        <button class="dropdown-item" routerLink="account" (click)="this.navbar.closeNavbar()">Account</button>
+        <button class="dropdown-item" (click)="logout()">Logout</button>
+      </div>
       </div>
     </div>
+    <ng-template #showLogin>
+      <div class="d-inline-block">
+        <button id="login-btn" class="btn btn-primary" (click)="login()">Login</button>
+      </div>
+    </ng-template>
   </div>

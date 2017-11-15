@@ -1,0 +1,6 @@
+<div class="container">
+  <div class="jumbotron">
+    <img [src]="avatar" class="rounded display-picture">
+    <h1 *ngIf="username !== null" id="display-username" class="border">{{ this.username }}</h1>
+  </div>
+</div>

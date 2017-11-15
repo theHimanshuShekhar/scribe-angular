@@ -4,3 +4,6 @@
 .test {
   border: 1px solid red;
 }
+.container {
+  max-width: 700px;
+}
