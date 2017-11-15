@@ -17,7 +17,7 @@ export class PostsComponent implements OnInit {
   }
 
   public getDate(date) {
-    setTimeout(100);
+    setTimeout(1000);
     const prevDate = date;
     const newDate = new Date();
     const milliseconds: number = newDate.getTime() - prevDate.getTime();
