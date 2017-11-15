@@ -43,7 +43,7 @@ import { AddPostComponent } from './add-post/add-post.component';
     BrowserModule,
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase,'angular-fire-project'),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     RouterModule.forRoot([
       {
