@@ -10,3 +10,6 @@
 .container {
   max-width: 700px;
 }
+.logo-text {
+  font-family: 'pacifico-regular', cursive;
+}
