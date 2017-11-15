@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'add-post',
@@ -8,7 +9,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AddPostComponent implements OnInit {
 
-  constructor() { }
+  public auth;
+
+  constructor(userService: UserService) {
+    this.auth = userService.getAuthState();
+  }
 
   ngOnInit() {
   }

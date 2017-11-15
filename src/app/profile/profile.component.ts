@@ -12,7 +12,10 @@ export class ProfileComponent implements OnInit {
 
   public avatar: string = null;
   public username: string = null;
-  constructor(private userService: UserService) { }
+  public auth;
+  constructor(private userService: UserService) {
+    this.auth = userService.getAuthState();
+  }
 
 
    ngOnInit() {

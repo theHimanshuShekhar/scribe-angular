@@ -16,6 +16,10 @@ export class UserService {
       });
   }
 
+  public getAuthState() {
+    return this.auth.getAuthState();
+  }
+
   public getAvatar() {
     if(this.user) {
       return this.avatar = this.user.photoURL;

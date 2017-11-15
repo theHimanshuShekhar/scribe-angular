@@ -1,4 +1,6 @@
+import { UserService } from './../services/user.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'home',
@@ -7,6 +9,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  ngOnInit() {}
+
+
+  ngOnInit() {
+
+  }
 
 }
