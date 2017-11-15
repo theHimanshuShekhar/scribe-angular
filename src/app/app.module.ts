@@ -23,6 +23,7 @@ import { PostsComponent } from './posts/posts.component';
 import { TestComponent } from './test/test.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
+import { AddPostComponent } from './add-post/add-post.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AccountComponent } from './account/account.component';
     PostsComponent,
     TestComponent,
     ProfileComponent,
-    AccountComponent
+    AccountComponent,
+    AddPostComponent
     ],
   imports: [
     BrowserModule,
