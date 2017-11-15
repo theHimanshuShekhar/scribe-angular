@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'account',
+  selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
   encapsulation: ViewEncapsulation.None

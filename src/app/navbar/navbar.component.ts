@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +8,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  isNavbarCollapsed: boolean;
+  @Output('isNavbarCollapsed') isNavbarCollapsed: boolean;
   constructor() {
     this.closeNavbar();
   }

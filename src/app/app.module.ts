@@ -8,7 +8,6 @@ import { environment } from './../environments/environment';
 
 // Services
 import { PostsService } from './services/posts.service';
-import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 
 // Components
@@ -20,7 +19,6 @@ import { AboutComponent } from './about/about.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { FooterComponent } from './footer/footer.component';
 import { PostsComponent } from './posts/posts.component';
-import { TestComponent } from './test/test.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { AddPostComponent } from './add-post/add-post.component';
@@ -34,7 +32,6 @@ import { AddPostComponent } from './add-post/add-post.component';
     UserInfoComponent,
     FooterComponent,
     PostsComponent,
-    TestComponent,
     ProfileComponent,
     AccountComponent,
     AddPostComponent
@@ -42,7 +39,7 @@ import { AddPostComponent } from './add-post/add-post.component';
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase,'angular-fire-project'),
+    AngularFireModule.initializeApp(environment.firebase, 'angular-fire-project'),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     RouterModule.forRoot([
@@ -51,7 +48,7 @@ import { AddPostComponent } from './add-post/add-post.component';
         component: HomeComponent
       },
       {
-        path: 'user/:username',
+        path: 'user/:name',
         component: ProfileComponent
       },
       {
@@ -63,20 +60,19 @@ import { AddPostComponent } from './add-post/add-post.component';
         component: AccountComponent
       },
       {
-        path: 'test',
-        component: TestComponent
-      },
-      {
         path: '**',
         redirectTo: '/home'
       }
     ])
   ],
   providers: [
-    UserService,
     PostsService,
     AuthService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+const Routes = {
+
+};

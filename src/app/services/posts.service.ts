@@ -13,8 +13,9 @@ interface Post {
 @Injectable()
 export class PostsService {
 
-  private postsCollection: AngularFirestoreCollection<Post>;
   private posts: Observable<Post[]>;
+  private postsCollection: AngularFirestoreCollection<Post>;
+  private postDoc: AngularFirestoreDocument<Post>;
 
   constructor(private afs: AngularFirestore) {
     this.retrievePosts();
@@ -31,7 +32,9 @@ export class PostsService {
     return this.posts;
   }
 
-  public addPost() {
+  public addPost(newPost) {
+    // this.postDoc = this.afs.const AngularFirestoreDocument = new type(arguments);
+    // this.postDoc.set({ title: 'Test title'});
     return null;
   }
 

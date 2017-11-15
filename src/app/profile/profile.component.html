@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="jumbotron mb-0">
-    <img [src]="avatar" class="rounded display-picture">
-    <h1 *ngIf="this.auth | async " id="display-username" class="border">{{ this.username }}</h1>
+  <div class="jumbotron mb-0" *ngIf="auth.user | async as user">
+    <img [src]="user.photoURL" class="rounded display-picture">
+    <h1 id="display-username" class="border">{{ user.displayName }}</h1>
   </div>
   <add-post class="my-0"></add-post>
   <app-posts></app-posts>
