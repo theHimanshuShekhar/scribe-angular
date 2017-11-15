@@ -21,12 +21,18 @@ export class PostsService {
   }
 
   private retrievePosts() {
-    this.postsCollection = this.afs.collection('posts');
+    this.postsCollection = this.afs.collection('posts', ref => {
+      return ref.orderBy('date').limit(20);
+      });
     this.posts = this.postsCollection.valueChanges();
   }
 
   public getPosts() {
     return this.posts;
+  }
+
+  public addPost() {
+    return null;
   }
 
 }
