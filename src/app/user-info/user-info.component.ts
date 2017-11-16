@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 
@@ -13,10 +13,11 @@ export class UserInfoComponent implements OnInit {
   user = null;
   username: string = null;
   avatar: string = null;
+  @Output() closeNavEvent = new EventEmitter<boolean>();
 
   constructor(public auth: AuthService, public navbar: NavbarComponent) {
 
-   }
+  }
 
   ngOnInit() {
 
@@ -24,11 +25,12 @@ export class UserInfoComponent implements OnInit {
 
   public login() {
     this.auth.googleLogin();
+    this.closeNavEvent.next(true);
   }
 
   public logout() {
     this.auth.logout();
-    this.navbar.closeNavbar();
     this.avatar = null;
+    this.closeNavEvent.next(true);
   }
 }
