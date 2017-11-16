@@ -1,4 +1,4 @@
-<div class="list-group mt-1 my-lg-1 list-group-item  flex-column align-items-start" *ngIf=" auth.user | async">
+<div id="addPosts" class="list-group mt-1 my-lg-1 list-group-item  flex-column align-items-start bg-primary" *ngIf=" auth.user | async">
       <div class="d-flex w-100 justify-content-between">
         <h4>Add Post</h4>
       </div>
@@ -13,6 +13,6 @@
         </div>
       </form>
       <div class="d-flex flex-row-reverse">
-        <button class="btn btn-primary" id="post-submit" (click)="addPost()">Post</button>
+        <button class="btn btn-info" id="post-submit" (click)="addPost()">Post</button>
       </div>
   </div>

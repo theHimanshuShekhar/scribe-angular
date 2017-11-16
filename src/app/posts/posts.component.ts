@@ -40,7 +40,7 @@ export class PostsComponent implements OnInit {
         days = Math.trunc(hours / 24);
         return days + ' days ago';
       }
-      if(hours > 730) {
+      if (hours > 730) {
         months = Math.trunc(hours / 730);
         if (months > 12) {
           years = Math.trunc(months / 12);
