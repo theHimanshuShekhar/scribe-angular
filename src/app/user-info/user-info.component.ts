@@ -26,20 +26,11 @@ export class UserInfoComponent implements OnInit {
 
   public login() {
     this.auth.googleLogin();
-<<<<<<< HEAD
     this.closeNavEvent.next(true);
-=======
-    this.router.navigateByUrl('home');
->>>>>>> 6065db102d8ea0183a072087f02736f49431001e
   }
 
   public logout() {
     this.auth.logout();
-<<<<<<< HEAD
-=======
-    this.navbar.closeNavbar();
-    this.router.navigateByUrl('home');
->>>>>>> 6065db102d8ea0183a072087f02736f49431001e
     this.avatar = null;
     this.closeNavEvent.next(true);
   }
