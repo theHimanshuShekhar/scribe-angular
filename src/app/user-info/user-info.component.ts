@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class UserInfoComponent implements OnInit {
   avatar: string = null;
   @Output() closeNavEvent = new EventEmitter<boolean>();
 
-  constructor(public auth: AuthService, public navbar: NavbarComponent) {
+  constructor(public auth: AuthService, public navbar: NavbarComponent, private router: Router) {
 
   }
 
@@ -25,11 +26,20 @@ export class UserInfoComponent implements OnInit {
 
   public login() {
     this.auth.googleLogin();
+<<<<<<< HEAD
     this.closeNavEvent.next(true);
+=======
+    this.router.navigateByUrl('home');
+>>>>>>> 6065db102d8ea0183a072087f02736f49431001e
   }
 
   public logout() {
     this.auth.logout();
+<<<<<<< HEAD
+=======
+    this.navbar.closeNavbar();
+    this.router.navigateByUrl('home');
+>>>>>>> 6065db102d8ea0183a072087f02736f49431001e
     this.avatar = null;
     this.closeNavEvent.next(true);
   }
