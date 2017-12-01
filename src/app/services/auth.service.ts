@@ -86,8 +86,9 @@ export class AuthService {
     // check if user already exists
     this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', user.uid));
     this.userObs = this.userCollection.valueChanges();
-    this.userObs.forEach( user=> {
-      if (!user) {
+    this.userObs.forEach( userobj => {
+      console.log(userobj.displayName);
+      if (!userobj[0].displayName) {
         // setup user data in firestore on login
         const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
