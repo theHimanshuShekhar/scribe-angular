@@ -5,6 +5,6 @@
     <h4 class="text-white">@{{ this.username }}</h4>
     <p class="text-white">"{{ this.status}}"</p>
   </div>
-  <app-add-post class="my-1" *ngIf="this.showAddPost"></app-add-post>
+  <app-add-post class="my-0" *ngIf="this.showAddPost"></app-add-post>
   <app-posts *ngIf="this.useruid" [useruid]="this.useruid"></app-posts>
 </div>
