@@ -3,3 +3,6 @@ h3 {
   width: 65%;
   font-weight: bolder;
 }
+#post-date {
+  width: 100px;
+}

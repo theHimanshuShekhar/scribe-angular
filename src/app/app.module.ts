@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 // Services
 import { PostsService } from './services/posts.service';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -69,7 +70,8 @@ import { AddPostComponent } from './add-post/add-post.component';
   ],
   providers: [
     PostsService,
-    AuthService
+    AuthService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
