@@ -17,3 +17,9 @@
   height: 27px;
   border-radius: 100%;
 }
+.d-inline-block {
+  width: 100%;
+}
+.col {
+  padding: 0px;
+}

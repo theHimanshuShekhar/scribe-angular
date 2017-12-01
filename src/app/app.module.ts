@@ -23,7 +23,6 @@ import { PostsComponent } from './posts/posts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { AddPostComponent } from './add-post/add-post.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { LoginPageComponent } from './login-page/login-page.component';
     ProfileComponent,
     AccountComponent,
     AddPostComponent,
-    LoginPageComponent
     ],
   imports: [
     BrowserModule,
@@ -62,10 +60,6 @@ import { LoginPageComponent } from './login-page/login-page.component';
       {
         path: 'account',
         component: AccountComponent
-      },
-      {
-        path: 'login',
-        component: LoginPageComponent
       },
       {
         path: '**',
