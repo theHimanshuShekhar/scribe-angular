@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
 interface User {
@@ -18,6 +18,9 @@ interface User {
 @Injectable()
 export class AuthService {
   user: Observable<User>;
+
+  userCollection: AngularFirestoreCollection<any>;
+  userObs: Observable<any>;
 
   private authState: Observable<firebase.User>;
   private currentUser: firebase.User = null;
@@ -63,29 +66,43 @@ export class AuthService {
   }
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    this.router.navigateByUrl('/home');
     return this.oAuthLogin(provider);
   }
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this.updateUserData(credential.user);
-        this.router.navigateByUrl('/account');
+        this.userObs.forEach( user => {
+          if (user.userName) {
+            this.router.navigateByUrl('/account');
+          } else {
+            this.router.navigateByUrl('/home');
+          }
+         });
       });
   }
   private updateUserData(user) {
 
-    // setup user data in firestore on login
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    // check if user already exists
+    this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', user.uid));
+    this.userObs = this.userCollection.valueChanges();
+    this.userObs.forEach( user=> {
+      if (!user) {
+        // setup user data in firestore on login
+        const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-    };
+        const data: User = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        };
 
-    return userRef.set(data);
+        return userRef.set(data);
+      });
+
+
+
   }
   logout() {
     this.afAuth.auth.signOut();
