@@ -36,6 +36,8 @@ export class AddPostComponent implements OnInit {
       date: firebase.firestore.FieldValue.serverTimestamp()
     };
     this.postService.addPost(this.newPost);
+    this.body = '';
+    this.title = '';
   }
 
 }
