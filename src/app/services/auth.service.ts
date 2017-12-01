@@ -72,13 +72,6 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this.updateUserData(credential.user);
-        this.userObs.forEach( user => {
-          if (user.userName) {
-            this.router.navigateByUrl('/account');
-          } else {
-            this.router.navigateByUrl('/home');
-          }
-         });
       });
   }
   private updateUserData(user) {
@@ -87,21 +80,28 @@ export class AuthService {
     this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', user.uid));
     this.userObs = this.userCollection.valueChanges();
     this.userObs.forEach( userobj => {
-      console.log(userobj.displayName);
-      if (!userobj[0].displayName) {
-        // setup user data in firestore on login
-        const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-        const data: User = {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        };
-
-        return userRef.set(data);
+      console.log(userobj[0].displayName);
+    })
+    .then(
+      (success) => {
+        this.router.navigateByUrl('/home');
       }
-    });
+    )
+    .catch (
+      (err) => {
+        // setup user data in firestore on login
+          const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+
+          const data: User = {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          };
+          this.router.navigateByUrl('/account');
+          return userRef.set(data);
+        }
+      );
   }
 
   public getUserName() {
