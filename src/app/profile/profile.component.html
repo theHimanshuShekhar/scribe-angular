@@ -1,9 +1,10 @@
 <div class="container">
-  <div class="jumbotron bg-danger mt-2 mb-0" *ngIf="auth.user | async as user">
-    <img [src]="user.photoURL" class="rounded display-picture">
-    <h1 id="display-username">{{ user.displayName }}</h1>
-    <h4 class="text-white">@{{ user.userName }}</h4>
+  <div class="jumbotron bg-danger mt-2 mb-0 pb-2">
+    <img [src]="this.photoURL" alt="" class="rounded display-picture">
+    <h1 id="display-username">{{ this.displayName }}</h1>
+    <h4 class="text-white">@{{ this.username }}</h4>
+    <p class="text-white">"{{ this.status}}"</p>
   </div>
-  <app-add-post class="my-1"></app-add-post>
-  <app-posts></app-posts>
+  <app-add-post class="my-1" *ngIf="this.showAddPost"></app-add-post>
+  <app-posts *ngIf="this.useruid" [useruid]="this.useruid"></app-posts>
 </div>

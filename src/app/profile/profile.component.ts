@@ -1,5 +1,9 @@
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { PostsService } from '../services/posts.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,12 +13,54 @@ import { AuthService } from '../services/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
+  showAddPost: boolean;
 
-  constructor(public auth: AuthService) {
+  username: string;
+  userCollection: AngularFirestoreCollection<any>;
+  userObs: Observable<any>;
+  user: any;
+
+  // Vars to display on profile page
+  useruid: string;
+  photoURL: string;
+  status: string;
+  displayName: string;
+
+  constructor(
+    public auth: AuthService, private afs: AngularFirestore, private route: ActivatedRoute, private postsService: PostsService) {
   }
 
 
    ngOnInit() {
+      this.route.paramMap.subscribe(params => {
+      this.username = params.get('username');
 
+
+
+      // Retrieve user collection
+      this.userCollection = this.afs.collection('users', ref => ref.where('userName', '==', this.username));
+      this.userObs = this.userCollection.valueChanges();
+      this.userObs.forEach(user => {
+        if (user) {
+          this.user = user;
+          this.useruid = this.user[0].uid;
+          this.photoURL = this.user[0].photoURL;
+          this.displayName = this.user[0].displayName;
+          this.status = this.user[0].status;
+        }
+
+        // Check if current user is profile user
+        this.auth.getAuthState().subscribe(auth => {
+          if ( auth.uid === this.useruid) {
+            console.log('show add');
+            this.showAddPost = true;
+          } else {
+
+            console.log('dont show add ' + auth.uid + ' ' + this.useruid);
+            this.showAddPost = false;
+          }
+        });
+      });
+    });
   }
 }

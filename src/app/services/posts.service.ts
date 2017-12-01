@@ -31,7 +31,6 @@ export class PostsService {
   constructor(
     private afs: AngularFirestore,
     private auth: AuthService) {
-    this.retrievePosts();
   }
 
   private retrievePosts() {
@@ -42,6 +41,7 @@ export class PostsService {
   }
 
   public getPosts() {
+    this.retrievePosts();
     return this.posts;
   }
 
@@ -56,12 +56,20 @@ export class PostsService {
         date: newPost.date,
         imgURL: null,
         likes: 0,
-        'user-uid': this.auth.getUid()
+        'user-uid': this.auth.getUid(),
       };
 
       return postRef.add(data)
         .then(() => {
           console.log('Post Successful');
         });
+    }
+
+    public getUserPosts(useruid) {
+      this.postsCollection = this.afs.collection('posts', ref => {
+        return ref.where('user-uid', '==', useruid).orderBy('date', 'desc');
+      });
+      this.posts = this.postsCollection.valueChanges();
+      return this.posts;
     }
 }

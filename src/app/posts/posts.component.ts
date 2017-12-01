@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostsService } from '../services/posts.service';
-import { forEach } from '@angular/router/src/utils/collection';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-posts',
@@ -11,9 +11,10 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class PostsComponent implements OnInit {
 
+  @Input('useruid') private useruid: string;
   public posts: Observable<any>;
-  constructor(postsService: PostsService) {
-    this.posts = postsService.getPosts();
+
+  constructor(private postsService: PostsService) {
   }
 
   public getDate(date) {
@@ -60,6 +61,11 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.useruid) {
+      this.posts = this.postsService.getPosts();
+    } else {
+      this.posts = this.postsService.getUserPosts(this.useruid);
+    }
   }
 
 
