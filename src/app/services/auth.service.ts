@@ -83,8 +83,6 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      userName: null,
-      status: 'Hi, I am using Scribe'
     };
 
     return userRef.set(data);
