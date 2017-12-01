@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  private update() {
+  public update() {
     this.auth.updateUser(this.username, this.status)
     this.router.navigateByUrl('/home');
   }
