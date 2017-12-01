@@ -52,11 +52,8 @@ export class ProfileComponent implements OnInit {
         // Check if current user is profile user
         this.auth.getAuthState().subscribe(auth => {
           if ( auth.uid === this.useruid) {
-            console.log('show add');
             this.showAddPost = true;
           } else {
-
-            console.log('dont show add ' + auth.uid + ' ' + this.useruid);
             this.showAddPost = false;
           }
         });
