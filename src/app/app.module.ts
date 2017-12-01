@@ -50,7 +50,7 @@ import { AddPostComponent } from './add-post/add-post.component';
         component: HomeComponent
       },
       {
-        path: 'user/:name',
+        path: 'user/:username',
         component: ProfileComponent
       },
       {
