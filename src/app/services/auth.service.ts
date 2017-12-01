@@ -99,10 +99,8 @@ export class AuthService {
         };
 
         return userRef.set(data);
-      });
-
-
-
+      }
+    });
   }
   logout() {
     this.afAuth.auth.signOut();
