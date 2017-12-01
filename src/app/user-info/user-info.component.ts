@@ -25,8 +25,8 @@ export class UserInfoComponent implements OnInit {
   }
 
   public login() {
-    this.auth.googleLogin();
     this.closeNavEvent.next(true);
+    this.auth.googleLogin();
   }
 
   public logout() {

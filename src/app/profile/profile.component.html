@@ -2,6 +2,7 @@
   <div class="jumbotron bg-danger mt-2 mb-0" *ngIf="auth.user | async as user">
     <img [src]="user.photoURL" class="rounded display-picture">
     <h1 id="display-username">{{ user.displayName }}</h1>
+    <h4 class="text-white">@{{ user.userName }}</h4>
   </div>
   <app-add-post class="my-1"></app-add-post>
   <app-posts></app-posts>

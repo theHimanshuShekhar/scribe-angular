@@ -1,14 +1,14 @@
 <div id="addPosts" class="list-group mt-1 my-lg-1 list-group-item  flex-column align-items-start bg-primary" *ngIf=" auth.user | async">
       <div class="d-flex w-100 justify-content-between">
-        <h4>Add Post</h4>
+        <h4 class="text-white">Add Post</h4>
       </div>
       <form>
         <div class="form-group">
-          <label for="post-title">Title</label>
+          <label for="post-title" class="text-white">Title</label>
           <input type="text" class="form-control" id="new-post-title" placeholder="Enter post title" name="new-post-title" [(ngModel)]="title">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Body</label>
+            <label for="exampleInputEmail1" class="text-white">Body</label>
           <textarea id="new-post-body" class="form-control" placeholder="Enter post body" name="new-post-body" [(ngModel)]="body"></textarea>
         </div>
       </form>

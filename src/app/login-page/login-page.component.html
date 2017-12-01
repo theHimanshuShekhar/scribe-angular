@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="jumbotron">
+    <h2>Login</h2><hr>
+    <div class="form-group">
+        <label for="post-title">Username</label>
+        <input type="text" class="form-control" id="text-username" placeholder="Enter username" name="text-username" [(ngModel)]="username">
+      </div>
+
+    <div class="form-group">
+        <label for="post-title">Status</label>
+        <input type="text" class="form-control" id="text-status" placeholder="Enter status" name="text-status" [(ngModel)]="status">
+      </div>
+    <button id="login-btn" class="btn btn-danger py-2" (click)="this.update()">Update Profile</button>
+  </div>
+</div>

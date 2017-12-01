@@ -13,7 +13,7 @@
     <ng-template #guest>
       <div class="d-inline-block">
           <button id="login-btn" class="btn btn-primary" (click)="login()">Login</button>
-        </div>
+      </div>
     </ng-template>
 
     <!-- User logged in -->
@@ -24,7 +24,7 @@
             {{ user.displayName }}
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button class="dropdown-item" routerLink="user/{{user.userURL}}" (click)="this.navbar.closeNavbar()">Profile</button>
+            <button class="dropdown-item" routerLink="user/{{user.userName}}" (click)="this.navbar.closeNavbar()">Profile</button>
             <button class="dropdown-item" routerLink="account" (click)="this.navbar.closeNavbar()">Account</button>
             <button class="dropdown-item" (click)="logout()">Logout</button>
           </div>

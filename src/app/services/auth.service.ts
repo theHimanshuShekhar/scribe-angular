@@ -7,12 +7,12 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 import { Observable } from 'rxjs/Observable';
 
 interface User {
-  uid: string;
-  email: string;
-  photoURL?: string;
+  uid?: string;
+  email?: string;
+  userName?: string;
   displayName?: string;
+  photoURL?: string;
   status?: string;
-  userURL?: string;
 }
 
 @Injectable()
@@ -21,6 +21,9 @@ export class AuthService {
 
   private authState: Observable<firebase.User>;
   private currentUser: firebase.User = null;
+
+  private profileusername: string;
+  private status: string;
 
   constructor(private afAuth: AngularFireAuth,
       private afs: AngularFirestore,
@@ -67,28 +70,20 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this.updateUserData(credential.user);
+        this.router.navigateByUrl('/login');
       });
   }
   private updateUserData(user) {
+
     // setup user data in firestore on login
-
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-    const userURLarray = user.displayName.split(' ');
-    let userUrl = '';
-    for (let i = 0; i < userURLarray.length; i++) {
-      if (i !== 0) {
-        userUrl  = userUrl + '-';
-      }
-      userUrl  += userURLarray[i];
-    }
 
     const data: User = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      userURL: userUrl,
       photoURL: user.photoURL,
+      userName: null,
       status: 'Hi, I am using Scribe'
     };
 
@@ -97,5 +92,15 @@ export class AuthService {
   logout() {
     this.afAuth.auth.signOut();
     this.router.navigateByUrl('/home');
+  }
+  updateUser(username, status) {
+    const updateRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${this.currentUser.uid}`);
+
+    const updateData: User = {
+      userName: username,
+      status: status,
+    };
+
+    return updateRef.update(updateData);
   }
 }
