@@ -78,9 +78,6 @@ export class PostsService {
 
   public addPost(newPost) {
     const postRef = this.afs.collection('posts');
-
-    console.log(this.userName);
-
     const user = this.auth.getAuthState();
 
       const data: NewPost = {

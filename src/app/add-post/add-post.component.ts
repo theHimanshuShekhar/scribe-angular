@@ -29,9 +29,13 @@ export class AddPostComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.postService.getAuthorData();
-    }, 1000);
+    this.auth.getAuthState().subscribe( user => {
+      if (user) {
+        setTimeout(() => {
+          this.postService.getAuthorData();
+        }, 1000);
+      }
+    });
   }
 
   public addPost() {
