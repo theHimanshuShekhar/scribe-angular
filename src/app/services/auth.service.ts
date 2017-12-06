@@ -80,6 +80,7 @@ export class AuthService {
     this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', user.uid));
     this.userObs = this.userCollection.valueChanges();
     this.userObs.forEach( userobj => {
+      console.log(userobj[0].displayName);
     })
     .then(
       (success) => {
