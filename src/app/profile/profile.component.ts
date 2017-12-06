@@ -22,9 +22,12 @@ export class ProfileComponent implements OnInit {
 
   // Vars to display on profile page
   useruid: string;
-  photoURL: string;
+  photoURL = '../../assets/images/default-profile.jpg';
   status: string;
   displayName: string;
+
+  // If User exists
+  doesUserExist = true;
 
   constructor(
     public auth: AuthService, private afs: AngularFirestore, private route: ActivatedRoute, private postsService: PostsService) {
@@ -57,7 +60,13 @@ export class ProfileComponent implements OnInit {
             this.showAddPost = false;
           }
         });
-      });
+      })
+      .catch(
+        (err) => {
+          console.log('User does not exist');
+          this.doesUserExist = false;
+        }
+      );
     });
   }
 }

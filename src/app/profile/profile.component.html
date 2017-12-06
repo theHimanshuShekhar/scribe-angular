@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="jumbotron bg-danger mt-2 mb-0 pb-1 pt-3">
+  <div class="jumbotron bg-danger mt-2 mb-0 pb-1 pt-3" *ngIf="this.doesUserExist; else invaliduser">
     <img [src]="this.photoURL" alt="" class="rounded display-picture">
     <h1 id="display-username">{{ this.displayName }}</h1>
     <h4 class="text-white">@{{ this.username }}</h4>
@@ -8,3 +8,12 @@
   <app-add-post class="my-0" *ngIf="this.showAddPost"></app-add-post>
   <app-posts *ngIf="this.useruid" [useruid]="this.useruid"></app-posts>
 </div>
+
+<ng-template #invaliduser>
+  <div class="jumbotron bg-danger mt-2 mb-0 pb-1 pt-3 row">
+      <img [src]="this.photoURL" alt="" class="rounded display-picture mb-2 col">
+    <b class="text-white col mx-2 align-self-center" id="invalid-user-text">
+      User does not exist
+    </b>
+  </div>
+</ng-template>
