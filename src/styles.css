@@ -5,6 +5,10 @@
 /* Fonts */
 @import './assets/fonts/fonts.css';
 
+html, body {
+  min-width: 320px;
+}
+
 .test {
   border: 1px solid red;
 }

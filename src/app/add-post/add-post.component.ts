@@ -14,7 +14,6 @@ import { AngularFirestore } from 'angularfire2/firestore';
 })
 export class AddPostComponent implements OnInit {
 
-  public 'title': string;
   public 'body': string;
   private author: string;
   private pid: string;
@@ -22,22 +21,26 @@ export class AddPostComponent implements OnInit {
   private likes: number;
   private newPost;
 
-  constructor(private postService: PostsService, public auth: AuthService, private afs: AngularFirestore) {
+  constructor(
+    private postService: PostsService,
+    public auth: AuthService,
+    private afs: AngularFirestore
+  ) {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.postService.getAuthorData();
+    }, 1000);
   }
 
   public addPost() {
-    const user = this.auth.getAuthState();
     this.newPost = {
-      title: this.title,
       body: this.body,
       date: firebase.firestore.FieldValue.serverTimestamp()
     };
     this.postService.addPost(this.newPost);
     this.body = '';
-    this.title = '';
   }
 
 }

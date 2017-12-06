@@ -1,9 +1,10 @@
 import { AuthService } from './auth.service';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import * as firebase from 'firebase/app';
+import { UserService } from './user.service';
 
 interface Post {
   title: string;
@@ -12,25 +13,41 @@ interface Post {
 }
 
 interface NewPost {
-  title: string;
   body: string;
   author: string;
+  username: string;
   date;
   imgURL?: string;
   likes: number;
   'user-uid': string;
+  authorPhotoURL: string;
 }
 
 @Injectable()
 export class PostsService {
 
+  // Post Variables
   private posts: Observable<Post[]>;
   private postsCollection: AngularFirestoreCollection<Post>;
   private postDoc: AngularFirestoreDocument<Post>;
 
+  // Author Variables
+  private username: string;
+  private userCollection: AngularFirestoreCollection<any>;
+  private userObs: Observable<any>;
+  private user: any;
+
+  // Author data to store with post
+  useruid: string;
+  photoURL: string;
+  status: string;
+  displayName: string;
+  userName: string;
+
   constructor(
     private afs: AngularFirestore,
-    private auth: AuthService) {
+    private auth: AuthService,
+    private userService: UserService) {
   }
 
   private retrievePosts() {
@@ -45,18 +62,36 @@ export class PostsService {
     return this.posts;
   }
 
-  public addPost(newPost) {
+  public getAuthorData() {
+    // Retrieve user collection
+    this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', this.auth.getUid()));
+    this.userObs = this.userCollection.valueChanges();
+    this.userObs.forEach(user => {
+      this.user = user;
+      this.useruid = this.user[0].uid;
+      this.photoURL = this.user[0].photoURL;
+      this.displayName = this.user[0].displayName;
+      this.status = this.user[0].status;
+      this.userName = this.user[0].userName;
+    });
+  }
 
-      const postRef = this.afs.collection('posts');
+  public addPost(newPost) {
+    const postRef = this.afs.collection('posts');
+
+    console.log(this.userName);
+
+    const user = this.auth.getAuthState();
 
       const data: NewPost = {
-        title: newPost.title,
         body: newPost.body,
         author: this.auth.getDisplayName(),
         date: newPost.date,
         imgURL: null,
         likes: 0,
         'user-uid': this.auth.getUid(),
+        username: this.userName,
+        authorPhotoURL: this.photoURL
       };
 
       return postRef.add(data)

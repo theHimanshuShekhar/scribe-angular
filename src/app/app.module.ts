@@ -24,6 +24,7 @@ import { PostsComponent } from './posts/posts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { AddPostComponent } from './add-post/add-post.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AddPostComponent } from './add-post/add-post.component';
     ProfileComponent,
     AccountComponent,
     AddPostComponent,
+    TestComponent,
     ],
   imports: [
     BrowserModule,
@@ -61,6 +63,10 @@ import { AddPostComponent } from './add-post/add-post.component';
       {
         path: 'account',
         component: AccountComponent
+      },
+      {
+        path: 'test',
+        component: TestComponent
       },
       {
         path: '**',

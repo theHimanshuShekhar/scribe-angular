@@ -1,15 +1,26 @@
 <div class="pb-1">
   <div class="list-group my-1" *ngFor="let post of posts | async">
-    <a class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <h3 class="mb-1">{{ post.title }}</h3>
-        <small id="post-date">{{ getDate(post.date) }}</small>
+    <a class="list-group-item list-group-item-action flex-column align-items-center pt-1 px-0">
+      <div class="d-flex w-100  justify-content-between">
+        <div class="user-data row mx-2" (click)="this.sendToProfile(post.username)">
+          <span id="user-image" class="col mx-2 align-self-center">
+            <img [src]="post.authorPhotoURL" alt="" id="author-image">
+          </span>
+          <span id="user-text" class="col align-self-center">
+            <b>
+              {{ post.author }}
+            </b>
+            <b class="my-0" id="username">
+              @{{ post.username }}
+            </b>
+          </span>
+        </div>
+        <small id="post-date" class="justify-right mx-1 mr-2 align-self-center">{{ getDate(post.date) }}</small>
       </div>
-      <hr>
-      <p class="mb-1">
+      <hr class="my-1 mb-2">
+      <p class="mb-1 mx-4">
         {{ post.body }}
       </p>
-    <h5 class="mt-3 mb-2">{{ post.author }}</h5>
     </a>
   </div>
 </div>

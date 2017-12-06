@@ -58,7 +58,7 @@ export class AuthService {
     return this.authState;
   }
   getUid() {
-    return this.currentUser.uid;
+      return this.currentUser.uid;
   }
 
   getDisplayName() {
