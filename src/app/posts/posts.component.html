@@ -1,6 +1,6 @@
 <div class="pb-1" *ngIf="!this.showNoPosts; else NoPosts">
   <div class="list-group my-1" *ngFor="let post of posts | async">
-    <a class="list-group-item list-group-item-action flex-column align-items-center pt-1 px-0">
+    <a class="list-group-item list-group-item-action flex-column align-items-center pt-1 px-0" (click)="open(content)">
       <div class="d-flex w-100  justify-content-between" >
         <div class="user-data row mx-2" (click)="this.sendToProfile(post.username)">
           <span id="user-image" class="col mx-2 align-self-center">
@@ -33,4 +33,23 @@
           </p>
         </a>
       </div>
+</ng-template>
+
+
+<!-- Modal -->
+<hr>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>One fine body&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
 </ng-template>

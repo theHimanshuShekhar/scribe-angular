@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostsService } from '../services/posts.service';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-posts',
@@ -17,7 +18,9 @@ export class PostsComponent implements OnInit {
 
   showNoPosts:boolean = false;
 
-  constructor(private postsService: PostsService, private router: Router) {
+  closeResult: string;
+
+  constructor(private postsService: PostsService, private router: Router, private modalService: NgbModal) {
   }
 
   public getDate(date) {
@@ -84,5 +87,21 @@ export class PostsComponent implements OnInit {
     this.router.navigateByUrl('user/' + username);
   }
 
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
 }
