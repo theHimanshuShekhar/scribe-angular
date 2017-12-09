@@ -74,6 +74,8 @@ export class PostsComponent implements OnInit {
     this.posts.forEach(post => {
       if (post.length == 0) {
         this.showNoPosts = true;
+      } else {
+        this.showNoPosts = false;
       }
     });
   }
