@@ -3,7 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './../services/auth.service';
 import { PostsService } from './../services/posts.service';
 import * as firebase from 'firebase';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -13,6 +14,11 @@ import { AngularFirestore } from 'angularfire2/firestore';
   encapsulation: ViewEncapsulation.None
 })
 export class AddPostComponent implements OnInit {
+
+  public showAccount: boolean = false;
+  private uid;
+  private itemDoc: AngularFirestoreDocument<any>;
+  item: Observable<any>;
 
   public 'body': string;
   private author: string;
@@ -34,6 +40,20 @@ export class AddPostComponent implements OnInit {
         setTimeout(() => {
           this.postService.getAuthorData();
         }, 1000);
+      }
+    });
+
+    
+    this.uid = this.auth.getAuthState().subscribe( user => {
+      if( user ) {
+        this.uid = user.uid;
+        this.itemDoc = this.afs.doc<any>('users/'+this.uid);
+        this.item = this.itemDoc.valueChanges();
+        this.item.forEach(user => {
+          if(!user.userName || !user.displayName) {
+            this.showAccount = true;
+          }
+        });
       }
     });
   }

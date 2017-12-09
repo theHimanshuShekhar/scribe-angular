@@ -1,13 +1,25 @@
-<div id="addPosts" class="list-group mt-1 list-group-item  flex-column align-items-start bg-primary" *ngIf=" auth.user | async">
-      <div class="d-flex w-100 justify-content-between">
-        <h4 class="text-white">Add Post</h4>
+<div id="addPosts" class="list-group mt-1 list-group-item  flex-column align-items-start bg-primary" *ngIf=" auth.user | async" >
+  <div class="addPostContainer" *ngIf="!this.showAccount; else AccountInfo">
+    <div class="d-flex w-100 justify-content-between"> 
+      <h4 class="text-white">Add Post</h4>
+    </div>
+    <form>
+      <div class="form-group">
+        <textarea id="new-post-body" class="form-control" placeholder="Enter your post" name="new-post-body" [(ngModel)]="body"></textarea>
       </div>
-      <form>
-        <div class="form-group">
-          <textarea id="new-post-body" class="form-control" placeholder="Enter your post" name="new-post-body" [(ngModel)]="body"></textarea>
-        </div>
-      </form>
-      <div class="d-flex flex-row-reverse">
-        <button class="btn btn-success" id="post-submit" (click)="addPost()">Post</button>
-      </div>
+    </form>
+    <div class="d-flex flex-row-reverse">
+      <button class="btn btn-success" id="post-submit" (click)="addPost()">Post</button>
+    </div>
   </div>
+</div>
+
+<ng-template #AccountInfo>
+  <div class="setupAccount text-white">
+    <h4>
+      Setup your <a routerLink="/account" class="text-white"><u>Account</u></a> before posting!
+      <br>
+      <h6>Users cannot post or view their profile unless they have setup their account.</h6>
+    </h4>
+  </div>
+</ng-template>

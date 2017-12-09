@@ -17,6 +17,9 @@ interface User {
 
 @Injectable()
 export class AuthService {
+
+  private updateData: User;
+
   user: Observable<User>;
 
   userCollection: AngularFirestoreCollection<any>;
@@ -97,6 +100,7 @@ export class AuthService {
             email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
+            status: 'Hi, I am using Scribe'
           };
           this.router.navigateByUrl('/account');
           return userRef.set(data);
@@ -114,11 +118,17 @@ export class AuthService {
   updateUser(username, status) {
     const updateRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${this.currentUser.uid}`);
 
-    const updateData: User = {
-      userName: username,
-      status: status,
-    };
+    if(!status) {
+      this.updateData = {
+        userName: username,
+      };      
+    } else {
+      const updateData = {
+        userName: username,
+        status: status,
+      };
+    }
 
-    return updateRef.update(updateData);
+    return updateRef.update(this.updateData);
   }
 }
