@@ -115,18 +115,23 @@ export class AuthService {
     this.afAuth.auth.signOut();
     this.router.navigateByUrl('/home');
   }
-  updateUser(username, status) {
+  updateUser(displayname, username, status) {
     const updateRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${this.currentUser.uid}`);
 
+    this.updateData = {
+
+    }
     if(!status) {
       this.updateData = {
         userName: username,
       };      
+      console.log('no status');
     } else {
-      const updateData = {
+      this.updateData = {
         userName: username,
         status: status,
       };
+      console.log('status');
     }
 
     return updateRef.update(this.updateData);

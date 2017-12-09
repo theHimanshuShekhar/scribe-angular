@@ -4,13 +4,17 @@
     <div id="account-settings-form">
       <form>
         <div class="form-group">
-          <label for="post-title">Username</label>
-          <input type="text" class="form-control" id="text-username" placeholder="Enter username" name="text-username" [(ngModel)]="username">
+            <label for="text-displayname">Name</label>
+            <input type="text" class="form-control" id="text-displayname" placeholder="Enter Name" name="text-displayname" [(ngModel)]="displayname">
+          </div>
+        <div class="form-group">
+          <label for="text-username">Username</label>
+          <input type="text" class="form-control" id="text-username" placeholder="Enter Username" name="text-username" [(ngModel)]="username">
         </div>
 
       <div class="form-group">
-          <label for="post-title">Status</label>
-          <input type="text" class="form-control" id="text-status" placeholder="Enter status" name="text-status" [(ngModel)]="status">
+          <label for="text-status">Status</label>
+          <input type="text" class="form-control" id="text-status" placeholder="Enter Status" name="text-status" [(ngModel)]="status">
         </div>
       <!-- div class="form-group">
         <label class="custom-file">
