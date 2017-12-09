@@ -15,6 +15,8 @@ export class PostsComponent implements OnInit {
   @Input('useruid') private useruid: string;
   public posts: Observable<any>;
 
+  showNoPosts:boolean = false;
+
   constructor(private postsService: PostsService, private router: Router) {
   }
 
@@ -69,6 +71,11 @@ export class PostsComponent implements OnInit {
     } else {
       this.posts = this.postsService.getUserPosts(this.useruid);
     }
+    this.posts.forEach(post => {
+      if (post.length == 0) {
+        this.showNoPosts = true;
+      }
+    });
   }
 
   public sendToProfile(username) {
