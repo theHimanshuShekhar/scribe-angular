@@ -42,6 +42,7 @@ import { PostComponent } from './post/post.component';
     AccountComponent,
     AddPostComponent,
     PostComponent,
+    DateFormatPipe,
     ],
   imports: [
     BrowserModule,
