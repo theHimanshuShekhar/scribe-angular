@@ -20,6 +20,13 @@ export class PostsComponent implements OnInit {
 
   closeResult: string;
 
+  // Modal Data
+  username: string;
+  author: string;
+  authorPhotoURL: string;
+  body: string;
+  date;
+
   constructor(private postsService: PostsService, private router: Router, private modalService: NgbModal) {
   }
 
@@ -87,12 +94,22 @@ export class PostsComponent implements OnInit {
     this.router.navigateByUrl('user/' + username);
   }
 
-  open(content) {
+  open(content,post) {
+    this.getModalData(post);
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+  
+  getModalData(post) {
+    this.author = post.author;
+    this.authorPhotoURL = post.authorPhotoURL;
+    this.username = post.username;
+    this.date = post.date;
+    this.body = post.body;
+    console.log(post);
   }
 
   private getDismissReason(reason: any): string {

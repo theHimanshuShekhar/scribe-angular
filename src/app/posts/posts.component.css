@@ -37,3 +37,21 @@ h3 {
 #username {
   font-weight: 400;
 }
+
+/* Modal */
+#modal-author-image {
+  border-radius: 100%;
+  width: 2.6rem;
+  height: 2.6rem;
+}
+#modal-username {
+  font-weight: 400;
+}
+#modal-author {
+  font-size: 1.2rem;
+}
+#modal-post-date {
+  min-width: 5rem;
+  text-align: center;
+  font-size: 0.8em;
+}
