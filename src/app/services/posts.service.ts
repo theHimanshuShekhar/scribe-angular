@@ -82,7 +82,7 @@ export class PostsService {
 
       const data: NewPost = {
         body: newPost.body,
-        author: this.auth.getDisplayName(),
+        author: this.displayName,
         date: newPost.date,
         imgURL: null,
         likes: 0,
