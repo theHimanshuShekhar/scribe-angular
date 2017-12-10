@@ -122,7 +122,7 @@ export class PostsComponent implements OnInit {
     this.getModalData(post);
     this.modalRef = this.modalService.open(content);
     // push new state to history
-    history.pushState(null, null, 'modalOpened');
+    history.pushState(null, null, 'post/'+'post-id');
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
