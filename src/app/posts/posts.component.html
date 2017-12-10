@@ -14,8 +14,8 @@
               @{{ post.username }}
             </b>
           </span>
+          <small id="post-date col" class=" mx-1 mr-2 align-self-center">{{ getDate(post.date) }}</small>
         </div>
-        <small id="post-date" class="justify-right mx-1 mr-2 align-self-center">{{ getDate(post.date) }}</small>
       </div>
       <hr class="my-1 mb-2">
       <p class="mb-1 mx-4">
@@ -39,7 +39,7 @@
 <!-- Modal -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header pl-1 py-2">
-    
+
       <div class="d-flex w-100  justify-content-between" >
         <div class="user-data row mx-2" (click)="this.sendToProfile(this.username); d('Cross click')">
           <span id="user-image" class="col mx-2 align-self-center">
