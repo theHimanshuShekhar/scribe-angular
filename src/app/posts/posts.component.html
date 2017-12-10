@@ -41,7 +41,7 @@
   <div class="modal-header pl-1 py-2">
     
       <div class="d-flex w-100  justify-content-between" >
-        <div class="user-data row mx-2" (click)="this.sendToProfile(this.username)">
+        <div class="user-data row mx-2" (click)="this.sendToProfile(this.username); d('Cross click')">
           <span id="user-image" class="col mx-2 align-self-center">
             <img [src]="this.authorPhotoURL" alt="" id="modal-author-image">
           </span>
