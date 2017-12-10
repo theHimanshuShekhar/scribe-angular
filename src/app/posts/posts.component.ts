@@ -105,7 +105,7 @@ export class PostsComponent implements OnInit {
 
   public sendToProfile(username) {
     this.router.navigateByUrl('user/' + username);
-    if(this.modalRef !== undefined) {
+    if (this.modalRef !== undefined) {
       this.modalRef.close();
     }
   }
@@ -118,18 +118,18 @@ export class PostsComponent implements OnInit {
     this.body = post.body;
   }
 
-  open(content,post) {
+  open(content, post) {
     this.getModalData(post);
     this.modalRef = this.modalService.open(content);
     // push new state to history
-    history.pushState(null, null, 'post/'+'post-id');
+    console.log(post.pid);
+    history.pushState(null, null, 'post/' + post.pid);
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-  
   private getDismissReason(reason: any): string {
     history.back();
     if (reason === ModalDismissReasons.ESC) {

@@ -21,6 +21,7 @@ interface NewPost {
   likes: number;
   'user-uid': string;
   authorPhotoURL: string;
+  pid: string;
 }
 
 @Injectable()
@@ -77,7 +78,9 @@ export class PostsService {
   }
 
   public addPost(newPost) {
-    const postRef = this.afs.collection('posts');
+
+    const id = this.afs.createId();
+    const postRef = this.afs.collection('posts').doc(id);
     const user = this.auth.getAuthState();
 
       const data: NewPost = {
@@ -88,12 +91,13 @@ export class PostsService {
         likes: 0,
         'user-uid': this.auth.getUid(),
         username: this.userName,
-        authorPhotoURL: this.photoURL
+        authorPhotoURL: this.photoURL,
+        'pid': id,
       };
 
-      return postRef.add(data)
+      return postRef.set(data)
         .then(() => {
-          console.log('Post Successful');
+          console.log('Post Successful - ', id);
         });
     }
 
