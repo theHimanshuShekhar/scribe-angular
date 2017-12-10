@@ -109,7 +109,6 @@ export class PostsComponent implements OnInit {
     this.username = post.username;
     this.date = post.date;
     this.body = post.body;
-    console.log(post);
   }
 
   private getDismissReason(reason: any): string {
