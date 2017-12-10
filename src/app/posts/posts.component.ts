@@ -19,6 +19,7 @@ export class PostsComponent implements OnInit {
   showNoPosts:boolean = false;
 
   closeResult: string;
+  modalRef;
 
   // Modal Data
   username: string;
@@ -96,7 +97,7 @@ export class PostsComponent implements OnInit {
 
   open(content,post) {
     this.getModalData(post);
-    this.modalService.open(content).result.then((result) => {
+    this.modalRef = this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
