@@ -1,8 +1,8 @@
 <div class="container">
   <div class="jumbotron bg-danger mt-2 mb-0 pb-1 pt-3" *ngIf="this.doesUserExist; else invaliduser">
     <img [src]="this.photoURL" alt="" class="rounded display-picture">
-    <h1 id="display-username">{{ this.displayName }}</h1>
-    <h4 class="text-white">@{{ this.username }}</h4>
+    <h1 id="display-username" class="mb-0">{{ this.displayName }}</h1>
+    <h4 class="text-white mt-0 mb-1">@{{ this.username }}</h4>
     <p class="text-white">"{{ this.status}}"</p>
   </div>
   <app-add-post class="my-0" *ngIf="this.showAddPost"></app-add-post>

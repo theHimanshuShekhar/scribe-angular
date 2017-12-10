@@ -90,7 +90,7 @@ export class PostsComponent implements OnInit {
           }
           return months + ' months ago';
         }
-        return  hours + ' hours ago';
+        return  hours + 'h';
       }
     }
   }
