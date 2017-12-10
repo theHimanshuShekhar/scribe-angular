@@ -4,6 +4,7 @@ import { PostsService } from '../services/posts.service';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-posts',
@@ -28,7 +29,18 @@ export class PostsComponent implements OnInit {
   body: string;
   date;
 
-  constructor(private postsService: PostsService, private router: Router, private modalService: NgbModal) {
+  constructor(
+    private postsService: PostsService,
+    private router: Router,
+    private modalService: NgbModal,
+    private location: PlatformLocation
+  ){
+    location.onPopState((event) => {
+      // ensure that modal is opened
+      if(this.modalRef !== undefined) {
+          this.modalRef.close();
+      }
+    });
   }
 
   public getDate(date) {
@@ -93,17 +105,11 @@ export class PostsComponent implements OnInit {
 
   public sendToProfile(username) {
     this.router.navigateByUrl('user/' + username);
+    if(this.modalRef !== undefined) {
+      this.modalRef.close();
+    }
   }
 
-  open(content,post) {
-    this.getModalData(post);
-    this.modalRef = this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  
   getModalData(post) {
     this.author = post.author;
     this.authorPhotoURL = post.authorPhotoURL;
@@ -112,7 +118,20 @@ export class PostsComponent implements OnInit {
     this.body = post.body;
   }
 
+  open(content,post) {
+    this.getModalData(post);
+    this.modalRef = this.modalService.open(content);
+    // push new state to history
+    history.pushState(null, null, 'modalOpened');
+    this.modalRef.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
   private getDismissReason(reason: any): string {
+    history.back();
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
