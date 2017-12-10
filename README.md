@@ -5,4 +5,4 @@ A social posting app built with Angularjs and AngularFire using Firebase as back
 ## Live server
 
 Live server hosted on Firebase-
-  https://scribe-angular.firebaseapp.com/home
+  https://scribe-angular.firebaseapp.com/
