@@ -102,7 +102,7 @@ export class PostsComponent implements OnInit {
       this.posts = this.postsService.getUserPosts(this.useruid);
     }
     this.posts.forEach(post => {
-      if (post.length == 0) {
+      if (post.length === 0) {
         this.showNoPosts = true;
       } else {
         this.showNoPosts = false;
@@ -129,7 +129,6 @@ export class PostsComponent implements OnInit {
     this.getModalData(post);
     this.modalRef = this.modalService.open(content);
     // push new state to history
-    console.log(post.pid);
     history.pushState(null, null, 'post/' + post.pid);
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
