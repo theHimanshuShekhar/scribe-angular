@@ -17,7 +17,8 @@ export class PostsComponent implements OnInit {
   @Input('useruid') private useruid: string;
   public posts: Observable<any>;
 
-  showNoPosts:boolean = false;
+  showNoPosts = false;
+  emptytext: string;
 
   closeResult: string;
   modalRef;
@@ -34,10 +35,16 @@ export class PostsComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private location: PlatformLocation
-  ){
+  ) {
+    if (this.router.url !== '/home') {
+      this.emptytext = 'This user has no posts.';
+    }
+    if (this.router.url === '/home') {
+      this.emptytext = 'There are no posts to show.';
+    }
     location.onPopState((event) => {
       // ensure that modal is opened
-      if(this.modalRef !== undefined) {
+      if (this.modalRef !== undefined) {
           this.modalRef.close();
       }
     });
@@ -58,11 +65,11 @@ export class PostsComponent implements OnInit {
         if (minutes < 1) {
           return 'just now';
         }
-        return minutes + ' minutes ago';
+        return minutes + 'm';
       } else {
         hours = Math.trunc(minutes / 60);
         if (hours < 2) {
-          return  hours + ' hour ago';
+          return  hours + 'h';
         }
         if (hours > 24 ) {
           days = Math.trunc(hours / 24);
