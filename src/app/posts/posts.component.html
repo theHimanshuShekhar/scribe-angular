@@ -40,7 +40,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header pl-1 py-2">
 
-      <div class="d-flex w-100  justify-content-between" >
+      <div class="d-flex w-100  justify-content-between">
         <div class="user-data row mx-2" (click)="this.sendToProfile(this.username); d('Cross click')">
           <span id="user-image" class="col mx-2 align-self-center">
             <img [src]="this.authorPhotoURL" alt="" id="modal-author-image">
@@ -55,9 +55,6 @@
           </span>
         </div>
         <small id="modal-post-date" class="justify-right mx-1 align-self-center">{{ getDate(this.date) }}</small>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
   </div>
   <div class="modal-body">
