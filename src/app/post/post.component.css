@@ -6,33 +6,20 @@
   width: 2.5rem;
   height: 2.5rem;
 }
-
-#user-text {
-  width: 100%;
-  font-size: 0.85em;
-  text-align: left;
+#modal-author-image {
+  border-radius: 100%;
+  width: 2.6rem;
+  height: 2.6rem;
 }
-@media (max-width: 402px) {
-  #user-text {
-    margin-top: 0px;
-  }
-}
-#displayname {
-  font-size: 1.4rem;
-}
-.user-data {
-  text-align: left;
-  width: 100%;
-  height: 100%;
-}
-#username {
+#modal-username {
   font-weight: 400;
-  font-size: 1rem;
 }
-
-#post-date {
+#modal-author {
+  font-size: 1.2rem;
+}
+#modal-post-date {
   min-width: 5rem;
-  text-align: center;
+  text-align: right;
   font-size: 0.7em;
 }
 

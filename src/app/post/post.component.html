@@ -1,6 +1,36 @@
 <!-- Temporary -->
-<div class="container">
-  <div class="list-group my-1 mt-2">
+<div class="container list-group">
+      <a  class="list-group-item px-0 my-2">
+        <div class="modal-header pl-1 pt-1 pb-2">
+        <div class="d-flex w-100  justify-content-between">
+            <div class="user-data row mx-2 mr-1" (click)="this.sendToProfile(this.username); d('Cross click')">
+              <span id="user-image" class="col mx-2 align-self-center">
+                <img [src]="this.authorPhotoURL" alt="" id="modal-author-image">
+              </span>
+              <span id="user-text" class="col align-self-center">
+                <b id="modal-author">
+                  {{ this.author }}
+                </b>
+                <b class="my-0" id="modal-username">
+                  @{{ this.username }}
+                </b>
+              </span>
+            </div>
+            <small id="modal-post-date" class="justify-right mx-1 align-self-center">{{ getDate(this.date) }}</small>
+          </div>
+        </div>
+        <div class="modal-body mx-2">
+          <p>{{ this.body }}</p>
+        </div>
+        <hr>
+        <div class="mx-4">
+          <h4>Comments</h4>
+        </div >
+
+      </a>
+
+
+  <!--div class="list-group my-1 mt-2">
     <a class="list-group-item flex-column align-items-center pt-1 px-0">
       <div class="d-flex w-100  justify-content-between" >
         <div class="user-data row mx-2" (click)="this.sendToProfile('username')">
@@ -26,5 +56,5 @@
       <p class="mx-4">Comments here</p>
     </a>
 
-  </div>
+  </div-->
 </div>
