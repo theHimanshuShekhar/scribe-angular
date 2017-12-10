@@ -19,7 +19,7 @@
       </div>
       <hr class="my-1 mb-2">
       <p class="mb-1 mx-4">
-        {{ post.body }}
+        {{ post.body | slice:0:200 }}  <span *ngIf="post.body.length > 200"><a routerLink="" style="">...more</a></span>
       </p>
     </a>
   </div>
