@@ -8,6 +8,9 @@ import { environment } from './../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+// Pipes
+import { DateFormatPipe } from './services/date.pipe';
+
 // Services
 import { PostsService } from './services/posts.service';
 import { AuthService } from './services/auth.service';
@@ -77,7 +80,8 @@ import { PostComponent } from './post/post.component';
   providers: [
     PostsService,
     AuthService,
-    UserService
+    UserService,
+    DateFormatPipe,
   ],
   bootstrap: [AppComponent]
 })

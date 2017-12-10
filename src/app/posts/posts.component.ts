@@ -1,10 +1,11 @@
+import { DateFormatPipe } from './../services/date.pipe';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostsService } from '../services/posts.service';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { PlatformLocation } from '@angular/common';
+import { PlatformLocation, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-posts',
@@ -34,7 +35,8 @@ export class PostsComponent implements OnInit {
     private postsService: PostsService,
     private router: Router,
     private modalService: NgbModal,
-    private location: PlatformLocation
+    private location: PlatformLocation,
+    private dateFormatPipe: DateFormatPipe,
   ) {
     if (this.router.url !== '/home') {
       this.emptytext = 'This user has no posts.';
@@ -58,9 +60,6 @@ export class PostsComponent implements OnInit {
       const milliseconds: number = newDate.getTime() - prevDate.getTime();
       const minutes = Math.trunc(milliseconds / 60000);
       let hours;
-      let days;
-      let months;
-      let years;
       if (minutes < 59) {
         if (minutes < 1) {
           return 'just now';
@@ -68,29 +67,11 @@ export class PostsComponent implements OnInit {
         return minutes + 'm';
       } else {
         hours = Math.trunc(minutes / 60);
-        if (hours < 2) {
-          return  hours + 'h';
+        if (hours >= 1 && hours < 24) {
+          return hours + 'h';
+        } else {
+          return this.dateFormatPipe.transform(prevDate);
         }
-        if (hours > 24 ) {
-          days = Math.trunc(hours / 24);
-          return days + ' days ago';
-        }
-        if (hours > 730) {
-          months = Math.trunc(hours / 730);
-          if (months > 12) {
-            years = Math.trunc(months / 12);
-            if (years < 2) {
-              return years + ' year ago';
-            } else {
-              return years + ' years ago';
-            }
-          }
-          if (months < 2) {
-            return months + ' month ago';
-          }
-          return months + ' months ago';
-        }
-        return  hours + 'h';
       }
     }
   }
