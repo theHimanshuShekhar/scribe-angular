@@ -6,6 +6,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 // Services
 import { PostsService } from './services/posts.service';
@@ -16,7 +17,6 @@ import { UserService } from './services/user.service';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { FooterComponent } from './footer/footer.component';
@@ -24,7 +24,7 @@ import { PostsComponent } from './posts/posts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { AddPostComponent } from './add-post/add-post.component';
-import { TestComponent } from './test/test.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { TestComponent } from './test/test.component';
     ProfileComponent,
     AccountComponent,
     AddPostComponent,
-    TestComponent,
+    PostComponent,
     ],
   imports: [
     BrowserModule,
@@ -65,8 +65,8 @@ import { TestComponent } from './test/test.component';
         component: AccountComponent
       },
       {
-        path: 'test',
-        component: TestComponent
+        path: 'post/:pid',
+        component: PostComponent
       },
       {
         path: '**',
