@@ -40,6 +40,9 @@ h3 {
 #username {
   font-weight: 400;
 }
+#more-anchor {
+  color: rgb(69, 65, 126);
+}
 #more-anchor:hover {
   color: blue;
   text-decoration: underline;
