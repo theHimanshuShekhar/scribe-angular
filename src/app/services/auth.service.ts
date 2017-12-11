@@ -100,7 +100,8 @@ export class AuthService {
             email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
-            status: 'Hi, I am using Scribe'
+            status: 'Hi, I am using Scribe',
+            userName: null,
           };
           this.router.navigateByUrl('/account');
           return userRef.set(data);
