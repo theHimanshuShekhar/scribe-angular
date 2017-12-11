@@ -1,60 +1,29 @@
-<!-- Temporary -->
 <div class="container list-group px-2">
-      <a  class="list-group-item px-0 my-2">
-        <div class="modal-header pl-1 pt-1 pb-2">
-        <div class="d-flex w-100  justify-content-between">
-            <div class="user-data row mx-2 mr-1" (click)="this.sendToProfile(this.username);">
-              <span id="user-image" class="col mx-2 align-self-center">
-                <img [src]="this.authorPhotoURL" alt="" id="modal-author-image">
-              </span>
-              <span id="user-text" class="col align-self-center">
-                <b id="modal-author">
-                  {{ this.author }}
-                </b>
-                <b class="my-0" id="modal-username">
-                  @{{ this.username }}
-                </b>
-              </span>
-            </div>
-            <small id="modal-post-date" class="justify-right mx-1 align-self-center">{{ getDate(this.date) }}</small>
+    <a  class="list-group-item px-0 my-2">
+      <div class="modal-header pl-1 pt-1 pb-2">
+      <div class="d-flex w-100  justify-content-between">
+          <div class="user-data row mx-2 mr-1" (click)="this.sendToProfile(this.username);">
+            <span id="user-image" class="col mx-2 align-self-center">
+              <img [src]="this.authorPhotoURL" alt="" id="modal-author-image">
+            </span>
+            <span id="user-text" class="col align-self-center">
+              <b id="modal-author">
+                {{ this.author }}
+              </b>
+              <b class="my-0" id="modal-username">
+                @{{ this.username }}
+              </b>
+            </span>
           </div>
+          <small id="modal-post-date" class="justify-right mx-1 align-self-center">{{ getDate(this.date) }}</small>
         </div>
-        <div class="modal-body mx-2">
-          <p>{{ this.body }}</p>
-        </div>
-        <hr>
-        <div class="mx-4">
-          <h4>Comments</h4>
-        </div >
-
-      </a>
-
-
-  <!--div class="list-group my-1 mt-2">
-    <a class="list-group-item flex-column align-items-center pt-1 px-0">
-      <div class="d-flex w-100  justify-content-between" >
-        <div class="user-data row mx-2" (click)="this.sendToProfile('username')">
-          <span id="user-image" class="col mx-2 align-self-center">
-            <img [src]="" alt="" id="author-image">
-          </span>
-          <span id="user-text" class="col align-self-center">
-            <b id="displayname">
-              post.author
-            </b>
-            <b class="my-0" id="username">
-              @post.username
-            </b>
-          </span>
-        </div>
-        <small id="post-date col" class=" mx-1 mr-2 align-self-center">getDate</small>
       </div>
-      <hr class="my-1 mb-2">
-      <p class="mb-1 mx-4">
-        post.body
-      </p>
+      <div class="modal-body mx-2">
+        <p>{{ this.body }}</p>
+      </div>
       <hr>
-      <p class="mx-4">Comments here</p>
+      <div class="mx-4">
+        <h4>Comments</h4>
+      </div >
     </a>
-
-  </div-->
 </div>
