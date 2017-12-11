@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
 import { PostsService } from '../services/posts.service';
-import { timeout } from 'q';
-import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-post',
@@ -54,6 +52,4 @@ export class PostComponent implements OnInit {
         return this.dateFormatPipe.transform(date, 'long');
       }
     }
-  }
-
 }
