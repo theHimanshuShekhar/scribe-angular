@@ -24,3 +24,7 @@
 a:-webkit-any-link {
   text-decoration: none;
 }
+
+.card-body {
+  background-color: whitesmoke;
+}
