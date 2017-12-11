@@ -40,6 +40,11 @@ h3 {
 #username {
   font-weight: 400;
 }
+#more-anchor:hover {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 /* Modal */
 #modal-author-image {
