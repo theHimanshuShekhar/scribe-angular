@@ -15,7 +15,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AddPostComponent implements OnInit {
 
-  public showAccount: boolean = false;
+  public showAccount = false;
   private uid;
   private itemDoc: AngularFirestoreDocument<any>;
   item: Observable<any>;
@@ -43,11 +43,10 @@ export class AddPostComponent implements OnInit {
       }
     });
 
-    
     this.uid = this.auth.getAuthState().subscribe( user => {
-      if( user ) {
+      if ( user ) {
         this.uid = user.uid;
-        this.itemDoc = this.afs.doc<any>('users/'+this.uid);
+        this.itemDoc = this.afs.doc<any>('users/'+ this.uid);
         this.item = this.itemDoc.valueChanges();
         this.item.forEach(user => {
           if(!user.userName || !user.displayName) {
@@ -59,11 +58,13 @@ export class AddPostComponent implements OnInit {
   }
 
   public addPost() {
-    this.newPost = {
-      body: this.body,
-      date: firebase.firestore.FieldValue.serverTimestamp()
-    };
-    this.postService.addPost(this.newPost);
+    if (this.body) {
+      this.newPost = {
+        body: this.body,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      this.postService.addPost(this.newPost);
+    }
     this.body = '';
   }
 
