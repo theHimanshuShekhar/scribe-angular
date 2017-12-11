@@ -52,9 +52,12 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  public getDate(date) {
+  public getDate(date, type?) {
     setTimeout(500);
     if (date) {
+      if (type) {
+        return this.dateFormatPipe.transform(date, type);
+      }
       const prevDate = date;
       const newDate = new Date();
       const milliseconds: number = newDate.getTime() - prevDate.getTime();
