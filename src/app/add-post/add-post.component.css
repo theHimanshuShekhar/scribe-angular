@@ -21,9 +21,6 @@
   font-size: 1rem;
 }
 
-h4:hover {
-  text-decoration: underline;
-}
 a:-webkit-any-link {
   text-decoration: none;
 }
