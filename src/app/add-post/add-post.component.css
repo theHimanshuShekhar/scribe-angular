@@ -14,10 +14,16 @@
 .card-header {
   background-color: #0069D9;
 }
+.card-header:hover {
+  text-decoration: none;
+}
 .fa-plus {
   font-size: 1rem;
 }
 
 h4:hover {
   text-decoration: underline;
+}
+a:-webkit-any-link {
+  text-decoration: none;
 }
