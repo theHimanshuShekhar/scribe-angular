@@ -3,9 +3,14 @@ import { DatePipe } from '@angular/common';
 
 @Pipe({name: 'dateFormatPipe'})
 export class DateFormatPipe implements PipeTransform {
-  transform(value: string) {
+  transform(value: string, type?: string) {
     const datePipe = new DatePipe('en-US');
-     value = datePipe.transform(value, 'MMM d');
-     return value;
+    if (!type) {
+      value = datePipe.transform(value, 'MMM d');
+    }
+    if (type === 'long') {
+      value = datePipe.transform(value, 'h:mm a - d MMM yyy');
+    }
+    return value;
  }
 }

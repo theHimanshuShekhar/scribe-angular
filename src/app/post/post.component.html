@@ -1,5 +1,5 @@
-<div class="container list-group px-2">
-    <a  class="list-group-item px-0 my-2">
+<div class="container list-group px-2" *ngIf="this.invalidPost">
+    <a class="list-group-item px-0 my-2" *ngIf="this.author">
       <div class="modal-header pl-1 pt-1 pb-2">
       <div class="d-flex w-100  justify-content-between">
           <div class="user-data row mx-2 mr-1" (click)="this.sendToProfile(this.username);">
@@ -15,11 +15,11 @@
               </b>
             </span>
           </div>
-          <small id="modal-post-date" class="justify-right mx-1 align-self-center">{{ getDate(this.date) }}</small>
         </div>
       </div>
       <div class="modal-body mx-2">
         <p>{{ this.body }}</p>
+        <small id="modal-post-date" class="justify-right mx-1 align-self-center">{{ getDate(this.date) }}</small>
       </div>
       <hr>
       <div class="mx-4">
@@ -27,3 +27,12 @@
       </div >
     </a>
 </div>
+
+<ng-template #invalidPost>
+  <a class="mt-5 list-group-item px-0 my-2">
+    <div class="px-1 pt-1 pb-2 text-center">
+      <h3>The post you are looking for does not exist.</h3>
+      <h4>The post may have been deleted or the URL is wrong.</h4>
+    </div>
+  </a>
+</ng-template>

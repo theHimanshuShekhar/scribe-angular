@@ -2,6 +2,9 @@ import { DateFormatPipe } from './../services/date.pipe';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
+import { PostsService } from '../services/posts.service';
+import { timeout } from 'q';
+import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-post',
@@ -11,44 +14,44 @@ import { Input } from '@angular/core/src/metadata/directives';
 })
 export class PostComponent implements OnInit {
 
-  author: string = 'author';
+  author: string = null;
   authorPhotoURL = '../../assets/images/default-profile.jpg';
-  username: string = 'username';
-  body: string = 'Body';
-  date = new Date();
+  username: string = null;
+  body: string = null;
+  date;
+
+  public invalidPost = false;
 
   constructor(
     private router: Router,
     private dateFormatPipe: DateFormatPipe,
+    private postService: PostsService
   ) { }
 
   ngOnInit() {
+    const postObs = this.postService.getPostDataFromPid(this.router.url.slice(6));
+    postObs.subscribe(post => {
+      if (post) {
+        this.author = post.author;
+        this.body = post.body;
+        this.authorPhotoURL = post.authorPhotoURL;
+        this.date = post.date;
+        this.username = post.username;
+      } else {
+        console.log('invalid');
+        this.invalidPost = true;
+      }
+    });
   }
+
 
   public sendToProfile(username) {
     this.router.navigateByUrl('user/' + username);
   }
 
   public getDate(date) {
-    setTimeout(500);
     if (date) {
-      const prevDate = date;
-      const newDate = new Date();
-      const milliseconds: number = newDate.getTime() - prevDate.getTime();
-      const minutes = Math.trunc(milliseconds / 60000);
-      let hours;
-      if (minutes < 59) {
-        if (minutes < 1) {
-          return 'just now';
-        }
-        return minutes + 'm';
-      } else {
-        hours = Math.trunc(minutes / 60);
-        if (hours >= 1 && hours < 24) {
-          return hours + 'h';
-        } else {
-          return this.dateFormatPipe.transform(prevDate);
-        }
+        return this.dateFormatPipe.transform(date, 'long');
       }
     }
   }

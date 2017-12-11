@@ -108,4 +108,9 @@ export class PostsService {
       this.posts = this.postsCollection.valueChanges();
       return this.posts;
     }
+
+    public getPostDataFromPid(pid) {
+      const postDoc = this.afs.doc<any>('posts/' + pid);
+      return postDoc.valueChanges();
+    }
 }
