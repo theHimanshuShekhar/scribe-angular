@@ -46,7 +46,7 @@ export class AddPostComponent implements OnInit {
     this.uid = this.auth.getAuthState().subscribe( user => {
       if ( user ) {
         this.uid = user.uid;
-        this.itemDoc = this.afs.doc<any>('users/'+ this.uid);
+        this.itemDoc = this.afs.doc<any>('users/' + this.uid);
         this.item = this.itemDoc.valueChanges();
         this.item.forEach(user => {
           if(!user.userName || !user.displayName) {

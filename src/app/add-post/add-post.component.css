@@ -11,3 +11,13 @@
 #addPosts {
   height: 100%;
 }
+.card-header {
+  background-color: #0069D9;
+}
+.fa-plus {
+  font-size: 1rem;
+}
+
+h4:hover {
+  text-decoration: underline;
+}
