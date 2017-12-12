@@ -83,7 +83,7 @@ export class AuthService {
     this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', user.uid));
     this.userObs = this.userCollection.valueChanges();
     this.userObs.forEach( userobj => {
-      console.log(userobj[0].displayName);
+      console.log('Existing User logged in- ', userobj[0].userName);
     })
     .then(
       (success) => {
@@ -93,6 +93,7 @@ export class AuthService {
     .catch (
       (err) => {
         // setup user data in firestore on login
+          console.log('New User login.\nSetting up user in database.');
           const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
           const data: User = {
