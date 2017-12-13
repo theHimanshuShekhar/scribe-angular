@@ -1,4 +1,4 @@
-<div class="container list-group px-2" *ngIf="this.invalidPost">
+<div class="container list-group px-2" *ngIf="this.showPost; else invalidPost">
     <a class="list-group-item px-0 my-2" *ngIf="this.author">
       <div class="modal-header pl-1 pt-1 pb-2">
       <div class="d-flex w-100  justify-content-between">
@@ -34,10 +34,12 @@
 </div>
 
 <ng-template #invalidPost>
-  <a class="mt-5 list-group-item px-0 my-2">
-    <div class="px-1 pt-1 pb-2 text-center">
-      <h3>The post you are looking for does not exist.</h3>
-      <h4>The post may have been deleted or the URL is wrong.</h4>
-    </div>
-  </a>
+  <div class="container list-group px-2">
+    <a class="mt-5 list-group-item px-0 my-2">
+      <div class="px-1 pt-1 pb-2 text-center">
+        <h3>The post you are looking for does not exist.</h3>
+        <h4>The post may have been deleted or the URL is wrong.</h4>
+      </div>
+    </a>
+  </div>
 </ng-template>

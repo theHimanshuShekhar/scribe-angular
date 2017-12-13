@@ -18,7 +18,7 @@ export class PostComponent implements OnInit {
   body: string = null;
   date;
 
-  public invalidPost = false;
+  public showPost = true;
 
   constructor(
     private router: Router,
@@ -35,9 +35,9 @@ export class PostComponent implements OnInit {
         this.authorPhotoURL = post.authorPhotoURL;
         this.date = post.date;
         this.username = post.username;
+        this.showPost = true;
       } else {
-        console.log('invalid');
-        this.invalidPost = true;
+        this.showPost = false;
       }
     });
   }
