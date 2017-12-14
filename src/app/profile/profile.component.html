@@ -1,9 +1,13 @@
 <div class="container">
   <div class="jumbotron bg-danger mt-2 mb-0 pb-1 pt-3" *ngIf="this.doesUserExist; else invaliduser">
-    <img [src]="this.photoURL" alt="" class="rounded display-picture">
-    <h1 id="display-username" class="mb-0">{{ this.displayName }}</h1>
-    <h4 class="text-white mt-0 mb-1">@{{ this.username }}</h4>
-    <p class="text-white">"{{ this.status}}"</p>
+    <div class="profile-info row py-2 pb-3">
+      <img [src]="this.photoURL" alt="" class="ml-2 rounded display-picture col">
+      <div class="user-info col mx-2 mt-sm-5">
+        <h1 id="display-displayName" class="mb-0">{{ this.displayName }}</h1>
+        <h4 id="display-username" class="text-white mt-0 mb-1">@{{ this.username }}</h4>
+        <p class="text-white">"{{ this.status}}"</p>
+      </div>
+    </div>
   </div>
   <app-add-post class="my-0" *ngIf="this.showAddPost"></app-add-post>
   <app-posts *ngIf="this.useruid" [useruid]="this.useruid"></app-posts>
