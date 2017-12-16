@@ -1,7 +1,7 @@
 <div class="container">
   <div class="jumbotron bg-danger mt-2 mb-0 py-2" *ngIf="this.doesUserExist; else invaliduser">
     <div class="profile-info row">
-      <img [src]="this.photoURL" alt="" class="ml-2 rounded display-picture col">
+      <img [src]="this.photoURL" alt="" id="display-picture" class="ml-2 rounded col">
       <div class="user-info col mx-2 mt-sm-5">
         <h1 id="display-displayName" class="mb-0">{{ this.displayName }}</h1>
         <h4 id="display-username" class="text-white mt-0 mb-1">@{{ this.username }}</h4>
@@ -15,7 +15,7 @@
 
 <ng-template #invaliduser>
   <div class="jumbotron bg-danger mt-2 mb-0 pb-1 pt-3 row">
-      <img [src]="this.photoURL" alt="" class="rounded display-picture mb-2 col">
+    <img [src]="this.photoURL" alt="" class="rounded display-picture mb-2 col">
     <b class="text-white col mx-2 align-self-center" id="invalid-user-text">
       User does not exist
     </b>

@@ -4,11 +4,6 @@
     width:70px;
   }
 }
-#dropdownBasic1 {
-  border: 0px;
-  padding: 0px;
-  border-radius: 100%;
-}
 .avatar {
   width: 35px;
   height: 35px;
@@ -17,19 +12,20 @@
 .d-inline-block {
   width: 100%;
 }
-.col {
-  padding: 0px;
-}
 .dropdown-toggle::after {
   display:none;
 }
-#info-container {
-  height: 35px;
-  width: 35px;
+#user-avatar-container {
+  max-width: 35px;
+  max-height: 35px;
   border-radius: 100%;
 }
-#user-btn {
+#user-text {
+  font-size: 0.1rem;
+  text-align: left;
+}
+#dropdownBasic1 {
+  border: 2px solid rgb(207, 206, 206);
   padding: 0px;
-  margin: 0px;
   border-radius: 100%;
 }

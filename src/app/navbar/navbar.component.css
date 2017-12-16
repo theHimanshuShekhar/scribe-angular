@@ -1,7 +1,3 @@
-#search-box, .form-inline {
-  display: inline-flex;
-  width: 100%;
-}
 .navbar-brand {
   font-size: 1.8rem;
   line-height: 30px;
@@ -9,19 +5,6 @@
   text-align: center;
 }
 #nav-text, #nav-info {
-  max-width: 120px;
-  width: 120px;
-}
-.col {
-  border: white 2px solid;
-}
-#nav-search {
-  max-width: 700px;
-  width: 100%;
-}
-@media (max-width: 767px) {
-  #search-box, .form-inline {
-    border-radius: 25px;
-    border: none;
-  }
+  max-width: 200px;
+  width: 200px;
 }

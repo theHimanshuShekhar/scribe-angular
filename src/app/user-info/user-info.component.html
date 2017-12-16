@@ -1,11 +1,7 @@
-<div class="d-none d-md-inline-flex">
-  <div class="">
-
+<div class="mr-lg-2 d-none d-md-inline-block">
     <div *ngIf="auth.user | async; then authenticated else guest">
         <!-- template will replace this div -->
     </div>
-
-  </div>
 </div>
 
 
@@ -18,13 +14,13 @@
 
     <!-- User logged in -->
     <ng-template #authenticated>
-      <div ngbDropdown placement="bottom-right" class="d-inline-block" *ngIf="auth.user | async as user" class="p-0"  id="info-container">
-          <button id="user-btn" id="dropdownBasic1" ngbDropdownToggle >
-            <img [src]="user.photoURL" class="avatar">
+      <div ngbDropdown placement="bottom-right" class="d-inline-block" *ngIf="auth.user | async as user" class="p-0">
+          <button id="dropdownBasic1" ngbDropdownToggle >
+            <img [src]="user.photoURL" class="avatar m-0 p-0">
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button class="dropdown-item" routerLink="user/{{user.userName}}" (click)="this.navbar.closeNavbar()">Profile</button>
-            <button class="dropdown-item" routerLink="account" (click)="this.navbar.closeNavbar()">Account</button>
+            <button class="dropdown-item" routerLink="user/{{user.userName}}">Profile</button>
+            <button class="dropdown-item" routerLink="account">Account</button>
             <button class="dropdown-item" (click)="logout()">Logout</button>
           </div>
           </div>

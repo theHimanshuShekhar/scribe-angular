@@ -1,13 +1,11 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top row justify-content-center">
     <div class="nav-text col-1 col-sm-1 col-md-2 col-lg-2 align-items-center mt-1" id="nav-text">
-      <a class="ml-lg-5 navbar-brand logo-text" routerLink="home" (click)="closeNavbar()">Scribe</a>
+      <a class="ml-lg-5 navbar-brand logo-text" routerLink="home">Scribe</a>
     </div>
-    <div class="justify-content-center col-8 col-sm-9 col-md-9 col-lg-8 m-lg-auto px-0 mr-sm-1 px-md-3" id="nav-search">
-      <form class="form-inline d-inline-flex">
-        <input id="search-box" class="form-control search-box" type="text" placeholder="Search" aria-label="Search">
-      </form>
+    <div class="justify-content-center col-8 col-sm-9 col-md-7 col-lg-8 m-lg-auto px-0 mr-sm-1 px-md-3" id="nav-search">
+        <app-search></app-search>
     </div>
-    <div id="user-info-box d-md-none col-md-2  col-lg-2 col-2" id="nav-info">
-      <app-user-info (closeNavEvent)="this.toggleNavbar()"></app-user-info>
+    <div class="mr-1 mr-lg-2" id="nav-info">
+      <app-user-info></app-user-info>
     </div>
   </nav>

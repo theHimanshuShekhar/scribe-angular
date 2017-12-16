@@ -1,9 +1,11 @@
-.display-picture {
-  width: 10%;
-  height: 10%;
+#display-picture {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  border: 4px solid rgba(0, 0, 0, 0.2);
   max-height: 150px;
   max-width: 150px;
-  border: 4px solid rgba(0, 0, 0, 0.2);
 }
 .jumbotron {
   vertical-align: text-bottom;
@@ -25,7 +27,7 @@
   border: none;
 }
 @media (max-width: 500px) {
-  .display-picture {
+  #display-picture {
     height: 5%;
     width: auto;
     max-height: 100px;
