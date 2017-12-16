@@ -23,3 +23,6 @@ html, body {
 ::-webkit-scrollbar {
   width: 0px;  /* remove scrollbar space */
 }
+.circle {
+  border-radius: 100%;
+}

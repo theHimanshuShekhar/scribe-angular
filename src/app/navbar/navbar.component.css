@@ -1,15 +1,37 @@
+#search-box {
+  width: 400px;
+}
 @media (max-width: 767px) {
   #search-btn {
-    width: 100%;
+    display: hidden;
+  }
+  .logo-text{
+    margin-right: 0px;
   }
   .search-box{
-    width: 100%;
+    width: 80%;
+    border-radius: 15px;
   }
-  form {
-    width: 100%;
+  .form-inline {
+    width: 70%;
   }
+}
+@media (max-width: 366px) {
+  .logo-text{
+    margin-right: 0px;
+  }
+  .search-box{
+    width: 60%;
+    border-radius: 15px;
+    margin-right: 5px;
+  }
+  .form-inline {
+    width: 60%;
+    margin-right: 5px;
+  }
+}
 
- }
+
 @media (min-width: 576px){
 .form-inline .form-control {
     display: inline-block;

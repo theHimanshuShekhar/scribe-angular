@@ -1,20 +1,17 @@
-@media (max-width: 767px) {
-  #dropdownBasic1, .d-inline-block, #login-btn {
-    width: 100%;
-    margin: 0;
-  }
- }
+
 @media (min-width: 767px) {
   #login-btn {
     width:90px;
   }
 }
 #dropdownBasic1 {
-  height: 40px;
+  border: 0px;
+  padding: 0px;
+  border-radius: 100%;
 }
 .avatar {
-  width: 27px;
-  height: 27px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
 }
 .d-inline-block {
@@ -22,4 +19,17 @@
 }
 .col {
   padding: 0px;
+}
+.dropdown-toggle::after {
+  display:none;
+}
+#info-container {
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+}
+#user-btn {
+  padding: 0px;
+  margin: 0px;
+  border-radius: 100%;
 }
