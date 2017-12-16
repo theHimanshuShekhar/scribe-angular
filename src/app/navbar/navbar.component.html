@@ -1,16 +1,13 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand ml-lg-5 logo-text" routerLink="home" (click)="closeNavbar()">Scribe</a>
-    <ul class="navbar-nav mr-auto d-none d-md-inline-flex col">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="home" routerLinkActive="active" (click)="closeNavbar()">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="about" routerLinkActive="active" (click)="closeNavbar()">About</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0 ml-sm-5">
-      <input id="search-box" class="form-control mr-md-1 search-box" type="text" placeholder="Search" aria-label="Search">
-      <button id="search-btn" class="btn btn-outline-primary my-2 my-sm-0 d-none d-md-inline-flex" type="submit">Search</button>
-    </form>
-    <app-user-info (closeNavEvent)="this.toggleNavbar()"></app-user-info>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top row justify-content-center">
+    <div class="nav-text col-2 col-sm-1 col-md-2 col-lg-2 align-items-center" id="nav-text">
+      <a class="navbar-brand logo-text" routerLink="home" (click)="closeNavbar()">Scribe</a>
+    </div>
+    <div class="justify-content-center col-8 col-sm-9 col-md-9 col-lg-8 m-lg-auto" id="nav-search">
+      <form class="form-inline d-inline-flex">
+        <input id="search-box" class="form-control search-box" type="text" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+    <div id="user-info-box d-md-none col-md-2  col-lg-2 col-2" id="nav-info">
+      <app-user-info (closeNavEvent)="this.toggleNavbar()"></app-user-info>
+    </div>
   </nav>
