@@ -19,3 +19,9 @@
   max-width: 700px;
   width: 100%;
 }
+@media (max-width: 767px) {
+  #search-box, .form-inline {
+    border-radius: 25px;
+    border: none;
+  }
+}
