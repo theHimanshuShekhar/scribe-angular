@@ -23,7 +23,12 @@ export class UserInfoHomeComponent implements OnInit {
   displayname: string;
   status: string;
 
-  constructor(private userService: UserService, public auth: AuthService, private afs: AngularFirestore, private router: Router) {  }
+  constructor(
+    private userService: UserService,
+    public auth: AuthService,
+    private afs: AngularFirestore,
+    private router: Router
+  ) {  }
 
   ngOnInit() {
     this.photoURL = '../../assets/images/default-profile.jpg';
