@@ -9,7 +9,12 @@
 }
 #img-container {
   max-width: 50px;
+  max-height: 50px;
+  border-radius: 100%;
 }
 #dropdownBasic2 {
   background-color: none;
+}
+.bg-custom {
+  background-color: #3F51B5;
 }
