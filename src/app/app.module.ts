@@ -28,6 +28,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { PostComponent } from './post/post.component';
+import { SearchComponent } from './search/search.component';
+import { UserInfoHomeComponent } from './user-info-home/user-info-home.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { PostComponent } from './post/post.component';
     AddPostComponent,
     PostComponent,
     DateFormatPipe,
+    SearchComponent,
+    UserInfoHomeComponent,
     ],
   imports: [
     BrowserModule,

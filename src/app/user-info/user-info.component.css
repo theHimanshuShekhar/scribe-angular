@@ -1,25 +1,31 @@
-@media (max-width: 767px) {
-  #dropdownBasic1, .d-inline-block, #login-btn {
-    width: 100%;
-    margin: 0;
-  }
- }
+
 @media (min-width: 767px) {
   #login-btn {
-    width:90px;
+    width:70px;
   }
 }
-#dropdownBasic1 {
-  height: 40px;
-}
 .avatar {
-  width: 27px;
-  height: 27px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
 }
 .d-inline-block {
   width: 100%;
 }
-.col {
+.dropdown-toggle::after {
+  display:none;
+}
+#user-avatar-container {
+  max-width: 35px;
+  max-height: 35px;
+  border-radius: 100%;
+}
+#user-text {
+  font-size: 0.1rem;
+  text-align: left;
+}
+#dropdownBasic1 {
+  border: 2px solid rgb(207, 206, 206);
   padding: 0px;
+  border-radius: 100%;
 }

@@ -80,6 +80,7 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.posts = null;
     if (!this.useruid) {
       this.posts = this.postsService.getPosts();
     } else {

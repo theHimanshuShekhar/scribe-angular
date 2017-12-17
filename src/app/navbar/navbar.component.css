@@ -1,34 +1,10 @@
-@media (max-width: 767px) {
-  #search-btn {
-    width: 100%;
-  }
-  .search-box{
-    width: 100%;
-  }
-  form {
-    width: 100%;
-  }
-
- }
-@media (min-width: 576px){
-.form-inline .form-control {
-    display: inline-block;
-    width: 100%;
-    vertical-align: middle;
-}
-}
-@media (min-width: 767px){
-  #search-box {
-    width: 200px;
-  }
-}
-.form-control {
-  height: 40px;
-}
-#search-btn {
-  height: 40px;
-}
 .navbar-brand {
-  font-size: 2rem;
-  line-height: 2rem;
+  font-size: 1.8rem;
+  line-height: 30px;
+  margin: 0px;
+  text-align: center;
+}
+#nav-text, #nav-info {
+  max-width: 200px;
+  width: 200px;
 }
