@@ -45,6 +45,18 @@ export class UserInfoHomeComponent implements OnInit {
       }
     });
   }
+  log(action) {
+    if (action === 'login') {
+      this.login();
+    }
+    if (action === 'logout') {
+      this.logout();
+    }
+  }
+  login() {
+    console.log('login');
+    this.auth.googleLogin();
+  }
 
   logout() {
     this.auth.logout();

@@ -1,4 +1,4 @@
-<div class="list-group" *ngIf="this.auth.user | async; else loading">
+<div class="list-group" *ngIf="this.auth.user | async; else login">
     <a class="list-group-item bg-custom text-white" *ngIf="username; else loading">
       <div class="info-container row px-2">
         <div id="user-info" class="col-10 col-sm-11 align-self-center" >
@@ -19,7 +19,7 @@
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button class="dropdown-item" (click)="redirectTo('profile')">Profile</button>
                 <button class="dropdown-item" (click)="redirectTo('account')">Account</button>
-                <button class="dropdown-item" (click)="logout()">Logout</button>
+                <button class="dropdown-item" (click)="log('logout')">Logout</button>
               </div>
           </div>
       </div>
@@ -30,4 +30,10 @@
   <div class="loading list-group-item d-flex justify-content-center">
     <i class="fa fa-refresh fa-spin fa-3x fa-fw text-primary"></i>
   </div>
+</ng-template>
+
+<ng-template #login>
+    <div class="loading list-group-item d-flex justify-content-center">
+        <div class="btn btn-primary mx-1" (click)="log('login')">Login</div><b class="align-self-center text-dark">to use Scribe.</b>
+    </div>
 </ng-template>
