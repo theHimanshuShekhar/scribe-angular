@@ -1,0 +1,33 @@
+<div class="list-group" *ngIf="this.auth.user | async;">
+    <a class="list-group-item bg-danger text-white" *ngIf="username; else loading">
+      <div class="info-container row px-2">
+        <div id="user-info" class="col-10 col-sm-11 align-self-center" >
+            <div id="user-container" class="row">
+              <div id="img-container" class="col mr-2 p-0">
+                <img [src]="photoURL" alt="" id="display-picture">
+              </div>
+              <div id="text-container" class="col p-0 align-self-center">
+                <b class="">
+                  {{ displayname }}
+                </b>
+                <small>@{{ username }}</small>
+              </div>
+            </div>
+          </div>
+          <div ngbDropdown placement="bottom-right" class="d-inline-block col-1 align-self-center">
+            <button class="btn btn-outline-light" id="dropdownBasic2" ngbDropdownToggle><i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item" (click)="redirectTo('profile')">Profile</button>
+                <button class="dropdown-item" (click)="redirectTo('account')">Account</button>
+                <button class="dropdown-item" (click)="logout()">Logout</button>
+              </div>
+          </div>
+      </div>
+    </a>
+  </div>
+
+<ng-template #loading>
+  <div class="loading list-group-item d-flex justify-content-center">
+    <i class="fa fa-refresh fa-spin fa-3x fa-fw text-primary"></i>
+  </div>
+</ng-template>

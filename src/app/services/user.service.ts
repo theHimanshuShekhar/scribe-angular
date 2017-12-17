@@ -36,6 +36,12 @@ export class UserService {
     this.getUserDataFromUsername(username);
     return this.useruid;
   }
+  getUser(uid) {
+    // Retrieve user collection
+    this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', uid));
+    this.userObs = this.userCollection.valueChanges();
+    return this.userObs;
+  }
 
   public getUserDataFromUID(uid) {
       // Retrieve user collection

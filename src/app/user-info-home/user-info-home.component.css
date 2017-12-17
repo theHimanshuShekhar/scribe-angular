@@ -1,0 +1,15 @@
+.list-group, a {
+  text-decoration: none;
+  color: black;
+}
+#display-picture {
+  max-width: 50px;
+  border-radius: 100%;
+  border: 3px white solid;
+}
+#img-container {
+  max-width: 50px;
+}
+#dropdownBasic2 {
+  background-color: none;
+}
