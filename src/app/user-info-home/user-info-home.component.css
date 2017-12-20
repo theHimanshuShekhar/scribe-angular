@@ -5,7 +5,7 @@
 #info-picture {
   max-width: 50px;
   border-radius: 100%;
-  border: 3px white solid;
+  border: 3px rgb(240, 240, 240) solid;
 }
 #img-container {
   max-width: 50px;
