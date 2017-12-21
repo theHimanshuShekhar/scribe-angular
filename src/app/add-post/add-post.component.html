@@ -1,5 +1,5 @@
-<div id="addPosts" class="list-group mt-1 list-group-item  flex-column align-items-start p-0" *ngIf=" auth.user | async" >
-  <div class="addPostContainer" *ngIf="!this.showAccount; else AccountInfo">
+<div id="addPosts" class="list-group-item align-items-start p-0 mt-0" *ngIf=" auth.user | async" >
+  <div class="addPostContainer mt-0" *ngIf="!this.showAccount; else AccountInfo">
     <ngb-accordion #acc="ngbAccordion">
       <ngb-panel>
         <ng-template ngbPanelTitle>

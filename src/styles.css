@@ -14,7 +14,8 @@ html, body {
   border: 1px solid red;
 }
 .container {
-  max-width: 700px;
+  margin: 0 auto;
+  padding: 0px;
 }
 .logo-text {
   font-family: 'pacifico-regular', cursive;

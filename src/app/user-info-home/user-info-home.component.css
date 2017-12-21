@@ -18,3 +18,10 @@
 .bg-custom {
   background-color: #3F51B5;
 }
+
+#user-home-displayname {
+  font-size: 0.9rem;
+}
+#user-home-username {
+  font-size: 0.7rem;
+}

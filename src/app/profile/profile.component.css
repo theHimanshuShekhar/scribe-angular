@@ -1,3 +1,7 @@
+.profile-container {
+  max-width: 700px;
+}
+
 #display-picture {
   margin: 0px;
   padding: 0px;

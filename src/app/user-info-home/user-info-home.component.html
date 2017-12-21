@@ -1,21 +1,23 @@
 <div class="list-group" *ngIf="this.auth.user | async; else login">
     <a class="list-group-item bg-custom text-white" *ngIf="username; else loading">
       <div class="info-container row px-2">
-        <div id="user-info" class="col-10 col-sm-11 align-self-center" >
+        <div id="user-info" class="col-10 col-md-9 align-self-center">
             <div id="user-container" class="row" *ngIf="this.photoURL">
               <div id="img-container" class="col-auto mr-2 p-0" *ngIf="photoURL; else loading">
                 <img [src]="this.photoURL" alt="img" id="info-picture" class="">
               </div>
               <div id="text-container" class="col p-0 align-self-center">
-                <b class="">
+                <b id="user-home-displayname">
                   {{ displayname }}
                 </b>
-                <small>@{{ username }}</small>
+                <small id="user-home-username">@{{ username }}</small>
               </div>
             </div>
           </div>
-          <div ngbDropdown placement="bottom-right" class="d-inline-block col-1 align-self-center">
-            <button class="btn btn-outline-light" id="dropdownBasic2" ngbDropdownToggle><i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+          <div ngbDropdown placement="bottom-right" class="col-1 col-sm-flex align-self-center">
+            <button class="btn btn-outline-light mr-0" id="dropdownBasic2" ngbDropdownToggle>
+              <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button class="dropdown-item" (click)="redirectTo('profile')">Profile</button>
                 <button class="dropdown-item" (click)="redirectTo('account')">Account</button>
