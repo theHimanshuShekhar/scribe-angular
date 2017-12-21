@@ -1,6 +1,6 @@
 <div class="list-group" *ngIf="this.auth.user | async; else login">
-    <a class="list-group-item bg-custom text-white" *ngIf="username; else loading">
-      <div class="info-container row px-2">
+    <a class="list-group-item pt-0 px-3 text-white" *ngIf="username; else loading">
+      <div class="info-container bg-custom row px-2 py-1">
         <div id="user-info" class="col-10 col-md-9 align-self-center">
             <div id="user-container" class="row" *ngIf="this.photoURL">
               <div id="img-container" class="col-auto mr-2 p-0" *ngIf="photoURL; else loading">
@@ -24,6 +24,9 @@
                 <button class="dropdown-item" (click)="log('logout')">Logout</button>
               </div>
           </div>
+      </div>
+      <div id="lower-section" class="text-dark d-flex">
+        <p>Other Info</p>
       </div>
     </a>
   </div>
