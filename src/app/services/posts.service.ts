@@ -105,7 +105,7 @@ export class PostsService {
 
     public getUserPosts(useruid) {
       this.postsCollection = this.afs.collection('posts', ref => {
-        return ref.where('user-uid', '==', useruid).orderBy('date', 'desc');
+        return ref.where('useruid', '==', useruid).orderBy('date', 'desc');
       });
       this.posts = this.postsCollection.valueChanges();
       return this.posts;
