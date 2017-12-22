@@ -14,13 +14,10 @@ interface Post {
 
 interface NewPost {
   body: string;
-  author: string;
-  username: string;
   date;
   imgURL?: string;
   likes: number;
   useruid: string;
-  authorPhotoURL: string;
   pid: string;
 }
 
@@ -87,13 +84,10 @@ export class PostsService {
 
       const data: NewPost = {
         body: newPost.body,
-        author: this.displayName,
         date: newPost.date,
         imgURL: null,
         likes: 0,
         useruid: this.auth.getUid(),
-        username: this.userName,
-        authorPhotoURL: this.photoURL,
         'pid': id,
       };
 
