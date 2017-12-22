@@ -3,14 +3,16 @@
     <a class="list-group-item px-0 my-2  col-12 col-md-9 col-lg-7" *ngIf="this.author">
       <div class="modal-header pl-1 pt-1 pb-2">
       <div class="d-flex w-100  justify-content-between">
-          <div class="user-data row mx-2 mr-1" (click)="this.sendToProfile(this.username);">
+          <div class="user-data row mx-2 mr-1">
             <span id="user-image" class="col mx-2 align-self-center">
-              <img [src]="this.authorPhotoURL" alt="" id="modal-author-image">
+              <img [src]="this.authorPhotoURL" alt="" id="modal-author-image"  (click)="this.sendToProfile(this.username);" class="profile-link">
             </span>
-            <span id="" class="col align-self-center">
-              <b id="modal-author">
-                {{ this.author }}
-              </b>
+            <span class="col align-self-center">
+              <span class="link">
+                <b id="modal-author"  (click)="this.sendToProfile(this.username);" class="profile-link">
+                    {{ this.author }}
+                  </b>
+              </span>
               <b class="my-0" id="modal-username">
                 @{{ this.username }}
               </b>
@@ -49,19 +51,21 @@
 <ng-template #InputPost>
   <a class="list-group-item list-group-item-action flex-column align-items-center pt-1 px-0" (click)="open(content,inputPost)">
     <div class="d-flex w-100  justify-content-between" >
-      <div class="user-data row mx-2" (click)="this.sendToProfile(inputPost.username)">
+      <div class="user-data row mx-2">
         <span id="user-image" class="col mx-2 align-self-center">
-          <img [src]="inputPost.authorPhotoURL" alt="" id="author-image">
+          <img [src]="inputPost.authorPhotoURL" alt="" id="author-image" (click)="this.sendToProfile(inputPost.username)">
         </span>
-        <span id="user-text" class="col align-self-center">
-          <b id="displayname">
-            {{ inputPost.author }}
-          </b>
+        <span id="user-text" class="col align-self-center link">
+          <span class="link">
+            <b id="displayname" (click)="this.sendToProfile(inputPost.username)">
+              {{ inputPost.author }}
+            </b>
+          </span>
           <b class="my-0" id="username">
             @{{ inputPost.username }}
           </b>
         </span>
-        <small id="inputPost-date col" class=" mx-1 mr-2 align-self-center">{{ retrieveDate(inputPost.date, 'long') }}</small>
+        <small id="inputPost-date col" class=" mx-1 mr-2 align-self-center">{{ retrieveDate(inputPost.date) }}</small>
       </div>
     </div>
     <hr class="my-1 mb-2">
@@ -75,14 +79,16 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header pl-1 py-2">
       <div class="d-flex w-100  justify-content-between">
-        <div class="user-data row mx-2 mr-1" (click)="this.sendToProfile(this.username);">
+        <div class="user-data row mx-2 mr-1">
           <span id="user-image" class="col mx-2 align-self-center">
-            <img [src]="this.modalAuthorPhotoURL" alt="" id="modal-author-image">
+            <img [src]="this.modalAuthorPhotoURL" alt="" id="modal-author-image" (click)="this.sendToProfile(this.username);">
           </span>
           <span id="user-text" class="col align-self-center">
-            <b id="modal-author">
-              {{ this.modalAuthor }}
-            </b>
+            <span class="link">
+              <b id="modal-author" class="profile-link" (click)="this.sendToProfile(this.username);">
+                {{ this.modalAuthor }}
+              </b>
+            </span>
             <b class="my-0" id="modal-username">
               @{{ this.modalUsername }}
             </b>
