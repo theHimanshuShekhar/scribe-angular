@@ -53,7 +53,7 @@
     <div class="d-flex w-100  justify-content-between" >
       <div class="user-data row mx-2">
         <span id="user-image" class="col mx-2 align-self-center">
-          <img [src]="inputPost.authorPhotoURL" alt="" id="author-image" (click)="this.sendToProfile(this.username)">
+          <img [src]="this.authorPhotoURL" alt="" id="author-image" (click)="this.sendToProfile(this.username)">
         </span>
         <span id="user-text" class="col align-self-center link">
           <span class="link">
