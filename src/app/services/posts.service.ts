@@ -19,7 +19,7 @@ interface NewPost {
   date;
   imgURL?: string;
   likes: number;
-  'user-uid': string;
+  useruid: string;
   authorPhotoURL: string;
   pid: string;
 }
@@ -91,7 +91,7 @@ export class PostsService {
         date: newPost.date,
         imgURL: null,
         likes: 0,
-        'user-uid': this.auth.getUid(),
+        useruid: this.auth.getUid(),
         username: this.userName,
         authorPhotoURL: this.photoURL,
         'pid': id,
