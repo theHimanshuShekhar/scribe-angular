@@ -53,16 +53,16 @@
     <div class="d-flex w-100  justify-content-between" >
       <div class="user-data row mx-2">
         <span id="user-image" class="col mx-2 align-self-center">
-          <img [src]="inputPost.authorPhotoURL" alt="" id="author-image" (click)="this.sendToProfile(inputPost.username)">
+          <img [src]="inputPost.authorPhotoURL" alt="" id="author-image" (click)="this.sendToProfile(this.username)">
         </span>
         <span id="user-text" class="col align-self-center link">
           <span class="link">
-            <b id="displayname" (click)="this.sendToProfile(inputPost.username)">
-              {{ inputPost.author }}
+            <b id="displayname" (click)="this.sendToProfile(this.username)">
+              {{ this.author }}
             </b>
           </span>
           <b class="my-0" id="username">
-            @{{ inputPost.username }}
+            @{{ this.username }}
           </b>
         </span>
         <small id="inputPost-date col" class=" mx-1 mr-2 align-self-center">{{ retrieveDate(inputPost.date) }}</small>
@@ -81,16 +81,16 @@
       <div class="d-flex w-100  justify-content-between">
         <div class="user-data row mx-2 mr-1">
           <span id="user-image" class="col mx-2 align-self-center">
-            <img [src]="this.modalAuthorPhotoURL" alt="" id="modal-author-image" (click)="this.sendToProfile(this.username);">
+            <img [src]="this.authorPhotoURL" alt="" id="modal-author-image" (click)="this.sendToProfile(this.username);">
           </span>
           <span id="user-text" class="col align-self-center">
             <span class="link">
               <b id="modal-author" class="profile-link" (click)="this.sendToProfile(this.username);">
-                {{ this.modalAuthor }}
+                {{ this.author }}
               </b>
             </span>
             <b class="my-0" id="modal-username">
-              @{{ this.modalUsername }}
+              @{{ this.username }}
             </b>
           </span>
         </div>

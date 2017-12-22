@@ -4,6 +4,7 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { PostsService } from '../services/posts.service';
 import {NgbModal, NgbActiveModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { PlatformLocation, DatePipe } from '@angular/common';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-post',
@@ -14,6 +15,8 @@ import { PlatformLocation, DatePipe } from '@angular/common';
 export class PostComponent implements OnInit {
 
   @Input() inputPost;
+
+  useruid;
 
   author: string = null;
   authorPhotoURL = '../../assets/images/default-profile.jpg';
@@ -37,6 +40,7 @@ export class PostComponent implements OnInit {
     private router: Router,
     private dateFormatPipe: DateFormatPipe,
     private postService: PostsService,
+    private userService: UserService,
     private modalService: NgbModal,
     private location: PlatformLocation,
   ) {
@@ -51,6 +55,8 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     if (!this.inputPost) {
       this.getSinglePost();
+    } else {
+      this.getUser(this.inputPost);
     }
   }
 
@@ -58,11 +64,11 @@ export class PostComponent implements OnInit {
     const postObs = this.postService.getPostDataFromPid(this.router.url.slice(6));
     postObs.subscribe(post => {
       if (post) {
-        this.author = post.author;
+        this.getUser(post);
         this.body = post.body;
-        this.authorPhotoURL = post.authorPhotoURL;
         this.date = post.date;
-        this.username = post.username;
+        this.useruid = post.useruid;
+        console.log(this.useruid);
         this.showPost = true;
       } else {
         this.showPost = false;
@@ -70,18 +76,20 @@ export class PostComponent implements OnInit {
     });
   }
 
+  getUser(post) {
+    this.useruid = post.useruid;
+    this.userService.getUser(this.useruid).subscribe(user => {
+      this.authorPhotoURL = user[0].photoURL;
+      this.username = user[0].userName;
+      this.author = user[0].displayName;
+      this.useruid = user[0].useruid;
+    });
+  }
+
   public sendToProfile(username) {
     this.router.navigateByUrl('user/' + username);
   }
 
-  public getDate(date) {
-    if (date) {
-        if (this.modalRef !== undefined) {
-          this.modalRef.close();
-          return this.dateFormatPipe.transform(date, 'long');
-        }
-      }
-    }
 
   public retrieveDate(date, type) {
     setTimeout(500);
