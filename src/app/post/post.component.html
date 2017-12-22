@@ -49,7 +49,7 @@
 </ng-template>
 
 <ng-template #InputPost>
-  <a class="list-group-item list-group-item-action flex-column align-items-center pt-1 px-0" (click)="open(content,inputPost)">
+  <a class="list-group-item list-group-item-action flex-column align-items-center pt-1 px-0" (click)="open(content,inputPost)" *ngIf="this.username">
     <div class="d-flex w-100  justify-content-between" >
       <div class="user-data row mx-2">
         <span id="user-image" class="col mx-2 align-self-center">
@@ -58,7 +58,7 @@
         <span id="user-text" class="col align-self-center">
           <span class="link">
             <b id="displayname" (click)="this.sendToProfile(this.username)">
-              {{ this.author }}
+              {{this.author}}
             </b>
           </span>
           <b class="my-0" id="username">
