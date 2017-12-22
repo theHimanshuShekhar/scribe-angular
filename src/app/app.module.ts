@@ -88,7 +88,10 @@ import { UserInfoHomeComponent } from './user-info-home/user-info-home.component
     UserService,
     DateFormatPipe,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    PostComponent,
+  ]
 })
 export class AppModule { }
 
