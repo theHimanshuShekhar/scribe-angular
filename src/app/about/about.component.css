@@ -9,3 +9,6 @@ h3 {
   width: 100%;
   text-align: left;
 }
+#about-container {
+  max-width: 700px;
+}
