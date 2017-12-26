@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "publish": "git push -u origin master && ng build --prod && firebase deploy"
+    "deploy": "ng build --prod && git push -u origin master && firebase deploy"
   },
   "private": true,
   "dependencies": {
