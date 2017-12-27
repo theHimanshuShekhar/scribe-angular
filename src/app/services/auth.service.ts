@@ -129,7 +129,6 @@ export class AuthService {
   }
 
   updatePhotoURL(photourl) {
-    console.log('update user photoURL');
     const updateRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${this.currentUser.uid}`);
     this.updateData = {
       photoURL : photourl
