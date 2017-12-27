@@ -69,30 +69,15 @@ export class AccountComponent implements OnInit {
   }
 
   resizeImage(image) {
-    this.ng2ImgMax.resizeImage(image, 150, 150).subscribe(
-      result => {
-        console.log('resized');
-        this.compressImage(result);
-      },
-      error => {
-        console.log('Failed to resize image');
-      }
-    );
+   this.compressImage(image);
   }
 
   compressImage(image) {
-    this.ng2ImgMax.compressImage(image, 0.0065).subscribe(
-      result => {
-        this.uploadedImage = new File([result], result.name);
-        this.uploadSingle();
-      },
-      error => {
-        console.log('Failed to compress image');
-      }
-    );
+    this.uploadedImage = image;
+    this.uploadImage();
   }
 
-  uploadSingle() {
+  uploadImage() {
     this.currentUpload = new Upload(this.uploadedImage);
     const useruid = this.auth.getUid();
     this.currentUpload.name = 'dp';

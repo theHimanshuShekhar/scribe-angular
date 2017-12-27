@@ -8,7 +8,6 @@ import { environment } from './../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import * as firebase from 'firebase';
-import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 // Pipes
 import { DateFormatPipe } from './services/date.pipe';
@@ -61,7 +60,6 @@ firebase.initializeApp(environment.firebase);
     AngularFireModule.initializeApp(environment.firebase, 'angular-fire-project'),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    Ng2ImgMaxModule,
     RouterModule.forRoot([
       {
         path: 'home',
