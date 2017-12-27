@@ -7,6 +7,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import * as firebase from 'firebase';
 
 // Pipes
 import { DateFormatPipe } from './services/date.pipe';
@@ -15,6 +16,7 @@ import { DateFormatPipe } from './services/date.pipe';
 import { PostsService } from './services/posts.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { UploadService } from './services/upload.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -30,6 +32,9 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { PostComponent } from './post/post.component';
 import { SearchComponent } from './search/search.component';
 import { UserInfoHomeComponent } from './user-info-home/user-info-home.component';
+
+
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -86,6 +91,7 @@ import { UserInfoHomeComponent } from './user-info-home/user-info-home.component
     PostsService,
     AuthService,
     UserService,
+    UploadService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],

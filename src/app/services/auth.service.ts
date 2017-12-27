@@ -117,15 +117,23 @@ export class AuthService {
     this.afAuth.auth.signOut();
     this.router.navigateByUrl('/home');
   }
+
   updateUser(displayname, username, status) {
     const updateRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${this.currentUser.uid}`);
-
     this.updateData = {
-        userName: username,
-        status: status,
-        displayName: displayname,
-      };
+      userName: username,
+      status: status,
+      displayName: displayname,
+    };
+    return updateRef.update(this.updateData);
+  }
 
+  updatePhotoURL(photourl) {
+    console.log('update user photoURL');
+    const updateRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${this.currentUser.uid}`);
+    this.updateData = {
+      photoURL : photourl
+    };
     return updateRef.update(this.updateData);
   }
 }

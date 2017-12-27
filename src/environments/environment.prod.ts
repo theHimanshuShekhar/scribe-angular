@@ -5,7 +5,7 @@ export const environment = {
     authDomain: 'scribe-angular.firebaseapp.com',
     databaseURL: 'https://scribe-angular.firebaseio.com',
     projectId: 'scribe-angular',
-    storageBucket: '',
+    storageBucket: 'gs://scribe-angular.appspot.com',
     messagingSenderId: '1029376142564'
   }
 };
