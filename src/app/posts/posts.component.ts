@@ -21,7 +21,6 @@ export class PostsComponent implements OnInit {
 
 
   showNoPosts = false;
-  emptytext: string;
 
   // Modal Data
   username: string;
