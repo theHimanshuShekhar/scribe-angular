@@ -26,9 +26,9 @@ export class AccountComponent implements OnInit {
   userObs: Observable<any>;
 
   constructor(
-    private auth: AuthService, 
-    private router: Router, 
-    private afs: AngularFirestore, 
+    private auth: AuthService,
+    private router: Router,
+    private afs: AngularFirestore,
     private uploadService: UploadService,
     private ng2ImgMax: Ng2ImgMaxService,
   ) { }
@@ -36,6 +36,7 @@ export class AccountComponent implements OnInit {
   selectedFiles: FileList;
   currentUpload: Upload;
   progressname;
+  uploadedImage;
 
   ngOnInit() {
     this.auth.getAuthState().subscribe(user => {
@@ -58,17 +59,16 @@ export class AccountComponent implements OnInit {
     this.auth.updateUser(this.displayname, this.username, this.status);
   }
 
-  uploadedImage;
   detectFiles(event) {
     if (event.target.files[0]) {
       this.progressname = event.target.files[0].name;
-      let image = event.target.files[0];
+      const image = event.target.files[0];
       this.resizeImage(image);
     }
   }
 
   resizeImage(image) {
-    this.ng2ImgMax.resizeImage(image, 200, 200).subscribe(
+    this.ng2ImgMax.resizeImage(image, 150, 150).subscribe(
       result => {
         console.log('resized');
         this.compressImage(result);
@@ -84,12 +84,14 @@ export class AccountComponent implements OnInit {
       result => {
         this.uploadedImage = new File([result], result.name);
         this.uploadSingle();
+      },
+      error => {
+        console.log('Failed to compress image');
       }
     );
   }
 
   uploadSingle() {
-    console.log(this.uploadedImage);
     this.currentUpload = new Upload(this.uploadedImage);
     const useruid = this.auth.getUid();
     this.currentUpload.name = 'dp';
