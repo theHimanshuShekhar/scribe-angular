@@ -6,9 +6,12 @@
   margin: 0px;
   padding: 0px;
   border: 4px solid #eee9e9;
+  width: 150px;
+  height: 150px;
   max-height: 150px;
   max-width: 150px;
   border-radius: 100%;
+  flex-grow: 0;
 }
 .jumbotron {
   vertical-align: text-bottom;
