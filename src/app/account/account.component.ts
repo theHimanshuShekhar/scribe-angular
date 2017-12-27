@@ -17,6 +17,7 @@ export class AccountComponent implements OnInit {
   username: string;
   status: string;
   displayname: string;
+  photoURL= '../../assets/images/default-profile.jpg';
 
   uid;
   userCollection: AngularFirestoreCollection<any>;
@@ -37,6 +38,7 @@ export class AccountComponent implements OnInit {
           this.displayname = userlist[0].displayName;
           this.username = userlist[0].userName;
           this.status = userlist[0].status;
+          this.photoURL = userlist[0].photoURL;
         });
       } else {
         this.router.navigateByUrl('/home');
