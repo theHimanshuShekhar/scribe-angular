@@ -16,12 +16,21 @@
           <label for="text-status">Status</label>
           <input type="text" class="form-control" id="text-status" placeholder="Enter Status" name="text-status" [(ngModel)]="status">
         </div>
-      <!-- div class="form-group">
+
+      <div class="form-group">
         <label class="custom-file">
-          <input type="file" id="user-avatar" class="custom-file-input">
-          <span class="custom-file-control"></span>
+          <input type="file" id="user-avatar" class="custom-file-input" (change)="detectFiles($event)">
+          <span class="custom-file-control">{{this.progressname}}</span>
         </label>
-      </div -->
+      </div>
+
+      <div class="progess-display" *ngIf="this.currentUpload">
+        <ngb-progressbar type="primary" [striped]="true" [animated]="true" [value]="this.currentUpload.progress.toFixed(0)" [max]="100">
+          <span *ngIf="this.currentUpload.progress >= 15">Uploading image: &nbsp;</span> {{this.currentUpload.progress.toFixed(0)}}%
+        </ngb-progressbar>
+      </div>
+
+      <br>
       <button id="update-btn" class="btn btn-danger py-2" (click)="this.update()">Update Profile</button>
       </form>
     </div>
