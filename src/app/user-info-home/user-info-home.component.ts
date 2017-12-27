@@ -36,7 +36,7 @@ export class UserInfoHomeComponent implements OnInit {
       if (userobj) {
         this.userObs = this.userService.getUser(userobj.uid);
         this.userObs.subscribe(user => {
-          if (user) {
+          if (user[0]) {
             this.username = user[0].userName;
             this.displayname = user[0].displayName;
             this.photoURL = user[0].photoURL;

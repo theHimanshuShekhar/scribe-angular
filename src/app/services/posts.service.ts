@@ -67,11 +67,13 @@ export class PostsService {
     this.userObs.forEach(user => {
       if (user) {
         this.user = user;
-        this.useruid = this.user[0].uid;
-        this.photoURL = this.user[0].photoURL;
-        this.displayName = this.user[0].displayName;
-        this.status = this.user[0].status;
-        this.userName = this.user[0].userName;
+        if (this.user[0]) {
+          this.useruid = this.user[0].uid;
+          this.photoURL = this.user[0].photoURL;
+          this.displayName = this.user[0].displayName;
+          this.status = this.user[0].status;
+          this.userName = this.user[0].userName;
+        }
       }
     });
   }

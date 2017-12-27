@@ -48,8 +48,8 @@ export class AddPostComponent implements OnInit {
         this.uid = user.uid;
         this.itemDoc = this.afs.doc<any>('users/' + this.uid);
         this.item = this.itemDoc.valueChanges();
-        this.item.forEach(user => {
-          if(!user.userName || !user.displayName) {
+        this.item.forEach(curr_user => {
+          if (!curr_user.userName || !curr_user.displayName) {
             this.showAccount = true;
           }
         });
