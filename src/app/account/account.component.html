@@ -21,7 +21,7 @@
         <div class="form-group col-12 col-sm-6">
             <label>Display Image</label><br>
             <label class="custom-file">
-              <input type="file" id="user-avatar" class="custom-file-input" (change)="detectFiles($event)">
+              <input type="file" id="user-avatar" class="custom-file-input" (change)="detectFiles($event)" accept="image/*">
               <span class="custom-file-control">{{this.progressname}}</span>
             </label>
           </div>

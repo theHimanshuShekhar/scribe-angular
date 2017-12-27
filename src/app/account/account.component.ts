@@ -6,6 +6,8 @@ import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/fires
 import { Observable } from 'rxjs/Observable';
 import { Upload } from '../classes/upload';
 import * as firebase from 'firebase';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 
 @Component({
   selector: 'app-account',
@@ -23,7 +25,13 @@ export class AccountComponent implements OnInit {
   userCollection: AngularFirestoreCollection<any>;
   userObs: Observable<any>;
 
-  constructor(private auth: AuthService, private router: Router, private afs: AngularFirestore, private uploadService: UploadService) { }
+  constructor(
+    private auth: AuthService, 
+    private router: Router, 
+    private afs: AngularFirestore, 
+    private uploadService: UploadService,
+    private ng2ImgMax: Ng2ImgMaxService,
+  ) { }
 
   selectedFiles: FileList;
   currentUpload: Upload;
@@ -48,31 +56,43 @@ export class AccountComponent implements OnInit {
 
   public update() {
     this.auth.updateUser(this.displayname, this.username, this.status);
-    if (this.selectedFiles) {
-      if (this.selectedFiles[0].size <= 300000) {
-        this.uploadSingle();
-      } else {
-        console.log('invalid file size');
-      }
+  }
+
+  uploadedImage;
+  detectFiles(event) {
+    if (event.target.files[0]) {
+      this.progressname = event.target.files[0].name;
+      let image = event.target.files[0];
+      this.resizeImage(image);
     }
   }
 
-  detectFiles(event) {
-    if (event.target.files[0]) {
-      this.selectedFiles = event.target.files;
-      this.progressname = this.selectedFiles[0].name;
-    }
+  resizeImage(image) {
+    this.ng2ImgMax.resizeImage(image, 200, 200).subscribe(
+      result => {
+        console.log('resized');
+        this.compressImage(result);
+      },
+      error => {
+        console.log('Failed to resize image');
+      }
+    );
+  }
+
+  compressImage(image) {
+    this.ng2ImgMax.compressImage(image, 0.0075).subscribe(
+      result => {
+        this.uploadedImage = new File([result], result.name);
+        this.uploadSingle();
+      }
+    );
   }
 
   uploadSingle() {
-    if (this.selectedFiles[0].type === 'image/png' || this.selectedFiles[0].type === 'image/jpeg') {
-      const file = this.selectedFiles.item(0);
-      this.currentUpload = new Upload(file);
-      const useruid = this.auth.getUid();
-      this.currentUpload.name = 'dp';
-      this.uploadService.pushUpload(this.currentUpload, 'user', useruid);
-    } else {
-      console.log('Invalid format');
-    }
+    console.log(this.uploadedImage);
+    this.currentUpload = new Upload(this.uploadedImage);
+    const useruid = this.auth.getUid();
+    this.currentUpload.name = 'dp';
+    this.uploadService.pushUpload(this.currentUpload, 'user', useruid);
   }
 }
