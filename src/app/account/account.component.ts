@@ -57,6 +57,7 @@ export class AccountComponent implements OnInit {
 
   public update() {
     this.auth.updateUser(this.displayname, this.username, this.status);
+    this.router.navigateByUrl('home');
   }
 
   detectFiles(event) {
