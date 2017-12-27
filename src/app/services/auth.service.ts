@@ -83,7 +83,7 @@ export class AuthService {
     this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', user.uid));
     this.userObs = this.userCollection.valueChanges();
     this.userObs.forEach( userobj => {
-      console.log('Existing User logged in- ', userobj[0].userName);
+      console.log('Existing User logged in');
     })
     .then(
       (success) => {
