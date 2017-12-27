@@ -1,5 +1,5 @@
-<div class="list-group" *ngIf="this.auth.user | async; else login">
-    <a class="list-group-item pt-0 px-3 text-white" *ngIf="username; else loading">
+<div class="list-group mr-1" *ngIf="this.auth.user | async; else login">
+    <a class="list-group-item pt-0 px-3 text-white" *ngIf="username; else AccountInfo">
       <div class="info-container bg-custom row px-2 py-1">
         <div id="user-info" class="col-10 col-md-9 align-self-center">
             <div id="user-container" class="row" *ngIf="this.photoURL">
@@ -31,10 +31,15 @@
     </a>
   </div>
 
-<ng-template #loading>
-  <div class="loading list-group-item d-flex justify-content-center">
-    <i class="fa fa-refresh fa-spin fa-3x fa-fw text-primary"></i>
-  </div>
+<ng-template #AccountInfo>
+  <a class="list-group-item">
+    <div class="setupAccount text-dark">
+        <h5>
+          Setup your <a routerLink="/account" class="text-primary"><u>Account</u></a> before posting!
+        </h5>
+        <h6>Users cannot post or view their profile unless they have setup their account.</h6>
+    </div>
+  </a>
 </ng-template>
 
 <ng-template #login>

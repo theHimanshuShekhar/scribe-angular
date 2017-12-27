@@ -1,5 +1,5 @@
 <div id="addPosts" class="list-group-item align-items-start p-0 mt-0" *ngIf=" auth.user | async" >
-  <div class="addPostContainer mt-0" *ngIf="!this.showAccount; else AccountInfo">
+  <div class="addPostContainer mt-0" *ngIf="!this.showAccount">
     <ngb-accordion #acc="ngbAccordion">
       <ngb-panel>
         <ng-template ngbPanelTitle>
@@ -22,12 +22,4 @@
   </div>
 </div>
 
-<ng-template #AccountInfo>
-  <div class="setupAccount text-white">
-    <h4>
-      Setup your <a routerLink="/account" class="text-white"><u>Account</u></a> before posting!
-      <br>
-      <h6>Users cannot post or view their profile unless they have setup their account.</h6>
-    </h4>
-  </div>
-</ng-template>
+
