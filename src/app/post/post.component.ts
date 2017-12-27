@@ -87,8 +87,10 @@ export class PostComponent implements OnInit {
   }
 
   public sendToProfile(username) {
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
     this.router.navigateByUrl('user/' + username);
-    this.modalRef.close();
   }
 
 
