@@ -101,6 +101,3 @@ firebase.initializeApp(environment.firebase);
 })
 export class AppModule { }
 
-const Routes = {
-
-};
