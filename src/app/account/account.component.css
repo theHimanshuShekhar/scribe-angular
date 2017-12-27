@@ -10,3 +10,6 @@ ngb-progressbar {
   max-width: 150px;
   max-width: 150px;
 }
+.custom-file {
+  width: 100%;
+}
