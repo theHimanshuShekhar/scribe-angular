@@ -80,7 +80,7 @@ export class AccountComponent implements OnInit {
   }
 
   compressImage(image) {
-    this.ng2ImgMax.compressImage(image, 0.0075).subscribe(
+    this.ng2ImgMax.compressImage(image, 0.0065).subscribe(
       result => {
         this.uploadedImage = new File([result], result.name);
         this.uploadSingle();
