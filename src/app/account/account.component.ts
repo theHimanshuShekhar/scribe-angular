@@ -6,7 +6,6 @@ import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/fires
 import { Observable } from 'rxjs/Observable';
 import { Upload } from '../classes/upload';
 import * as firebase from 'firebase';
-import { Ng2ImgMaxService } from 'ng2-img-max';
 import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 
 @Component({
@@ -30,7 +29,6 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private afs: AngularFirestore,
     private uploadService: UploadService,
-    private ng2ImgMax: Ng2ImgMaxService,
   ) { }
 
   selectedFiles: FileList;
