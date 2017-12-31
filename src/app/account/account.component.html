@@ -29,9 +29,11 @@
       </div>
 
       <div class="progess-display" *ngIf="this.currentUpload">
-        <ngb-progressbar type="primary" [striped]="true" [animated]="true" [value]="this.currentUpload.progress.toFixed(0)" [max]="100">
-          <span *ngIf="this.currentUpload.progress >= 15">Uploading image: &nbsp;</span> {{this.currentUpload.progress.toFixed(0)}}%
-        </ngb-progressbar>
+        <div *ngIf="this.currentUpload.progress < 100">
+         <ngb-progressbar type="primary" [striped]="true" [animated]="true" [value]="this.currentUpload.progress.toFixed(0)" [max]="100">
+            <span *ngIf="this.currentUpload.progress >= 30">Uploading image: &nbsp;</span> {{this.currentUpload.progress.toFixed(0)}}%
+          </ngb-progressbar>
+        </div>
       </div>
 
       <br>
