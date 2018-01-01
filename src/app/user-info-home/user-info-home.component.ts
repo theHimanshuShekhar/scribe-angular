@@ -54,7 +54,6 @@ export class UserInfoHomeComponent implements OnInit {
     }
   }
   login() {
-    console.log('login');
     this.auth.googleLogin();
   }
 
