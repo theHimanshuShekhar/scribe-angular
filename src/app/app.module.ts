@@ -32,6 +32,8 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { PostComponent } from './post/post.component';
 import { SearchComponent } from './search/search.component';
 import { UserInfoHomeComponent } from './user-info-home/user-info-home.component';
+import { GroupComponent } from './group/group.component';
+import { MessagingComponent } from './messaging/messaging.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -52,6 +54,8 @@ firebase.initializeApp(environment.firebase);
     DateFormatPipe,
     SearchComponent,
     UserInfoHomeComponent,
+    GroupComponent,
+    MessagingComponent,
     ],
   imports: [
     BrowserModule,
@@ -80,6 +84,14 @@ firebase.initializeApp(environment.firebase);
       {
         path: 'post/:pid',
         component: PostComponent
+      },
+      {
+        path: 'group/:gid',
+        component: GroupComponent
+      },
+      {
+        path: 'message/:mid',
+        component: MessagingComponent
       },
       {
         path: '**',
