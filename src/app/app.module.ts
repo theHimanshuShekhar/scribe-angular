@@ -1,3 +1,4 @@
+import { MessageService } from './services/message.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -90,7 +91,7 @@ firebase.initializeApp(environment.firebase);
         component: GroupComponent
       },
       {
-        path: 'message/:mid',
+        path: 'messages',
         component: MessagingComponent
       },
       {
@@ -104,6 +105,7 @@ firebase.initializeApp(environment.firebase);
     AuthService,
     UserService,
     UploadService,
+    MessageService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],

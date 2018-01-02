@@ -1,3 +1,13 @@
-<p>
-  messaging works!
-</p>
+<div class="container">
+  <div id="message-wrapper" class="row justify-content-center">
+      <div class="col-md-4 border border-dark">
+        <h4>Messages List</h4>
+        <div class="chatroom" *ngFor="let room of roomList">
+          {{getName(room)}}
+        </div>
+      </div>
+      <div class="col-md-8 border border-dark" id="message-window">
+        <h4>Message Window</h4>
+      </div>
+    </div>
+</div>
