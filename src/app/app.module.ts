@@ -35,6 +35,8 @@ import { SearchComponent } from './search/search.component';
 import { UserInfoHomeComponent } from './user-info-home/user-info-home.component';
 import { GroupComponent } from './group/group.component';
 import { MessagingComponent } from './messaging/messaging.component';
+import { ChatroomComponent } from './messaging/chatroom/chatroom.component';
+import { RoomListComponent } from './messaging/room-list/room-list.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -57,6 +59,8 @@ firebase.initializeApp(environment.firebase);
     UserInfoHomeComponent,
     GroupComponent,
     MessagingComponent,
+    ChatroomComponent,
+    RoomListComponent,
     ],
   imports: [
     BrowserModule,
