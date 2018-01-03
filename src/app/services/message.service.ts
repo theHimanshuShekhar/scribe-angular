@@ -17,9 +17,12 @@ export class MessageService {
     return this.collection.valueChanges();
   }
 
-  getChatRoom(mid) {
+  getMessages(mid) {
     this.collection = this.afs.collection('messages/' + mid + '/messages');
     return this.collection.valueChanges();
   }
 
+  getRoom(mid) {
+    return this.afs.doc<any>('messages/' + mid).valueChanges();
+  }
 }

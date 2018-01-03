@@ -1,3 +1,6 @@
-#message-wrapper {
-  background-color: white;
+#chatroom-wrapper {
+  width: 100%
+}
+#messaging-wrapper {
+  margin: 0px;
 }

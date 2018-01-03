@@ -11,21 +11,21 @@ import { AuthService } from '../services/auth.service';
 export class MessagingComponent {
 
   roomList: any[] = [];
+  userid: string;
   constructor(
     private msgService: MessageService,
     private auth: AuthService
   ) {
     this.auth.getAuthState().subscribe(user => {
+      this.userid = user.uid;
       this.msgService.getMessageList(user.uid).subscribe((rooms) => {
-        const roomsLen = rooms.length;
-        rooms.forEach(room => {
-          this.roomList.push(room.mid);
+        rooms.forEach(chatRoom => {
+          this.msgService.getRoom(chatRoom.mid).subscribe(
+            roomDet => {
+              this.roomList.push(roomDet);
+          });
         });
       });
     });
-  }
-
-  public getName(mid) {
-    return 'Room Name- ' + mid;
   }
 }
