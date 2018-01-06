@@ -1,6 +1,6 @@
 # Scribe
 
-A social posting app built with Angularjs and AngularFire using Firebase as backend and the new Cloud Firestore database.
+A social networking app built with Angular and AngularFire using Firebase as backend and the new Cloud Firestore database.
 
 ## Live server
 
