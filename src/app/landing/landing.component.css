@@ -25,3 +25,6 @@
   font-size: 1.5rem;
   color: white;
 }
+.jumbotron {
+  height: calc(100vh - 115px);
+}
