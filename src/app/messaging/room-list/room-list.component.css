@@ -1,9 +1,0 @@
-#list-photo {
-  width: 35px;
-  height: 35px;
-  border-radius: 100%;
-}
-#list-item {
-  border-top: 1px solid black;
-  overflow: hidden;
-}

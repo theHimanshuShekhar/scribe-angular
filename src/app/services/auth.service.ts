@@ -22,7 +22,7 @@ export class AuthService {
 
   user: Observable<User>;
 
-  userCollection: AngularFirestoreCollection<any>;
+  userCollection: AngularFirestoreCollection<User>;
   userObs: Observable<any>;
 
   private authState: Observable<firebase.User>;
@@ -60,13 +60,6 @@ export class AuthService {
   getAuthState() {
     return this.authState;
   }
-  getUid() {
-      return this.currentUser.uid;
-  }
-
-  getDisplayName() {
-    return this.currentUser.displayName;
-  }
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
@@ -88,8 +81,7 @@ export class AuthService {
     .then(
       (success) => {
         this.router.navigateByUrl('/home');
-      }
-    )
+      })
     .catch (
       (err) => {
         // setup user data in firestore on login
@@ -106,8 +98,7 @@ export class AuthService {
           };
           this.router.navigateByUrl('/account');
           return userRef.set(data);
-        }
-      );
+        });
   }
 
   public getUserName() {

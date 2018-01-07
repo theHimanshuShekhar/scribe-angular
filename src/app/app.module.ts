@@ -1,4 +1,3 @@
-import { MessageService } from './services/message.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,22 +20,6 @@ import { UploadService } from './services/upload.service';
 
 // Components
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { UserInfoComponent } from './user-info/user-info.component';
-import { FooterComponent } from './footer/footer.component';
-import { PostsComponent } from './posts/posts.component';
-import { ProfileComponent } from './profile/profile.component';
-import { AccountComponent } from './account/account.component';
-import { AddPostComponent } from './add-post/add-post.component';
-import { PostComponent } from './post/post.component';
-import { SearchComponent } from './search/search.component';
-import { UserInfoHomeComponent } from './user-info-home/user-info-home.component';
-import { GroupComponent } from './group/group.component';
-import { MessagingComponent } from './messaging/messaging.component';
-import { ChatroomComponent } from './messaging/chatroom/chatroom.component';
-import { RoomListComponent } from './messaging/room-list/room-list.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -44,23 +27,7 @@ firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    HomeComponent,
-    AboutComponent,
-    UserInfoComponent,
-    FooterComponent,
-    PostsComponent,
-    ProfileComponent,
-    AccountComponent,
-    AddPostComponent,
-    PostComponent,
     DateFormatPipe,
-    SearchComponent,
-    UserInfoHomeComponent,
-    GroupComponent,
-    MessagingComponent,
-    ChatroomComponent,
-    RoomListComponent,
     ],
   imports: [
     BrowserModule,
@@ -70,38 +37,6 @@ firebase.initializeApp(environment.firebase);
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     RouterModule.forRoot([
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'user/:username',
-        component: ProfileComponent
-      },
-      {
-        path: 'about',
-        component: AboutComponent
-      },
-      {
-        path: 'account',
-        component: AccountComponent
-      },
-      {
-        path: 'post/:pid',
-        component: PostComponent
-      },
-      {
-        path: 'group/:gid',
-        component: GroupComponent
-      },
-      {
-        path: 'messages',
-        component: MessagingComponent
-      },
-      {
-        path: '**',
-        redirectTo: '/home'
-      }
     ])
   ],
   providers: [
@@ -113,9 +48,7 @@ firebase.initializeApp(environment.firebase);
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [
-    PostComponent,
-  ]
+  entryComponents: []
 })
 export class AppModule { }
 
