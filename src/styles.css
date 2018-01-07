@@ -12,12 +12,17 @@ html, body {
 .test {
   border: 1px solid red;
 }
+.bg-dark {
+  background-color: #383E49;
+}
 .container {
   margin: 0 auto;
   padding: 0px;
 }
 .logo-text {
-  font-family: 'pacifico-regular', cursive;
+  font-family: 'lobster-regular', cursive;
+  font-size: 30px;
+  line-height: 30px
 }
 ::-webkit-scrollbar {
   width: 0px;  /* remove scrollbar space */
