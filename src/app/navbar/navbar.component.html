@@ -1,9 +1,26 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top row justify-content-center">
   <div class="container">
-    <div id="logo-container" class="align-items-center col-2">
+    <div id="logo-container" class="align-items-center col-1 d-none d-sm-inline-block order-sm-1">
       <img height="40px" src="../../assets/images/logo_long.png">
     </div>
-    <div id="search-container" class="col-auto">Search</div>
-    <div id="info-container" class="col-2">info</div>
+    <div id="search-container" class="col-auto order-2">Search</div>
+    <div id="info-container" class="col-1 order-1 order-sm-3">
+      <div ngbDropdown class="d-inline-block">
+        <img height="40px" class="circle" src="../../assets/images/default-profile.jpg" id="dropdownBasic1" ngbDropdownToggle>
+        <div id="ngb-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <div id="user-container" class="mx-2">
+            <img height="50px" class="circle" src="../../assets/images/default-profile.jpg" id="dropdownBasic1" ngbDropdownToggle>
+            <h5>DisplayName</h5>
+            <h6>@username</h6>
+          </div>
+          <hr>
+          <button class="dropdown-item p-2">Profile</button>
+          <button class="dropdown-item p-2">Groups</button>
+          <hr>
+          <button class="dropdown-item p-2">Account</button>
+          <button class="dropdown-item p-2 mb-3">Logout</button>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>

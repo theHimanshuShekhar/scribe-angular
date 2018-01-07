@@ -29,6 +29,7 @@ html, body, footer {
 }
 .circle {
   border-radius: 100%;
+  border: 2px solid rgb(241, 241, 241);
 }
 .btn-round{
   border-radius: 100px;
