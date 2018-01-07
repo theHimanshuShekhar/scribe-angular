@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { LandingComponent } from './landing/landing.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -36,6 +37,10 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'start',
+    component: LandingComponent
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -49,7 +54,8 @@ const routes: Routes = [
     DateFormatPipe,
     HomeComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    LandingComponent
     ],
   imports: [
     BrowserModule,

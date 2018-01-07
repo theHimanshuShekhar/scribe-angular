@@ -1,0 +1,22 @@
+#landing-wrapper{
+  background-color: #3fe8b8
+}
+#landing-logo {
+  width: 18em;
+}
+#landing-logo-wrapper {
+  overflow: hidden;
+}
+#landing-nav-wrapper {
+  margin: 0 auto;
+}
+#landing-nav-wrapper > .btn {
+  margin: 0 auto;
+  color: white;
+}
+.btn-round {
+  width: 200px;
+  padding: 10px;
+  color: white;
+  background-color: #E83F6F
+}

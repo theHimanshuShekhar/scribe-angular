@@ -5,7 +5,7 @@
 @import './assets/fonts/fonts.css';
 @import '~font-awesome/css/font-awesome.css';
 
-html, body {
+html, body, footer {
   min-width: 320px;
   background-color: #E6ECF0;
 }
@@ -29,4 +29,7 @@ html, body {
 }
 .circle {
   border-radius: 100%;
+}
+.btn-round{
+  border-radius: 100px;
 }
