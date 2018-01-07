@@ -6,49 +6,66 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import * as firebase from 'firebase';
 
 // Pipes
 import { DateFormatPipe } from './services/date.pipe';
 
 // Services
-import { PostsService } from './services/posts.service';
 import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
 import { UploadService } from './services/upload.service';
 
 // Components
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 firebase.initializeApp(environment.firebase);
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  }
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
     DateFormatPipe,
+    HomeComponent,
+    NavbarComponent,
+    FooterComponent
     ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebase, 'angular-fire-project'),
+    AngularFireModule.initializeApp(environment.firebase, 'Scribe'),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    RouterModule.forRoot([
-    ])
+    RouterModule.forRoot(routes)
   ],
   providers: [
-    PostsService,
     AuthService,
-    UserService,
     UploadService,
-    MessageService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
   entryComponents: []
 })
 export class AppModule { }
-
