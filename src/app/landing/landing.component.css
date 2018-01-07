@@ -20,3 +20,8 @@
   color: white;
   background-color: #E83F6F
 }
+#landing-text-wrapper > h2, h3 {
+  line-height: 2px;
+  font-size: 1.5rem;
+  color: white;
+}
