@@ -8,6 +8,8 @@
 html, body, footer {
   min-width: 320px;
   background-color: #E6ECF0;
+  margin: 0; height: 100%; overflow: hidden
+
 }
 .test {
   border: 1px solid red;
