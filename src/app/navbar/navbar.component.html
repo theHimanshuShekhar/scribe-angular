@@ -4,7 +4,7 @@
       <img height="40px" src="../../assets/images/logo_long.png">
     </div>
     <div id="search-container" class="col-auto order-2">Search</div>
-    <div id="info-container" class="col-1 order-1 order-sm-3" *ngIf="true">
+    <div id="info-container" class="col-1 order-1 order-sm-3" *ngIf="isUser">
       <div ngbDropdown class="d-inline-block">
         <img height="40px" class="circle" [src]="photoURL" id="dropdownBasic1" ngbDropdownToggle>
         <div id="ngb-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">

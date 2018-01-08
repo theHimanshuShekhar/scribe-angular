@@ -14,14 +14,21 @@ export class NavbarComponent implements OnInit {
     private userService: UserService
   ) { }
 
+  isUser: boolean;
   displayName = 'Display Name';
   userName = 'username'
   photoURL = '../../assets/images/default-profile.jpg';
 
   ngOnInit() {
+    this.isUser = false;
+    this.getUserData();
+  }
+  
+  getUserData() {
     this.auth.getAuthState().subscribe(
       user => {
         if (user) {
+          this.isUser = true;
           this.userService.retrieveUserDocument(user.uid).subscribe(
             userDoc => {
               this.displayName = userDoc.displayName;
@@ -33,6 +40,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.isUser = false;
     this.auth.logout();
   }
 }
