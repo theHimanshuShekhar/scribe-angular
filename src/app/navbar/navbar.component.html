@@ -3,19 +3,25 @@
     <div id="logo-container" class="align-items-center col-2 col-md-2 col-lg-1 d-none d-sm-inline-block order-md-1">
       <img height="40px" src="../../assets/images/logo_long.png" routerLink="/home">
     </div>
-    <div id="nav-links" class="col-4 col-md-5 d-none d-md-inline-block order-2">
+    <div id="logo-container" class="align-items-center col-3 d-sm-none order-md-1" *ngIf="!isUser">
+      <img height="40px" src="../../assets/images/logo_long.png" routerLink="/home">
+    </div>
+    <div id="nav-links" class="col-4 col-md-5 d-none d-md-inline-block order-2" *ngIf="isUser">
       <span class="p-1"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages</a></span>
       <span class="p-1"><a><i class="fa fa-users mx-2" aria-hidden="true"></i>Groups</a></span>
     </div>
-    <div id="search-container" class="col-10 col-sm-auto col-md-5 col-lg-4 order-2">
+    <div id="search-container" class="col-10 col-sm-5 offset-sm-4 offset-md-0 col-md-4 col-lg-4 order-2" *ngIf="isUser">
+      <input id="nav-search" type="text" class="form-control" placeholder="Search">
+    </div>
+    <div id="search-container" class="col-9 col-sm-auto col-md-5 col-lg-4 order-2" *ngIf="!isUser">
       <input id="nav-search" type="text" class="form-control" placeholder="Search">
     </div>
     <div id="info-container" class="col-1 order-1 order-sm-3" *ngIf="isUser">
       <div ngbDropdown class="d-inline-block">
-        <img height="40px" class="circle" [src]="photoURL" id="dropdownBasic1" ngbDropdownToggle>
+        <img height="40px" width="40px" class="circle" [src]="photoURL" id="dropdownBasic1" ngbDropdownToggle>
         <div id="ngb-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <div id="user-container" class="mx-2">
-            <img height="50px" class="circle" [src]="photoURL" id="dropdownBasic2" ngbDropdownToggle>
+            <img height="50px" width="50px" class="circle" [src]="photoURL" id="dropdownBasic2" ngbDropdownToggle>
             <h6>{{displayName}}</h6>
             <p class="text-muted">@{{userName}}</p>
           </div>
