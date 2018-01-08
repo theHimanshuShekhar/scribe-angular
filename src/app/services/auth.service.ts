@@ -102,8 +102,12 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
-    this.router.navigateByUrl('/home');
+    this.afAuth.auth.signOut().then(
+      () => {
+      console.log('User logged out successfully.')
+      this.router.navigateByUrl('/home');
+    });
+    
   }
 
   updateUser(displayname, username, status) {
