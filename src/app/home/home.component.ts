@@ -18,11 +18,26 @@ export class HomeComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.auth.checkLogin();
     this.titleService.setTitle('Home');
+    this.getCurrentUser();
+  }
+  getCurrentUser() {
+    this.auth.getAuthState().subscribe(
+      user => {
+        if (user) {
+          this.userService.retrieveUserDocument(user.uid).subscribe(
+            userDoc => {
+              this.displayName = userDoc.displayName;
+              this.userName = userDoc.userName;
+              this.photoURL = userDoc.photoURL;
+            });
+        }
+    });
   }
 }
