@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing',
@@ -9,10 +10,12 @@ import { AuthService } from '../services/auth.service';
 export class LandingComponent implements OnInit {
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Scribe | Get started!');
   }
 
 }
