@@ -127,4 +127,23 @@ export class AuthService {
     };
     return updateRef.update(this.updateData);
   }
+
+  // Check if user is logged in or not
+  checkNotLogin() {
+    this.afAuth.authState.subscribe(
+      user => {
+        if(user) {
+          this.router.navigateByUrl('/home');
+        }
+      });
+  }  
+
+  checkLogin() {
+    this.afAuth.authState.subscribe(
+      user => {
+        if(!user) {
+          this.router.navigateByUrl('/start');
+        }
+      });
+  }
 }
