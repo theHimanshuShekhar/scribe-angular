@@ -11,6 +11,10 @@ import { Title } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
+  displayName;
+  userName;
+  photoURL = '../../assets/images/default-profile.jpg';
+
   constructor(
     private auth: AuthService,
     private router: Router,
