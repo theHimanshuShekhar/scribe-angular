@@ -21,10 +21,11 @@ html, body, footer {
   margin: 0 auto;
   padding: 0px;
 }
-.logo-text {
-  font-family: 'lobster-regular', cursive;
-  font-size: 30px;
-  line-height: 30px
+.text-primary {
+  color: #E83F6F!important;
+}
+.bg-primary {
+  background-color: #E83F6F!important;
 }
 ::-webkit-scrollbar {
   width: 0px;  /* remove scrollbar space */
