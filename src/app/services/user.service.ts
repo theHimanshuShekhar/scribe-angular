@@ -16,4 +16,9 @@ export class UserService {
   retrieveUserDocument(uid) {
     return this.afs.doc<any>('users/' + uid).valueChanges();
   }
+
+  retrieveUserDocumentFromUsername(username) {
+    console.log(username);
+    return this.afs.collection('users', ref => ref.where('userName', '==', username)).valueChanges();
+  }
 }
