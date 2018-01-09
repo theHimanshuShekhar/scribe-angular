@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,19 +12,24 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   isUser: boolean;
-  displayName = 'Display Name';
-  userName = 'username'
+  displayName;
+  userName;
   photoURL = '../../assets/images/default-profile.jpg';
 
   ngOnInit() {
     this.isUser = false;
     this.getUserData();
   }
-  
+  sendTo(path) {
+    if (path === 'profile') {
+      this.router.navigateByUrl('user/' + this.userName);
+    }
+  }
   getUserData() {
     this.auth.getAuthState().subscribe(
       user => {

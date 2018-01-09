@@ -53,19 +53,23 @@ hr {
 input::-webkit-input-placeholder {
   font-weight: 550;
   color: white!important;
-}   
+}
 input:-moz-placeholder { /* Firefox 18- */
-  color: white!important;  
+  color: white!important;
   font-weight: 550;
 }
 input::-moz-placeholder {  /* Firefox 19+ */
-  color: white!important;  
+  color: white!important;
   font-weight: 550;
-} 
-input:-ms-input-placeholder {  
-  color: white!important;  
+}
+input:-ms-input-placeholder {
+  color: white!important;
   font-weight: 550;
 }
 #nav-search:hover {
   background: #3fc4e8;
+}
+.dropdown-item:focus {
+  background-color: #E83F6F;
+  color: white;
 }
