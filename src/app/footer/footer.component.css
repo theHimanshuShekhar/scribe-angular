@@ -7,3 +7,8 @@
   font-weight: 450;
   margin-right: 10px;
 }
+@media (max-width: 420px) {
+  #footer-brand {
+    display: none;
+  }
+}
