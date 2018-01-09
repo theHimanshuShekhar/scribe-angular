@@ -1,0 +1,61 @@
+/* Custom Container */
+@media (max-width: 768px) {
+  .container {
+    margin: 0
+  }
+}
+@media (max-width: 1000px) {
+  .container {
+    margin: 0 auto;
+  }
+}
+/* Banner */
+#user-banner {
+  height: 350px;
+  background-color: #E83F6F;
+  background-size: cover;
+}
+@media (max-width: 1000px) {
+  #user-banner {
+    height: 230px;
+  }
+}
+@media (max-width: 768px) {
+  #user-banner {
+    height: 170px;
+  }
+}
+
+/* User Info */
+#profile-photo {
+  height: 11rem;
+  width: 11rem;
+  margin-top: -100px;
+  border: 4px white solid;
+  background-color: #E83F6F;
+}
+.text-mute {
+  color: rgb(120, 120, 120);
+}
+#scribe-btn {
+  font-size: 14px;
+  font-weight: 550;
+}
+#scribe-btn {
+  width: 100%;
+  white-space: normal;
+}
+@media (max-width: 576px) and (max-width: 767px) {
+  #profile-photo {
+    height: 7rem;
+    width: 7rem;
+    margin-top: -70px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #profile-photo {
+    height: 9rem;
+    width: 9rem;
+  }
+}
+
