@@ -27,6 +27,11 @@ export class HomeComponent implements OnInit {
     this.titleService.setTitle('Home');
     this.getCurrentUser();
   }
+  sendTo(path) {
+    if (path === 'profile') {
+      this.router.navigateByUrl('user/' + this.userName);
+    }
+  }
   getCurrentUser() {
     this.auth.getAuthState().subscribe(
       user => {

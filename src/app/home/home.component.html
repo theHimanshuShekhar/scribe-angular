@@ -1,18 +1,20 @@
 <div class="container row pt-2">
-  <div id="user-info" class="col-md-3 p-0 m-0 d-none d-md-inline-block">
-    <div id="bg-cover"></div>
-    <div id="user-details">
-      <img id="home-avatar" [src]="photoURL" class="circle" height="60" width="60">
-      <div id="user-text" class="mx-1">
+  <div id="user-info" class="col-md-3 p-0 m-0 d-none d-md-inline-block" *ngIf="displayName">
+    <div class="info-wrapper">
+      <div id="bg-cover"></div>
+      <div id="user-details">
+        <img id="home-avatar" [src]="photoURL" class="circle bg-primary" height="60" width="60">
+        <div id="user-text" class="mx-1">
           <h6 class="mb-0">{{displayName}}</h6>
           <p class="text-muted">@{{userName}}</p>
+        </div>
+      </div><hr class="mt-0 mb-1">
+      <div id="user-info-nav" class="px-3 pb-4">
+        <a (click)="sendTo('profile')">Profile</a><br>
+        <a (click)="sendTo('messages')">Messages</a><br>
+        <a (click)="sendTo('groups')">Groups</a><br><hr class="my-2">
+        <a (click)="sendTo('settings')">Settings</a>
       </div>
-    </div><hr class="mt-0 mb-1">
-    <div id="user-info-nav" class="px-3 pb-4">
-      <a>Profile</a><br>
-      <a>Messages</a><br>
-      <a>Groups</a><br><hr class="my-2">
-      <a>Settings</a>
     </div>
   </div>
   <div id="posts-container" class="col-md-6">posts</div>
