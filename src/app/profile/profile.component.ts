@@ -21,19 +21,22 @@ export class ProfileComponent implements OnInit {
   joinDate = 'May 2009';
   userid = null;
   showInvalid: boolean;
+  isLoaded: boolean;
 
   ngOnInit() {
+    this.isLoaded = false;
     this.userService.retrieveUserDocumentFromUsername(this.router.url.slice(6)).subscribe(
       user => {
         if (user[0]) {
-          console.log(user[0]);
-          user = user[0]
+          user = user[0];
           this.displayName = user.displayName;
           this.userName = user.userName;
           this.status = user.status;
           this.photoURL = user.photoURL;
           this.userid = user.uid;
+          this.isLoaded = true;
         } else {
+          this.isLoaded = true;
           this.showInvalid = true;
         }
     });
