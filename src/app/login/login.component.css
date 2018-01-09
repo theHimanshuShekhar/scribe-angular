@@ -17,7 +17,8 @@
   background-color: #E83F6F;
   color: white;
   border-radius: 0px;
-  height: calc(100vh - 108px);
+  margin-bottom: 0px;
+  height: 100%;
 }
 #login-form > form > input {
   margin-bottom: 5px;
