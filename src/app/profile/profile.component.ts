@@ -28,12 +28,12 @@ export class ProfileComponent implements OnInit {
     this.userService.retrieveUserDocumentFromUsername(this.router.url.slice(6)).subscribe(
       user => {
         if (user[0]) {
-          user = user[0];
-          this.displayName = user.displayName;
-          this.userName = user.userName;
-          this.status = user.status;
-          this.photoURL = user.photoURL;
-          this.userid = user.uid;
+          const uservar: any = user[0];
+          this.displayName = uservar.displayName;
+          this.userName = uservar.userName;
+          this.status = uservar.status;
+          this.photoURL = uservar.photoURL;
+          this.userid = uservar.uid;
           this.isLoaded = true;
         } else {
           this.isLoaded = true;
