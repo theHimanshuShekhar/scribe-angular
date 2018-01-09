@@ -10,8 +10,8 @@
             <p>{{status}}</p>
             <p><span class="text-mute"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>Joined</span> {{joinDate}}</p>
           </div>
-          <button id="scribe-btn" class="btn bg-primary text-white btn-round px-3" *ngIf="displayName">
-            <span id="scribe-btn-text">Scribe to {{displayName | slice:0:12}}<span *ngIf="displayName.length > 12">...</span></span>
+          <button id="scribe-btn" class="btn bg-primary text-white btn-round px-1" *ngIf="displayName">
+            <span id="scribe-btn-text">Scribe to {{displayName | slice:0:16}}<span *ngIf="displayName.length > 16">...</span></span>
           </button>
       </div>
       <div id="user-posts" class="col-12 col-md-6"></div>
