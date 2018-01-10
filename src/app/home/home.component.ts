@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit {
     if (path === 'profile') {
       this.router.navigateByUrl('user/' + this.userName);
     }
+    if (path === 'account') {
+      this.router.navigateByUrl('account');
+    }
   }
   getCurrentUser() {
     this.auth.getAuthState().subscribe(

@@ -32,6 +32,9 @@ export class NavbarComponent implements OnInit {
     if (path === 'home') {
       this.router.navigateByUrl('home');
     }
+    if (path === 'account') {
+      this.router.navigateByUrl('account');
+    }
   }
   getUserData() {
     this.auth.getAuthState().subscribe(
