@@ -27,6 +27,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ErrorComponent } from './error/error.component';
+import { AccountComponent } from './account/account.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path: 'user/:username',
     component: ProfileComponent
+  },
+  {
+    path: 'account',
+    component: AccountComponent
   },
   {
     path: 'login',
@@ -76,7 +81,8 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ErrorComponent
+    ErrorComponent,
+    AccountComponent
     ],
   imports: [
     BrowserModule,
