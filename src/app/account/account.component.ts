@@ -16,6 +16,7 @@ export class AccountComponent implements OnInit {
   status = 'Enter status';
 
   filename = 'Change Picture';
+  inputFile;
 
   constructor(
     private auth: AuthService,
@@ -40,11 +41,19 @@ export class AccountComponent implements OnInit {
       });
   }
 
+  update() {
+    this.auth.updateUser(this.displayName, this.userName, this.status).then(
+      () => { console.log('User details updated') });
+    if (this.inputFile) {
+      this.photoURL(this.inputFile).then(() => { console.log('User photo uploaded.') });
+    }
+  }
+
   processImage(event) {
-    const file = event.target.files[0];
-    this.filename = file.name;
-    if (this.filename.length > 20) {
-      this.filename = this.filename.slice(0,20) + '...' + this.filename.slice(this.filename.length - 3);
+    this.inputFile = event.target.files[0];
+    this.filename = this.inputFile.name;
+    if (this.filename.length > 25) {
+      this.filename = this.filename.slice(0,25) + '...' + this.filename.slice(this.filename.length - 3);
     }
   }
 
