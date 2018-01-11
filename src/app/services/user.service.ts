@@ -18,7 +18,6 @@ export class UserService {
   }
 
   retrieveUserDocumentFromUsername(username) {
-    console.log(username);
     return this.afs.collection('users', ref => ref.where('userName', '==', username)).valueChanges();
   }
 }
