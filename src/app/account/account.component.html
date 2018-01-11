@@ -1,6 +1,10 @@
 <div class="container pt-md-3">
   <div id="account-card" class="bg-white rounded p-2 px-4">
-    <h3 class="mt-2 mt-md-3">Account</h3><hr>
+    <div id="account-header" class="row justify-content-between mt-2 mt-md-3 mr-3">
+      <h3 class="col-auto align-self-center">Account</h3>
+      <button class="col-auto btn bg-primary text-white font-weight-bold px-4 py-2 align-self-center" id="btnUpdate" (click)="update()">Update Account</button>
+    </div>
+    <hr>
     <div class="form-group mt-4 mb-2">
       <label for="InputDisplayName">Display Name</label>
       <input type="text" class="form-control" id="InputDisplayName" aria-describedby="emailHelp" [(ngModel)]="displayName">
@@ -16,14 +20,12 @@
       <input type="text" class="form-control" id="InputStatus" aria-describedby="emailHelp" [(ngModel)]="status">
       <small class="form-text text-muted">Tell everyone how you feel. (Max 150 characters)</small>
     </div>
-    <div class="row">
+    <div class="row mb-5">
       <div class="form-group pt-4 col-12 col-sm-6 mb-1 align-self-center">
         <input type="file" id="InputPhoto" class="inputfile" (change)="processImage($event)" accept="image/*">
         <label for="InputPhoto" class="mx-0 text-center"><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{filename}}</label>
       </div>
       <span class="col-auto p-0 ml-3"><img id="displayPhoto" class="circle align-self-center" *ngIf="photoURL" [src]="photoURL"></span>
     </div>
-
-    <button class="btn bg-primary text-white font-weight-bold px-4 py-2 mb-3 mt-5" id="btnUpdate" (click)="update()">Update Account</button>
   </div>
 </div>

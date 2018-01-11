@@ -42,3 +42,7 @@ label {
 .inputfile + label:hover {
     background-color: #3fc4e8;
 }
+#btnUpdate:hover {  
+    background-color: #3fc4e8!important;
+    cursor: pointer;
+}

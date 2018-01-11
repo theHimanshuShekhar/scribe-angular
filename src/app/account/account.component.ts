@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AccountComponent implements OnInit {
   
-  photoURL;
+  photoURL = '../../assets/images/default-profile.jpg';
   userName = 'Enter Username';
   displayName = 'Enter Displayname';
   status = 'Enter status';
