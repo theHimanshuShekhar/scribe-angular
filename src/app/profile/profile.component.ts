@@ -1,6 +1,7 @@
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   displayName;
@@ -20,8 +22,16 @@ export class ProfileComponent implements OnInit {
   status;
   joinDate = 'May 2009';
   userid = null;
+  bannerURL;
+
   showInvalid: boolean;
   isLoaded: boolean;
+
+  getStyle() {
+    if(this.bannerURL) {
+      return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
+    }
+  }
 
   ngOnInit() {
     this.isLoaded = false;

@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,21 @@ export class HomeComponent implements OnInit {
   displayName;
   userName;
   photoURL = '../../assets/images/default-profile.jpg';
+  bannerURL;
 
   constructor(
     private auth: AuthService,
     private router: Router,
     private titleService: Title,
-    private userService: UserService
+    private userService: UserService,
+    private sanitizer: DomSanitizer
   ) { }
+
+  getStyle() {
+    if(this.bannerURL) {
+      return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
+    }
+  }
 
   ngOnInit() {
     this.auth.checkLogin();

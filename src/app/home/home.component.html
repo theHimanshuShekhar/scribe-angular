@@ -1,7 +1,7 @@
 <div class="container row pt-2">
   <div id="user-info" class="col-md-3 p-0 m-0 d-none d-md-inline-block" *ngIf="displayName">
     <div class="info-wrapper">
-      <div id="bg-cover"></div>
+      <div id="bg-cover" [style]="getStyle()"></div>
       <div id="user-details">
         <img id="home-avatar" [src]="photoURL" class="circle bg-primary" height="60" width="60">
         <div id="user-text" class="mx-1">
