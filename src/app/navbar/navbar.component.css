@@ -46,8 +46,6 @@ hr {
   border-color: #3fc4e8;
 }
 #logo-container > img:hover {
-  background-color: #3fc4e8;
-  background-blend-mode: lighten;
   cursor: pointer;
 }
 input::-webkit-input-placeholder {

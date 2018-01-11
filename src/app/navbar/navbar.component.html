@@ -6,9 +6,10 @@
     <div id="logo-container" class="align-items-center col-3 d-sm-none order-md-1" *ngIf="!isUser">
       <img height="40px" src="../../assets/images/logo_long.png" routerLink="/home">
     </div>
-    <div id="nav-links" class="col-4 col-md-5 d-none d-md-inline-block order-2" *ngIf="isUser">
-      <span class="p-1"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages</a></span>
-      <span class="p-1"><a><i class="fa fa-users mx-2" aria-hidden="true"></i>Groups</a></span>
+    <div id="nav-links" class="col-5 col-md-6 d-none d-md-inline-block order-2" *ngIf="isUser">
+      <span class="p-1" (click)="sendTo('home')"><a><i class="fa fa-home mx-2" aria-hidden="true"></i>Home</a></span>
+      <span class="p-1" (click)="sendTo('messages')"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages</a></span>
+      <span class="p-1" (click)="sendTo('groups')"><a><i class="fa fa-users mx-2" aria-hidden="true"></i>Groups</a></span>
     </div>
     <div id="search-container" class="col-10 col-sm-6 offset-sm-3 offset-md-0 col-md-4 col-lg-4 order-2" *ngIf="isUser">
       <input id="nav-search" type="text" class="form-control" placeholder="Search">
@@ -28,7 +29,7 @@
           <hr>
           <button class="dropdown-item p-2" (click)="sendTo('home')">Home</button>
           <button class="dropdown-item p-2" (click)="sendTo('profile')">Profile</button>
-          <button class="dropdown-item p-2">Groups</button>
+          <button class="dropdown-item p-2" (click)="sendTo('groups')">Groups</button>
           <hr>
           <button class="dropdown-item p-2" (click)="sendTo('account')">Account</button>
           <button class="dropdown-item p-2 mb-3" (click)="logout()">Logout</button>
