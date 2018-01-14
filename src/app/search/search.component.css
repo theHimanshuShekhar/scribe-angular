@@ -1,0 +1,52 @@
+#nav-search {
+  border-radius: 300px;
+  height: 35px;
+  background: #E83F6F;
+  border: none;
+  color: white;
+}
+input::-webkit-input-placeholder {
+  font-weight: 550;
+  color: white!important;
+}
+input:-moz-placeholder { /* Firefox 18- */
+  color: white!important;
+  font-weight: 550;
+}
+input::-moz-placeholder {  /* Firefox 19+ */
+  color: white!important;
+  font-weight: 550;
+}
+input:-ms-input-placeholder {
+  color: white!important;
+  font-weight: 550;
+}
+#nav-search:hover {
+  background: #3fc4e8;
+}
+#results-container {
+ position: absolute;
+ width: 90%;
+ margin-top: 0px;
+ background-color: white;
+}
+@media (max-width: 575px ) {
+  #results-container {
+   width: 100vw;
+   position: fixed;
+   top: 48px;
+   left: -5px;
+   right: 0px;
+   margin: 0px;
+  }
+}
+#search-result:hover {
+  cursor: pointer;
+  background-color: #3fc4e8;
+  color: white;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#search-username {
+  font-size: 12px;
+}

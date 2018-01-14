@@ -30,6 +30,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ErrorComponent } from './error/error.component';
 import { AccountComponent } from './account/account.component';
 import { PostComponent } from './post/post.component';
+import { SearchComponent } from './search/search.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -85,7 +86,8 @@ const routes: Routes = [
     ProfileComponent,
     ErrorComponent,
     AccountComponent,
-    PostComponent
+    PostComponent,
+    SearchComponent
     ],
   imports: [
     BrowserModule,

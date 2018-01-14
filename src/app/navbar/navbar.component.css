@@ -26,13 +26,6 @@
 hr {
   margin: 5px;
 }
-#nav-search {
-  border-radius: 300px;
-  height: 35px;
-  background: #E83F6F;
-  border: none;
-  color: white;
-}
 #nav-links > span {
   color: #E83F6F;
   font-weight: 500;
@@ -47,25 +40,6 @@ hr {
 }
 #logo-container > img:hover {
   cursor: pointer;
-}
-input::-webkit-input-placeholder {
-  font-weight: 550;
-  color: white!important;
-}
-input:-moz-placeholder { /* Firefox 18- */
-  color: white!important;
-  font-weight: 550;
-}
-input::-moz-placeholder {  /* Firefox 19+ */
-  color: white!important;
-  font-weight: 550;
-}
-input:-ms-input-placeholder {
-  color: white!important;
-  font-weight: 550;
-}
-#nav-search:hover {
-  background: #3fc4e8;
 }
 .dropdown-item:focus {
   background-color: #E83F6F;

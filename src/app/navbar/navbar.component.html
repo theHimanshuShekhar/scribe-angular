@@ -12,10 +12,10 @@
       <span class="p-1" (click)="sendTo('groups')"><a><i class="fa fa-users mx-2" aria-hidden="true"></i>Groups</a></span>
     </div>
     <div id="search-container" class="col-10 col-sm-6 offset-sm-3 offset-md-0 col-md-4 col-lg-4 order-2" *ngIf="isUser">
-      <input id="nav-search" type="text" class="form-control" placeholder="Search">
+      <app-search></app-search>
     </div>
     <div id="search-container" class="col-9 col-sm-auto col-md-5 col-lg-4 order-2" *ngIf="!isUser">
-      <input id="nav-search" type="text" class="form-control" placeholder="Search">
+      <app-search></app-search>
     </div>
     <div id="info-container" class="col-1 order-1 order-sm-3" *ngIf="isUser">
       <div ngbDropdown class="d-inline-block">
