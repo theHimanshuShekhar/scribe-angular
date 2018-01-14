@@ -1,3 +1,4 @@
+import { PostsService } from './../services/posts.service';
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,13 +11,6 @@ import { DomSanitizer, Title } from '@angular/platform-browser';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(
-    private router: Router,
-    private userService: UserService,
-    private sanitizer: DomSanitizer,
-    private titleService: Title
-  ) { }
-
   displayName;
   userName;
   photoURL = '../../assets/images/default-profile.jpg';
@@ -25,14 +19,18 @@ export class ProfileComponent implements OnInit {
   userid = null;
   bannerURL;
 
+  posts: any;
+
   showInvalid: boolean;
   isLoaded: boolean;
 
-  getStyle() {
-    if (this.bannerURL) {
-      return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
-    }
-  }
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private postsService: PostsService,
+    private sanitizer: DomSanitizer,
+    private titleService: Title
+  ) { }
 
   ngOnInit() {
     this.isLoaded = false;
@@ -48,6 +46,10 @@ export class ProfileComponent implements OnInit {
           this.userid = uservar.uid;
           this.isLoaded = true;
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
+          this.postsService.getUserPosts(this.userid).subscribe(
+            posts => {
+              this.posts = posts;
+            });
         } else {
           this.isLoaded = true;
           this.showInvalid = true;
@@ -55,4 +57,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  getStyle() {
+    if (this.bannerURL) {
+      return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
+    }
+  }
 }

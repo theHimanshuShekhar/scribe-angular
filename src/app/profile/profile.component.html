@@ -14,7 +14,11 @@
             <span id="scribe-btn-text">Scribe to {{displayName | slice:0:16}}<span *ngIf="displayName.length > 16">...</span></span>
           </button>
       </div>
-      <div id="user-posts" class="col-12 col-md-6"></div>
+      <div id="user-posts" class="col-12 col-md-6">
+        <div *ngFor="let post of posts">
+          {{post | json}};
+        </div>
+      </div>
       <div id="right-panel" class="d-none d-md-inline-block col-3"></div>
     </div>
   </div>

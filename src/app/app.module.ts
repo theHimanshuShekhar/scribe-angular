@@ -1,3 +1,4 @@
+import { PostsService } from './services/posts.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -97,6 +98,7 @@ const routes: Routes = [
     AuthService,
     UploadService,
     UserService,
+    PostsService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
