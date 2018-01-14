@@ -1,10 +1,26 @@
-<div id="post-container" class="p-2">
-  <div id="user-info" class="">
-    <img [src]="photoURL" height="40px" width="40px" class="circle">
-    {{displayName}}@{{userName}}.{{retrieveDate(this.date)}}
+<div id="post-container" class="px-0 py-1 row">
+  <div id="img-container" class="ml-1 col-1 p-0 mr-1 mr-md-2 mr-lg-1">
+    <img [src]="photoURL" height="50px" width="50px" class="circle">
   </div>
-  <div class="post-content">
-    {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
-    <br>
+  <div id="post-content" class="col-10">
+    <div id="user-info" class="row justify-content-between">
+      <div class="col-11 row align-self-center">
+        <div id="user-text" class="col-9 col-sm-auto col-md-8 pr-0">
+          <span class="font-weight-bold">{{displayName}}</span>
+          <small>@{{userName}}</small>
+        </div>
+        <span id="post-date" class="ml-1 col-2 col-md-3 col-2 p-0 align-self-center">{{retrieveDate(this.date)}}</span>
+      </div>
+      <div ngbDropdown class="col-1 d-inline-block align-self-center" placement="bottom-right">
+          <button class="btn bg-white" id="dropdownBasic1" ngbDropdownToggle></button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item" (click)="delete()">Delete</button>
+          </div>
+        </div>
+    </div>
+    <div class="post-body">
+      {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
+      <br>
+    </div>
   </div>
 </div>
