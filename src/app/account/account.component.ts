@@ -45,7 +45,7 @@ export class AccountComponent implements OnInit {
     this.auth.updateUser(this.displayName, this.userName, this.status).then(
       () => { console.log('User details updated') });
     if (this.inputFile) {
-      this.photoURL(this.inputFile).then(() => { console.log('User photo uploaded.') });
+      alert('Photo upload not implemented');
     }
   }
 
