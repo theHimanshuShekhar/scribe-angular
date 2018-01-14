@@ -1,7 +1,7 @@
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private sanitizer: DomSanitizer,
+    private titleService: Title
   ) { }
 
   displayName;
@@ -28,13 +29,14 @@ export class ProfileComponent implements OnInit {
   isLoaded: boolean;
 
   getStyle() {
-    if(this.bannerURL) {
+    if (this.bannerURL) {
       return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
     }
   }
 
   ngOnInit() {
     this.isLoaded = false;
+    this.titleService.setTitle('Profile');
     this.userService.retrieveUserDocumentFromUsername(this.router.url.slice(6)).subscribe(
       user => {
         if (user[0]) {
@@ -45,6 +47,7 @@ export class ProfileComponent implements OnInit {
           this.photoURL = uservar.photoURL;
           this.userid = uservar.uid;
           this.isLoaded = true;
+          this.titleService.setTitle(this.displayName + ' @' + this.userName);
         } else {
           this.isLoaded = true;
           this.showInvalid = true;
