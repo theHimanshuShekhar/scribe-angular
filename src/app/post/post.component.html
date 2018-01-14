@@ -1,0 +1,10 @@
+<div id="post-container" class="p-2">
+  <div id="user-info" class="">
+    <img [src]="photoURL" height="40px" width="40px" class="circle">
+    {{displayName}}@{{userName}}.{{retrieveDate(this.date)}}
+  </div>
+  <div class="post-content">
+    {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
+    <br>
+  </div>
+</div>

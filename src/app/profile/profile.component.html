@@ -16,7 +16,7 @@
       </div>
       <div id="user-posts" class="col-12 col-md-6">
         <div *ngFor="let post of posts">
-          {{post | json}};
+          <app-post [inputPost]="post" *ngIf="post; else NoPosts"></app-post>
         </div>
       </div>
       <div id="right-panel" class="d-none d-md-inline-block col-3"></div>
@@ -26,6 +26,10 @@
 
 <ng-template #Invalid>
   <app-error error="nouser"></app-error>
+</ng-template>
+
+<ng-template #NoPosts>
+  <app-error error="noposts"></app-error>
 </ng-template>
 
 <ng-template #Loading>
