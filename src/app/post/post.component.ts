@@ -39,6 +39,10 @@ export class PostComponent implements OnInit {
     }
   }
 
+  delete() {
+    alert('Delete not implemented yet.');
+  }
+
   retrieveDate(date, type?) {
     if (date) {
       if (type === 'long') {

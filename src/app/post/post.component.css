@@ -2,3 +2,6 @@
   background-color: white;
   border-bottom: 1px solid lightgray;
 }
+#post-date {
+  font-size: 0.8em;
+}
