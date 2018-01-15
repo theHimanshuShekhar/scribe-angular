@@ -1,7 +1,7 @@
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs/rx';
+import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 
