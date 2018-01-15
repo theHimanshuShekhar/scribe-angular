@@ -10,7 +10,7 @@ export class PostsService {
 
   public getUserPosts(userid) {
     return this.afs.collection('posts', ref => {
-      return ref.where('useruid', '==', userid).orderBy('date', 'desc').limit(30);
+      return ref.where('useruid', '==', userid).orderBy('date', 'desc');
     }).valueChanges();
   }
 }

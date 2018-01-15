@@ -1,6 +1,16 @@
 <div class="container-fluid" class="p-0" *ngIf="isLoaded; else Loading">
   <div class="wrapper" *ngIf="!showInvalid; else Invalid">
     <div id="user-banner" [style]="getStyle()"></div>
+    <div id="top-info" class="d-none d-md-block">
+      <div class="justify-content-center">
+        <div class="text-center" id="info-container">
+          <div class="p-1 px-3 my-0 align-self-center current"><h6 class="text-muted m-0 p-0">Scribes</h6><h5 class="m-0 p-0">{{totalScribes}}</h5></div>
+          <div class="p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Followers</h6><h5 class="m-0 p-0">{{totalFollowers}}</h5></div>
+          <div class="p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Following</h6><h5 class="m-0 p-0">{{totalFollowing}}</h5></div>
+          <div class="p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Likes</h6><h5 class="m-0 p-0">{{totalLikes}}</h5></div>
+        </div>
+      </div>
+    </div>
     <div id="profile-content" class="container row mb-5">
       <div id="user-info" class="col-12 col-md-3">
         <img [src]="photoURL" id="profile-photo" class="circle">

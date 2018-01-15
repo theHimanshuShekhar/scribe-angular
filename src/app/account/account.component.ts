@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-account',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  
+
   photoURL = '../../assets/images/default-profile.jpg';
   userName = 'Enter Username';
   displayName = 'Enter Displayname';
@@ -21,10 +22,12 @@ export class AccountComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private titleService: Title,
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Account');
     this.auth.getAuthState().subscribe(
       currentuser => {
         if (currentuser) {

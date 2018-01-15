@@ -19,6 +19,11 @@ export class ProfileComponent implements OnInit {
   userid = null;
   bannerURL;
 
+  totalScribes;
+  totalFollowers = 12;
+  totalFollowing = 15;
+  totalLikes = 23;
+
   posts: any;
 
   showInvalid: boolean;
@@ -49,6 +54,7 @@ export class ProfileComponent implements OnInit {
           this.postsService.getUserPosts(this.userid).subscribe(
             posts => {
               this.posts = posts;
+              this.totalScribes = posts.length;
             });
         } else {
           this.isLoaded = true;

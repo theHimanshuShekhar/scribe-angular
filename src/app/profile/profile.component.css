@@ -59,3 +59,17 @@
   }
 }
 
+#top-info {
+  width: 100%;
+  max-height: 60px;
+  background-color: white;
+  border-bottom: 2px solid rgba(190, 190, 190, 0.4);
+}
+.current {
+  border-bottom: #E83F6F 2px solid;
+}
+#info-container > div {
+  height: 100%;
+  max-width: 100px;
+  display: inline-block;
+}
