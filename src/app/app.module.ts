@@ -31,6 +31,7 @@ import { ErrorComponent } from './error/error.component';
 import { AccountComponent } from './account/account.component';
 import { PostComponent } from './post/post.component';
 import { SearchComponent } from './search/search.component';
+import { AboutComponent } from './about/about.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -66,6 +67,10 @@ const routes: Routes = [
     component: LandingComponent
   },
   {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -87,7 +92,8 @@ const routes: Routes = [
     ErrorComponent,
     AccountComponent,
     PostComponent,
-    SearchComponent
+    SearchComponent,
+    AboutComponent
     ],
   imports: [
     BrowserModule,
