@@ -1,6 +1,6 @@
-<div id="add-post-container" class="rounded p-2 mb-1">
-  <div class="row mr-1">
-    <div class="col-2">
+<div id="add-post-container" [class]="containerStyle">
+  <div [class]="addPostWrapper">
+    <div [class]="imgcontainerClass">
       <img [src]="userURL" height="35px" width="35px" class="circle ml-032 ml-sm-4 ml-md-1 ml-lg-4">
     </div>
     <textarea type="text" [class]="textareaClass" (click)="expand()" placeholder="What's happening?"></textarea>
