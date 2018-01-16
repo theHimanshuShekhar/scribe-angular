@@ -1,4 +1,7 @@
 /* Custom Container */
+#user-posts {
+  overflow: hidden;
+}
 @media (max-width: 768px) {
   .container {
     margin: 0

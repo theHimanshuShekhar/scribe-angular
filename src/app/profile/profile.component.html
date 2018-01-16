@@ -25,11 +25,12 @@
           </button>
       </div>
       <div id="user-posts" class="col-12 col-md-6 mt-2 mt-md-0 px-0">
-        <div *ngFor="let post of posts">
+        <app-add-post [userURL]="photoURL"></app-add-post>
+        <div *ngFor="let post of posts" class="px-3">
           <app-post [inputPost]="post" *ngIf="post; else NoPosts"></app-post>
         </div>
       </div>
-      <div id="right-panel" class="d-none d-md-inline-block col-3"></div>
+      <div id="right-panel" class="d-none d-md-inline-block col-md-3"></div>
     </div>
   </div>
 </div>
