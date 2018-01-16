@@ -41,7 +41,7 @@ textarea:-ms-input-placeholder {
 }
 #btnSubmit {
   height: 35px;
-  font-weight: 500;
+  font-weight: 600;
 }
 #btnSubmit:hover {
   background-color: #3fc4e8!important;
