@@ -14,9 +14,10 @@
     <div id="search-container" class="col-10 col-sm-6 offset-sm-3 offset-md-0 col-md-4 col-lg-4 order-2" *ngIf="isUser">
       <app-search></app-search>
     </div>
-    <div id="search-container" class="col-9 col-sm-auto col-md-5 col-lg-4 order-2" *ngIf="!isUser">
+    <div id="search-container" class="col-9 col-sm-auto col-md-5 col-lg-4 order-2 offset-sm-3 offset-md-4 offset-lg-5" *ngIf="!isUser">
       <app-search></app-search>
     </div>
+    <a routerLink="/login" id="login-nav" class="text-primary d-none d-sm-inline-block col-sm-1 order-3 font-weight-bold" *ngIf="!isUser">Login</a>
     <div id="info-container" class="col-1 order-1 order-sm-3" *ngIf="isUser">
       <div ngbDropdown class="d-inline-block">
         <img height="40px" width="40px" class="circle" [src]="photoURL" id="dropdownBasic1" ngbDropdownToggle>
@@ -38,3 +39,6 @@
     </div>
   </div>
 </nav>
+
+<ng-template #showLogin>
+</ng-template>

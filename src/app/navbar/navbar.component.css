@@ -5,6 +5,14 @@
 #dropdownBasic1 {
   border: 3px solid #E83F6F;
 }
+#login-nav {
+  text-decoration: none;
+  color: #E83F6F!important;
+}
+#login-nav:hover {
+  color: #3fc4e8!important;
+  text-decoration: none;
+}
 @media (max-width: 575px) {
   #ngb-dropdown {
     margin-top: -47px;
