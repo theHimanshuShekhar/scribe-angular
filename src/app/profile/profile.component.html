@@ -20,7 +20,7 @@
             <p>{{status}}</p>
             <p><span class="text-mute"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>Joined</span> {{joinDate}}</p>
           </div>
-          <button id="scribe-btn" class="btn bg-primary text-white btn-round px-1" *ngIf="displayName">
+          <button id="scribe-btn" class="btn bg-primary text-white btn-round px-1" *ngIf="displayName && !isLoggedIn">
             <span id="scribe-btn-text">Scribe to {{displayName | slice:0:16}}<span *ngIf="displayName.length > 16">...</span></span>
           </button>
       </div>
