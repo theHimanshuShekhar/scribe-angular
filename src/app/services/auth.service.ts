@@ -58,7 +58,7 @@ export class AuthService {
 
 
   getAuthState() {
-    return this.authState;
+    return this.afAuth.authState;
   }
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -104,10 +104,9 @@ export class AuthService {
   logout() {
     this.afAuth.auth.signOut().then(
       () => {
-      console.log('User logged out successfully.')
+      console.log('User logged out successfully.');
       this.router.navigateByUrl('/home');
     });
-    
   }
 
   updateUser(displayname, username, status) {
@@ -132,16 +131,16 @@ export class AuthService {
   checkNotLogin() {
     this.afAuth.authState.subscribe(
       user => {
-        if(user) {
+        if (user) {
           this.router.navigateByUrl('/home');
         }
       });
-  }  
+  }
 
   checkLogin() {
     this.afAuth.authState.subscribe(
       user => {
-        if(!user) {
+        if (!user) {
           this.router.navigateByUrl('/start');
         }
       });

@@ -3,6 +3,7 @@ import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, Title } from '@angular/platform-browser';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,16 +29,19 @@ export class ProfileComponent implements OnInit {
 
   showInvalid: boolean;
   isLoaded: boolean;
+  isLoggedIn: boolean;
 
   constructor(
     private router: Router,
     private userService: UserService,
     private postsService: PostsService,
     private sanitizer: DomSanitizer,
-    private titleService: Title
+    private titleService: Title,
+    private auth: AuthService,
   ) { }
 
   ngOnInit() {
+    this.isLoggedIn = false;
     this.isLoaded = false;
     this.titleService.setTitle('Profile');
     this.userService.retrieveUserDocumentFromUsername(this.router.url.slice(6)).subscribe(
@@ -51,6 +55,7 @@ export class ProfileComponent implements OnInit {
           this.userid = uservar.uid;
           this.isLoaded = true;
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
+          this.checkCurrentUser();
           this.postsService.getUserPosts(this.userid).subscribe(
             posts => {
               this.posts = posts;
@@ -59,6 +64,19 @@ export class ProfileComponent implements OnInit {
         } else {
           this.isLoaded = true;
           this.showInvalid = true;
+        }
+    });
+  }
+
+  checkCurrentUser() {
+    this.auth.getAuthState().subscribe(
+      user => {
+        if (user) {
+          if (this.userid) {
+            if (this.userid === user.uid) {
+              this.isLoggedIn = true;
+            }
+          }
         }
     });
   }
