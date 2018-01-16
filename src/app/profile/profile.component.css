@@ -76,3 +76,15 @@
   max-width: 100px;
   display: inline-block;
 }
+#profile-info-wrapper {
+  min-width: 100%;
+}
+#profile-info-container {
+  min-width: 700px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #profile-info-container {
+    min-width: 500px;
+  }
+}
