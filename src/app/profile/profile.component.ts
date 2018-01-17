@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
 
   showInvalid: boolean;
   isLoaded: boolean;
+  isCurrentUser: boolean;
   isLoggedIn: boolean;
   isFollowing: boolean;
 
@@ -98,9 +99,10 @@ export class ProfileComponent implements OnInit {
       user => {
         if (user) {
           if (this.userid) {
+            this.isLoggedIn = true;
             this.currentuid = user.uid;
             if (this.userid === user.uid) {
-              this.isLoggedIn = true;
+              this.isCurrentUser = true;
             }
             this.follow.isFollowing(this.userid, this.currentuid).subscribe(
               followinguser => {
