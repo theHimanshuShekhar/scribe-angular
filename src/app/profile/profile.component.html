@@ -4,7 +4,7 @@
     <div id="top-info" class="d-none d-md-block">
       <div id="info-container" class="text-center row justify-content-center">
         <div class="col-6 offset-md-1 offset-lg-0" id="profile-info-container">
-          <div class="row justify-content-center" id="profile-info-wrapper">
+          <div class="row justify-content-center ml-md-2 ml-lg-auto justify-content-lg-end" id="profile-info-wrapper">
             <span class="col-2 p-1 px-3 my-0 align-self-center current"><h6 class="text-muted m-0 p-0">Scribes</h6><h5 class="m-0 p-0">{{totalScribes}}</h5></span>
             <span class="col-2 p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Followers</h6><h5 class="m-0 p-0">{{totalFollowers}}</h5></span>
             <span class="col-2 p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Following</h6><h5 class="m-0 p-0">{{totalFollowing}}</h5></span>
@@ -18,12 +18,19 @@
     </div>
     <div id="profile-content" class="container row mb-5">
       <div id="user-info" class="col-12 col-md-3">
+        <div class="col-2 align-self-center d-md-none" *ngIf="!isCurrentUser && this.isLoggedIn" id="follow-container">
+          <button class="btn btn-round bg-primary text-white px-4 py-2 font-weight-bold align-self-center" (click)="followUser()">{{checkFollowing()}}</button>
+        </div>
         <img [src]="photoURL" id="profile-photo" class="circle">
           <div id="user-text" class="ml-2 mb-0">
             <h5 class="mb-1">{{displayName}}</h5>
             <p class="text-muted mb-1">@{{userName}}</p>
             <p>{{status}}</p>
             <p><span class="text-mute"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>Joined</span> {{joinDate}}</p>
+            <div id="mobile-profile-info" class="d-md-none">
+                <span class="font-weight-bold">{{totalFollowing}}</span> <span>Following</span>
+                <span class="font-weight-bold ml-2">{{totalFollowers}}</span> <span>Followers</span>
+            </div>
           </div>
           <button id="scribe-btn" class="btn bg-primary text-white btn-round px-1" *ngIf="displayName && !isLoggedIn">
             <span id="scribe-btn-text">Scribe to {{displayName | slice:0:16}}<span *ngIf="displayName.length > 16">...</span></span>
