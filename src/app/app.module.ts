@@ -17,6 +17,7 @@ import { DateFormatPipe } from './services/date.pipe';
 import { AuthService } from './services/auth.service';
 import { UploadService } from './services/upload.service';
 import { UserService } from './services/user.service';
+import { FollowService } from './services/follow.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -111,6 +112,7 @@ const routes: Routes = [
     UploadService,
     UserService,
     PostsService,
+    FollowService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
