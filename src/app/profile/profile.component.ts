@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   joinDate = 'May 2009';
   userid = null;
   bannerURL;
+  userFollowers;
+  userFollowing;
 
   currentuid;
 
@@ -85,10 +87,12 @@ export class ProfileComponent implements OnInit {
     this.follow.getFollowers(this.userid).subscribe(
       followers => {
         this.totalFollowers = followers.length;
+        this.userFollowers = followers;
       });
     this.follow.getFollowing(this.userid).subscribe(
       following => {
         this.totalFollowing = following.length;
+        this.userFollowing = following;
       });
   }
 
