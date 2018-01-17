@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   isCurrentUser: boolean;
   isLoggedIn: boolean;
   isFollowing: boolean;
+  profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto justify-content-lg-end';
 
   constructor(
     private router: Router,
@@ -118,6 +119,7 @@ export class ProfileComponent implements OnInit {
             this.currentuid = user.uid;
             if (this.userid === user.uid) {
               this.isCurrentUser = true;
+              this.profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto';
             }
             this.follow.isFollowing(this.userid, this.currentuid).subscribe(
               followinguser => {

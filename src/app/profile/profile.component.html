@@ -4,7 +4,7 @@
     <div id="top-info" class="d-none d-md-block">
       <div id="info-container" class="text-center row justify-content-center">
         <div class="col-6 offset-md-1 offset-lg-0" id="profile-info-container">
-          <div class="row justify-content-center ml-md-2 ml-lg-auto justify-content-lg-end" id="profile-info-wrapper">
+          <div [class]="profileInfoClass" id="profile-info-wrapper">
             <span class="col-2 p-1 px-3 my-0 align-self-center current"><h6 class="text-muted m-0 p-0">Scribes</h6><h5 class="m-0 p-0">{{totalScribes}}</h5></span>
             <span class="col-2 p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Followers</h6><h5 class="m-0 p-0">{{totalFollowers}}</h5></span>
             <span class="col-2 p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Following</h6><h5 class="m-0 p-0">{{totalFollowing}}</h5></span>
