@@ -11,7 +11,7 @@
             <span class="col-2 p-1 px-3 my-0 align-self-center"><h6 class="text-muted m-0 p-0">Likes</h6><h5 class="m-0 p-0">{{totalLikes}}</h5></span>
           </div>
         </div>
-        <div class="col-2 ml-5 align-self-center" *ngIf="!isCurrentUser && this.isLoggedIn">
+        <div class="col-2 align-self-center" *ngIf="!isCurrentUser && this.isLoggedIn">
           <button class="btn btn-round bg-primary text-white px-4 py-2 font-weight-bold align-self-center" id="followBtn" (click)="followUser()">{{checkFollowing()}}</button>
         </div>
       </div>
