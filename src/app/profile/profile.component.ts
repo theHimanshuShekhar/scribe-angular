@@ -77,8 +77,10 @@ export class ProfileComponent implements OnInit {
 
   followUser() {
     if (this.isFollowing) {
+      this.isFollowing = false;
       this.follow.unfollow(this.userid);
     } else {
+      this.isFollowing = true;
       this.follow.follow(this.userid);
     }
   }
