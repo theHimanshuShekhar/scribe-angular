@@ -31,12 +31,20 @@ export class ProfileComponent implements OnInit {
   totalLikes = 23;
 
   posts: any;
+  followers: any;
+  following: any;
+  likes: any;
 
   showInvalid: boolean;
   isLoaded: boolean;
   isCurrentUser: boolean;
   isLoggedIn: boolean;
   isFollowing: boolean;
+  showPosts: boolean;
+  showFollowers: boolean;
+  showFollowing: boolean;
+  showLikes: boolean;
+
   profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto justify-content-lg-end';
 
   constructor(
@@ -50,6 +58,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showPosts = true;
     this.isLoggedIn = false;
     this.isLoaded = false;
     this.isFollowing = false;
@@ -80,17 +89,46 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  showTab(type) {
+    if (type === 'posts') {
+      this.showPosts = true;
+      this.showFollowers = false;
+      this.showFollowing = false;
+      this.showLikes = false;
+    }
+    if (type === 'followers') {
+      this.showPosts = false;
+      this.showFollowers = true;
+      this.showFollowing = false;
+      this.showLikes = false;
+    }
+    if (type === 'following') {
+      this.showPosts = false;
+      this.showFollowers = false;
+      this.showFollowing = true;
+      this.showLikes = false;
+    }
+    if (type === 'likes') {
+      this.showPosts = false;
+      this.showFollowers = false;
+      this.showFollowing = false;
+      this.showLikes = true;
+    }
+  }
+
   getFollowData() {
     this.totalFollowers = 0;
     this.totalFollowing = 0;
 
     this.follow.getFollowers(this.userid).subscribe(
       followers => {
+        this.followers = followers;
         this.totalFollowers = followers.length;
         this.userFollowers = followers;
       });
     this.follow.getFollowing(this.userid).subscribe(
       following => {
+        this.following = following;
         this.totalFollowing = following.length;
         this.userFollowing = following;
       });

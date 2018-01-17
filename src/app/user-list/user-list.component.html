@@ -1,0 +1,4 @@
+<h4 class="bg-white px-3 p-2 font-weight-bold mb-0">{{title}}</h4>
+<div *ngFor="let user of users" id="user-panel-container">
+  <app-user [uid]="user.uid"></app-user>
+</div>
