@@ -1,3 +1,4 @@
+import { FollowService } from './../services/follow.service';
 import { PostsService } from './../services/posts.service';
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,6 +21,8 @@ export class ProfileComponent implements OnInit {
   userid = null;
   bannerURL;
 
+  currentuid;
+
   totalScribes;
   totalFollowers = 12;
   totalFollowing = 15;
@@ -30,6 +33,7 @@ export class ProfileComponent implements OnInit {
   showInvalid: boolean;
   isLoaded: boolean;
   isLoggedIn: boolean;
+  isFollowing: boolean;
 
   constructor(
     private router: Router,
@@ -38,11 +42,14 @@ export class ProfileComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private titleService: Title,
     private auth: AuthService,
+    private follow: FollowService
   ) { }
 
   ngOnInit() {
     this.isLoggedIn = false;
     this.isLoaded = false;
+    this.isFollowing = false;
+
     this.titleService.setTitle('Profile');
     this.userService.retrieveUserDocumentFromUsername(this.router.url.slice(6)).subscribe(
       user => {
@@ -68,14 +75,29 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  checkFollowing() {
+    if (this.isFollowing) {
+      return 'Following';
+    } else {
+      return 'Follow';
+    }
+  }
+
   checkCurrentUser() {
     this.auth.getAuthState().subscribe(
       user => {
         if (user) {
           if (this.userid) {
+            this.currentuid = user.uid;
             if (this.userid === user.uid) {
               this.isLoggedIn = true;
             }
+            this.follow.isFollowing(this.userid, this.currentuid).subscribe(
+              followinguser => {
+                if (followinguser[0]) {
+                  this.isFollowing = true;
+                }
+            });
           }
         }
     });
