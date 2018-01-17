@@ -132,6 +132,9 @@ export class ProfileComponent implements OnInit {
                 }
             });
           }
+        } else {
+          this.isLoggedIn = false;
+          this.profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto';
         }
     });
   }
