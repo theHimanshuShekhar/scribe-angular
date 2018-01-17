@@ -42,4 +42,12 @@ export class FollowService {
     });
   }
 
+  getFollowing(uid) {
+    return this.afs.collection<any>('/users/' + uid + '/following').valueChanges();
+  }
+
+  getFollowers(uid) {
+    return this.afs.collection<any>('/users/' + uid + '/followers').valueChanges();
+  }
+
 }

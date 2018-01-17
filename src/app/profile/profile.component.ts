@@ -24,8 +24,8 @@ export class ProfileComponent implements OnInit {
   currentuid;
 
   totalScribes;
-  totalFollowers = 12;
-  totalFollowing = 15;
+  totalFollowers;
+  totalFollowing;
   totalLikes = 23;
 
   posts: any;
@@ -64,6 +64,7 @@ export class ProfileComponent implements OnInit {
           this.isLoaded = true;
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
           this.checkCurrentUser();
+          this.getFollowData();
           this.postsService.getUserPosts(this.userid).subscribe(
             posts => {
               this.posts = posts;
@@ -74,6 +75,20 @@ export class ProfileComponent implements OnInit {
           this.showInvalid = true;
         }
     });
+  }
+
+  getFollowData() {
+    this.totalFollowers = 0;
+    this.totalFollowing = 0;
+
+    this.follow.getFollowers(this.userid).subscribe(
+      followers => {
+        this.totalFollowers = followers.length;
+      });
+    this.follow.getFollowing(this.userid).subscribe(
+      following => {
+        this.totalFollowing = following.length;
+      });
   }
 
   followUser() {
