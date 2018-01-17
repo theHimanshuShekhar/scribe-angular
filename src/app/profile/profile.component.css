@@ -71,6 +71,9 @@
 .current {
   border-bottom: #E83F6F 2px solid;
 }
+#info-container {
+  max-width: 100vw;
+}
 #info-container > div {
   height: 100%;
   display: inline-block;
