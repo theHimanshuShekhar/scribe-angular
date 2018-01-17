@@ -37,7 +37,7 @@
           </button>
       </div>
       <div id="user-posts" class="col-12 col-md-6 mt-2 mt-md-0 px-0">
-        <app-add-post [userURL]="photoURL" *ngIf="isLoggedIn"></app-add-post>
+        <app-add-post [userURL]="photoURL" *ngIf="isCurrentUser"></app-add-post>
         <div *ngFor="let post of posts" class="px-3">
           <app-post [inputPost]="post" *ngIf="post; else NoPosts"></app-post>
         </div>
