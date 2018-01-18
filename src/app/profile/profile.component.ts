@@ -58,6 +58,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.showPosts = true;
     this.isLoggedIn = false;
     this.isLoaded = false;
@@ -77,10 +78,10 @@ export class ProfileComponent implements OnInit {
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
           this.checkCurrentUser();
           this.getFollowData();
-          this.postsService.getUserPosts(this.userid).subscribe(
+          this.postsService.init('posts', 'useruid', this.userid);
+          this.postsService.data.subscribe(
             posts => {
               this.posts = posts;
-              this.totalScribes = posts.length;
             });
         } else {
           this.isLoaded = true;
@@ -153,7 +154,7 @@ export class ProfileComponent implements OnInit {
   }
 
   scrollHandler(event) {
-    console.log(event);
+    this.postsService.more();
   }
   checkCurrentUser() {
     this.auth.getAuthState().subscribe(

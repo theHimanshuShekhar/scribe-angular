@@ -116,3 +116,7 @@
 #profile-info-wrapper > span:hover .text-muted {
   color: white!important;
 }
+
+#mobile-profile-info > span:hover {
+  cursor: pointer;
+}
