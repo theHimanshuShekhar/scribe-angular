@@ -6,10 +6,10 @@
     <div id="user-info" class="row justify-content-between">
       <div class="col-11 row align-self-center">
         <div id="user-text" class="col-9 col-sm-auto col-md-8 col-lg-auto pr-0">
-          <span class="font-weight-bold">{{displayName}}</span>
+          <span class="font-weight-bold"><h6 class="p-0 m-0 d-inline-block">{{displayName}}</h6></span>
           <small>@{{userName}}</small>
         </div>
-        <span id="post-date" class="ml-1 col-2 p-0 align-self-center">{{retrieveDate(this.date)}}</span>
+        <span id="post-date" class="ml-1 col-2 col-sm-3 col-lg-2 p-0 align-self-start">{{retrieveDate(this.date)}}</span>
       </div>
       <div ngbDropdown class="col-1 d-inline-block align-self-start" placement="bottom-right">
           <button class="btn" id="dropdownBasic1" ngbDropdownToggle></button>
