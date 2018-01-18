@@ -32,7 +32,7 @@
                 <span (click)="showTab('followers')"><span class="font-weight-bold ml-2">{{totalFollowers}}</span> <span>Followers</span></span>
             </div>
           </div>
-          <button id="scribe-btn" class="btn bg-primary text-white btn-round px-1" *ngIf="displayName && !isLoggedIn">
+          <button id="scribe-btn" class="btn bg-primary text-white btn-round px-1" *ngIf="displayName && !isCurrentUser">
             <span id="scribe-btn-text">Scribe to {{displayName | slice:0:16}}<span *ngIf="displayName.length > 16">...</span></span>
           </button>
       </div>
