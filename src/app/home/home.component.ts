@@ -1,3 +1,4 @@
+import { FeedService } from './../services/feed.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
@@ -16,17 +17,21 @@ export class HomeComponent implements OnInit {
   userName;
   photoURL = '../../assets/images/default-profile.jpg';
   bannerURL;
+  userid;
+
+  posts = [];
 
   constructor(
     private auth: AuthService,
     private router: Router,
+    private feedService: FeedService,
     private titleService: Title,
     private userService: UserService,
     private sanitizer: DomSanitizer
   ) { }
 
   getStyle() {
-    if(this.bannerURL) {
+    if (this.bannerURL) {
       return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
     }
   }
@@ -53,8 +58,26 @@ export class HomeComponent implements OnInit {
               this.displayName = userDoc.displayName;
               this.userName = userDoc.userName;
               this.photoURL = userDoc.photoURL;
+              this.userid = userDoc.uid;
+
+              // Get pids from user feed
+              this.feedService.initFeed(this.userid);
+              this.feedService.data.subscribe(
+                feed => {
+                  if (feed.length >= 1) {
+                    this.getFeedPosts(feed);
+                  }
+                });
             });
         }
+    });
+  }
+
+  getFeedPosts (feed) {
+    feed.forEach(feedPost => {
+      this.feedService.getPost(feedPost.pid).subscribe(post => {
+        this.posts.push(post[0]);
+      });
     });
   }
 }

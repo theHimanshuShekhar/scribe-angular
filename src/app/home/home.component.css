@@ -19,7 +19,7 @@
   max-width: 148px;
   word-wrap: break-word;
 }
-#user-info {
+#info-wrapper {
   background-color: white;
   border-radius: 7px;
 }
@@ -43,4 +43,7 @@
     padding-left: 0px;
     padding-right: 0px;
   }
+}
+#feed-posts {
+  overflow-x: hidden;
 }

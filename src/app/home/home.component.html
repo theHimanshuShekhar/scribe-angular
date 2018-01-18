@@ -1,6 +1,6 @@
 <div class="container row pt-2">
   <div id="user-info" class="col-md-3 p-0 m-0 d-none d-md-inline-block" *ngIf="displayName">
-    <div class="info-wrapper">
+    <div id="info-wrapper">
       <div id="bg-cover" [style]="getStyle()"></div>
       <div id="user-details">
         <img id="home-avatar" [src]="photoURL" class="circle bg-primary" height="60" width="60">
@@ -19,6 +19,9 @@
   </div>
   <div id="posts-container" class="col-md-6">
     <app-add-post [userURL]="photoURL"></app-add-post>
+    <div id="feed-posts" *ngFor="let post of posts" class="px-3">
+      <app-post [inputPost]="post"></app-post>
+    </div>
   </div>
   <div id="right-panel" class="col-md-3">right panel</div>
 </div>
