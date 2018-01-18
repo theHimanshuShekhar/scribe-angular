@@ -1,4 +1,4 @@
-<div class="container-fluid" class="p-0" *ngIf="isLoaded; else Loading" appDetectScroll>
+<div class="container-fluid" class="p-0" *ngIf="isLoaded; else Loading" appDetectScroll (scrollPosition)="scrollHandler($event)">
   <div class="wrapper" *ngIf="!showInvalid; else Invalid">
     <div id="user-banner" [style]="getStyle()"></div>
     <div id="top-info" class="d-none d-md-block">
