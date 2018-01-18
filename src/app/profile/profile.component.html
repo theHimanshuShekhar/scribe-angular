@@ -28,8 +28,9 @@
             <p>{{status}}</p>
             <p><span class="text-mute"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>Joined</span> {{joinDate}}</p>
             <div id="mobile-profile-info" class="d-md-none">
-                <span (click)="showTab('following')"><span class="font-weight-bold">{{totalFollowing}}</span> <span>Following</span></span>
-                <span (click)="showTab('followers')"><span class="font-weight-bold ml-2">{{totalFollowers}}</span> <span>Followers</span></span>
+                <span (click)="showTab('posts')"><span class="font-weight-bold">{{totalScribes}}</span> <span>Scribes</span></span>
+                <span (click)="showTab('following')"><span class="font-weight-bold ml-1">{{totalFollowing}}</span> <span>Following</span></span>
+                <span (click)="showTab('followers')"><span class="font-weight-bold ml-1">{{totalFollowers}}</span> <span>Followers</span></span>
             </div>
           </div>
           <button id="scribe-btn" class="btn bg-primary text-white btn-round px-1" *ngIf="displayName && !isCurrentUser">

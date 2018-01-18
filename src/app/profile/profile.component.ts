@@ -151,10 +151,10 @@ export class ProfileComponent implements OnInit {
       return 'Follow';
     }
   }
-  
+
   scrollHandler(event) {
     console.log(event);
-  } 
+  }
   checkCurrentUser() {
     this.auth.getAuthState().subscribe(
       user => {
