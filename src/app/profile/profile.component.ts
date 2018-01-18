@@ -74,6 +74,9 @@ export class ProfileComponent implements OnInit {
           this.status = uservar.status;
           this.photoURL = uservar.photoURL;
           this.userid = uservar.uid;
+          this.totalScribes = uservar.totalScribes ? uservar.totalScribes : 0;
+          this.totalFollowing = uservar.totalFollowing ? uservar.totalFollowing : 0;
+          this.totalFollowers = uservar.totalFollowers ? uservar.totalFollowers : 0;
           this.isLoaded = true;
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
           this.checkCurrentUser();
@@ -86,6 +89,9 @@ export class ProfileComponent implements OnInit {
         } else {
           this.isLoaded = true;
           this.showInvalid = true;
+          this.totalScribes = 0;
+          this.totalFollowing = 0;
+          this.totalFollowers = 0;
         }
     });
   }
@@ -118,19 +124,14 @@ export class ProfileComponent implements OnInit {
   }
 
   getFollowData() {
-    this.totalFollowers = 0;
-    this.totalFollowing = 0;
-
     this.follow.getFollowers(this.userid).subscribe(
       followers => {
         this.followers = followers;
-        this.totalFollowers = followers.length;
         this.userFollowers = followers;
       });
     this.follow.getFollowing(this.userid).subscribe(
       following => {
         this.following = following;
-        this.totalFollowing = following.length;
         this.userFollowing = following;
       });
   }
