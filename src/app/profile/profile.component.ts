@@ -151,7 +151,7 @@ export class ProfileComponent implements OnInit {
       return 'Follow';
     }
   }
-
+  
   checkCurrentUser() {
     this.auth.getAuthState().subscribe(
       user => {

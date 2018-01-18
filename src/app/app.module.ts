@@ -36,6 +36,7 @@ import { AboutComponent } from './about/about.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user-list/user/user.component';
+import { DetectScrollDirective } from './directives/detect-scroll.directive';
 
 
 firebase.initializeApp(environment.firebase);
@@ -100,7 +101,8 @@ const routes: Routes = [
     AboutComponent,
     AddPostComponent,
     UserListComponent,
-    UserComponent
+    UserComponent,
+    DetectScrollDirective
     ],
   imports: [
     BrowserModule,
@@ -109,7 +111,7 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase, 'Scribe'),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [
     AuthService,

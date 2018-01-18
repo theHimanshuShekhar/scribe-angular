@@ -1,4 +1,7 @@
 /* Custom Container */
+.container-fluid {
+  overflow-y: scroll;
+}
 #user-posts {
   overflow: hidden;
 }
