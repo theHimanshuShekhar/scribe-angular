@@ -47,7 +47,6 @@ export class AddPostComponent implements OnInit {
     } else {
       this.textareaClass = 'form-control col-10 expanded';
     }
-    console.log('expand');
   }
   contract() {
     this.buttonsClass = 'col-9 col-lg-12 mt-2 d-none';
