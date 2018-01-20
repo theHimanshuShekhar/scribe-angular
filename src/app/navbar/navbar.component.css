@@ -53,3 +53,6 @@ hr {
   background-color: #E83F6F;
   color: white;
 }
+#user-data > p {
+  font-size: 15px;
+}

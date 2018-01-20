@@ -20,6 +20,9 @@ export class NavbarComponent implements OnInit {
   displayName;
   userName;
   photoURL = '../../assets/images/default-profile.jpg';
+  totalFollowers;
+  totalFollowing;
+  totalScribes;
 
   ngOnInit() {
     this.isUser = false;
@@ -52,6 +55,9 @@ export class NavbarComponent implements OnInit {
               this.displayName = userDoc.displayName;
               this.userName = userDoc.userName;
               this.photoURL = userDoc.photoURL;
+              this.totalFollowing = userDoc.totalFollowing;
+              this.totalFollowers = userDoc.totalFollowers;
+              this.totalScribes = userDoc.totalScribes;
             });
         }
       });
