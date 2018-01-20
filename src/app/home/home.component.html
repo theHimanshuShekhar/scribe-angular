@@ -6,7 +6,12 @@
         <img id="home-avatar" [src]="photoURL" class="circle bg-primary" height="60" width="60">
         <div id="user-text" class="mx-1">
           <h6 class="mb-0">{{displayName}}</h6>
-          <p class="text-muted">@{{userName}}</p>
+          <p class="text-muted mb-0">@{{userName}}</p>
+        </div>
+        <div id="user-stats" class="mx-2 mx-lg-0 row text-lg-center justify-content-lg-center">
+          <p class="my-0 col-md-12 col-lg-4 px-1 text-primary"><span class="text-muted font-weight-bold mr-1 mr-lg-0">Scribes</span><br class="d-none d-lg-inline-block">{{totalScribes}}</p>
+          <p class="my-0 col-md-12 col-lg-4 px-1 text-primary"><span  class="text-muted font-weight-bold mr-1 mr-lg-0">Followers</span><br class="d-none d-lg-inline-block">{{totalFollowers}}</p>
+          <p class="my-0 col-md-12 col-lg-4 px-1 text-primary"><span class="text-muted font-weight-bold mr-1 mr-lg-0">Following</span><br class="d-none d-lg-inline-block">{{totalFollowing}}</p>
         </div>
       </div><hr class="mt-0 mb-1">
       <div id="user-info-nav" class="px-3 pb-4">

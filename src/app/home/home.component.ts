@@ -18,6 +18,9 @@ export class HomeComponent implements OnInit {
   photoURL = '../../assets/images/default-profile.jpg';
   bannerURL;
   userid;
+  totalFollowers;
+  totalFollowing;
+  totalScribes;
 
   posts = [];
 
@@ -59,6 +62,9 @@ export class HomeComponent implements OnInit {
               this.userName = userDoc.userName;
               this.photoURL = userDoc.photoURL;
               this.userid = userDoc.uid;
+              this.totalScribes = userDoc.totalScribes;
+              this.totalFollowers = userDoc.totalFollowers;
+              this.totalFollowing = userDoc.totalFollowing;
 
               // Get pids from user feed
               this.feedService.initFeed(this.userid);
