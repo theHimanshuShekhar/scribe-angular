@@ -4,6 +4,7 @@
 }
 #user-posts {
   overflow: hidden;
+  min-height: 500px;
 }
 @media (max-width: 768px) {
   .container {

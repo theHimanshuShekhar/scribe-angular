@@ -142,7 +142,7 @@ export class PostsService {
         const postRef = this.afs.collection('posts').doc(pid);
         return postRef.set(post)
           .then(() => {
-            location.reload();
+            this.router.initialNavigation();
             console.log('Post Successful -', pid);
           });
       });
