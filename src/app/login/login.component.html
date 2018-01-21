@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <div class="row container justify-content-right">
+    <div id="login-text" class="align-self-center col-12 col-md-5 col-lg-6 offset-md-1 offset-lg-1 mb-2">
+      <h2 class="text-small text-center text-md-right">Login to post and access your profile.</h2>
+    </div>
+    <div id="login-form" class="text-center col-11 col-sm-9 col-md-5 col-lg-4">
+      <form>
+        <h2 class="mb-3">Login</h2>
+        <input class="form-control form-control-md" type="text" placeholder="Email">
+        <input class="form-control form-control-md" type="text" placeholder="Password">
+      </form>
+      <button id="login-btn" class="btn btn-dark btn-disabled py-2" (click)="login('email')">Login</button>
+      <h6 class="align-self-center my-1">or</h6>
+      <button id="google-btn" class="btn btn-dark py-2" (click)="login('google')">Google</button>
+    </div>
+  </div>
+</div>

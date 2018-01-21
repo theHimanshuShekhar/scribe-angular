@@ -1,10 +1,58 @@
-.navbar-brand {
-  font-size: 1.8rem;
-  line-height: 30px;
-  margin: 0px;
-  text-align: center;
+.navbar {
+  max-height: 60px;
+  color: white;
 }
-#nav-text, #nav-info {
-  max-width: 200px;
-  width: 200px;
+#dropdownBasic1 {
+  border: 3px solid #E83F6F;
+}
+#login-nav {
+  text-decoration: none;
+  color: #E83F6F!important;
+}
+#login-nav:hover {
+  color: #3fc4e8!important;
+  text-decoration: none;
+}
+@media (max-width: 575px) {
+  #ngb-dropdown {
+    margin-top: -47px;
+    margin-left: -15px;
+  }
+}
+@media (min-width: 575px) {
+  #ngb-dropdown {
+    margin-left: -130px;
+    min-width: 180px;
+  }
+}
+.dropdown-item {
+  max-width: 170px;
+  margin: 0 auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+hr {
+  margin: 5px;
+}
+#nav-links > span {
+  color: #E83F6F;
+  font-weight: 500;
+}
+#nav-links > span:hover {
+  cursor: pointer;
+  color: #3fc4e8;
+}
+#dropdownBasic1:hover {
+  cursor: pointer;
+  border-color: #3fc4e8;
+}
+#logo-container > img:hover {
+  cursor: pointer;
+}
+.dropdown-item:focus {
+  background-color: #E83F6F;
+  color: white;
+}
+#user-data > p {
+  font-size: 15px;
 }

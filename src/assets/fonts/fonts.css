@@ -1,10 +1,9 @@
 
 
 @font-face {
-  font-family: 'pacifico-regular';
-  src: url('pacifico-regular-webfont.woff2') format('woff2'),
-       url('pacifico-regular-webfont.woff') format('woff');
+  font-family: 'lobster-regular';
+  src: url('lobster-regular-webfont.woff2') format('woff2'),
+       url('lobster-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }

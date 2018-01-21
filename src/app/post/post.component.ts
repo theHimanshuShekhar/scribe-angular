@@ -1,154 +1,73 @@
 import { DateFormatPipe } from './../services/date.pipe';
-import { Router } from '@angular/router';
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { PostsService } from '../services/posts.service';
-import {NgbModal, NgbActiveModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { PlatformLocation, DatePipe } from '@angular/common';
-import { UserService } from '../services/user.service';
+import { UserService } from './../services/user.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
 
   @Input() inputPost;
 
-  useruid;
-
-  author: string = null;
-  authorPhotoURL = '../../assets/images/default-profile.jpg';
-  username: string = null;
-  body: string = null;
+  displayName;
+  userName;
+  photoURL = '../../assets/images/default-profile.jpg';
+  body;
   date;
+  likes;
 
-  // Modal Variables
-  closeResult: string;
-  modalRef;
-
-  modalAuthor: string = null;
-  modalAuthorPhotoURL = '../../assets/images/default-profile.jpg';
-  modalUsername: string = null;
-  modalBody: string = null;
-  modalDate: Date;
-
-  public showPost = true;
 
   constructor(
-    private router: Router,
-    private dateFormatPipe: DateFormatPipe,
-    private postService: PostsService,
     private userService: UserService,
-    private modalService: NgbModal,
-    private location: PlatformLocation,
-  ) {
-      location.onPopState((event) => {
-      // ensure that modal is opened
-      if (this.modalRef !== undefined) {
-          this.modalRef.close();
-      }
-    });
-  }
+    private dateFormat: DateFormatPipe,
+  ) { }
 
   ngOnInit() {
-    if (!this.inputPost) {
-      this.getSinglePost();
-    } else {
-      this.getUser(this.inputPost);
+    if (this.inputPost) {
+      this.body = this.inputPost.body;
+      this.date = this.inputPost.date;
+      this.likes = this.inputPost.likes;
+      this.userService.retrieveUserDocumentFromID(this.inputPost.uid).subscribe(
+        user => {
+          this.displayName = user.displayName;
+          this.userName = user.userName;
+          this.photoURL = user.photoURL;
+        }
+      );
     }
   }
 
-  getSinglePost() {
-    const postObs = this.postService.getPostDataFromPid(this.router.url.slice(6));
-    postObs.subscribe(post => {
-      if (post) {
-        this.getUser(post);
-        this.body = post.body;
-        this.date = post.date;
-        this.useruid = post.useruid;
-        console.log(this.useruid);
-        this.showPost = true;
-      } else {
-        this.showPost = false;
-      }
-    });
+  delete() {
+    alert('Delete not implemented yet.');
   }
 
-  getUser(post) {
-    this.useruid = post.useruid;
-    this.userService.getUser(this.useruid).subscribe(user => {
-      this.authorPhotoURL = user[0].photoURL;
-      this.username = user[0].userName;
-      this.author = user[0].displayName;
-      this.useruid = user[0].useruid;
-    });
-  }
-
-  public sendToProfile(username) {
-    if (this.modalRef) {
-      this.modalRef.close();
-    }
-    this.router.navigateByUrl('user/' + username);
-  }
-
-
-  public retrieveDate(date, type) {
-    setTimeout(500);
+  retrieveDate(date, type?) {
     if (date) {
       if (type === 'long') {
-        return this.dateFormatPipe.transform(date, type);
-      }
-      const prevDate = date;
-      const newDate = new Date();
-      const milliseconds: number = newDate.getTime() - prevDate.getTime();
-      const minutes = Math.trunc(milliseconds / 60000);
-      let hours;
-      if (minutes < 59) {
-        if (minutes < 1) {
-          return 'just now';
-        }
-        return minutes + 'm';
+        return this.dateFormat.transform(date, type);
       } else {
-        hours = Math.trunc(minutes / 60);
-        if (hours >= 1 && hours < 24) {
-          return hours + 'h';
+        const prevDate = date;
+        const newDate = new Date();
+        const ms = newDate.getTime() - prevDate.getTime();
+        const min = Math.trunc(ms / 60000);
+        let hours;
+        if (min < 59) {
+          if (min < 1) {
+            return 'just now';
+          }
+          return min + 'm';
         } else {
-          return this.dateFormatPipe.transform(prevDate);
+          hours = Math.trunc(min / 60);
+          if (hours >= 1 && hours < 24) {
+            return hours + 'h';
+          } else {
+            return this.dateFormat.transform(prevDate);
+          }
         }
       }
     }
   }
 
-  // Modal
-  getModalData(post) {
-    this.modalAuthor = post.author;
-    this.modalAuthorPhotoURL = post.authorPhotoURL;
-    this.modalUsername = post.username;
-    this.modalDate = post.date;
-    this.modalBody = post.body;
-  }
-
-  open(content, post) {
-    this.getModalData(post);
-    this.modalRef = this.modalService.open(content);
-    // push new state to history
-    history.pushState(null, null, 'post/' + post.pid);
-    this.modalRef.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  private getDismissReason(reason: any): string {
-    history.back();
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
 }

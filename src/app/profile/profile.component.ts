@@ -1,74 +1,191 @@
-import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FollowService } from './../services/follow.service';
+import { PostsService } from './../services/posts.service';
+import { UserService } from './../services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { PostsService } from '../services/posts.service';
+import { AddPostComponent } from '../add-post/add-post.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
 
-  showAddPost: boolean;
-
-  username: string;
-  userCollection: AngularFirestoreCollection<any>;
-  userObs: Observable<any>;
-  user: any;
-
-  // Vars to display on profile page
-  useruid: string;
+  displayName;
+  userName;
   photoURL = '../../assets/images/default-profile.jpg';
-  status: string;
-  displayName: string;
+  status;
+  joinDate = 'May 2009';
+  userid = null;
+  bannerURL;
+  userFollowers;
+  userFollowing;
 
-  // If User exists
-  doesUserExist = true;
+  currentuid;
+
+  totalScribes;
+  totalFollowers;
+  totalFollowing;
+  totalLikes = 23;
+
+  posts;
+  newPosts: any[] = [];
+  followers: any;
+  following: any;
+  likes: any;
+
+  showInvalid: boolean;
+  isLoaded: boolean;
+  isCurrentUser: boolean;
+  isLoggedIn: boolean;
+  isFollowing: boolean;
+  showPosts: boolean;
+  showFollowers: boolean;
+  showFollowing: boolean;
+  showLikes: boolean;
+
+  profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto justify-content-lg-end';
 
   constructor(
-    public auth: AuthService, private afs: AngularFirestore, private route: ActivatedRoute, private postsService: PostsService) {
+    private router: Router,
+    private userService: UserService,
+    private postsService: PostsService,
+    private sanitizer: DomSanitizer,
+    private titleService: Title,
+    private auth: AuthService,
+    private follow: FollowService
+  ) { }
+
+  ngOnInit() {
+
+    this.showPosts = true;
+    this.isLoggedIn = false;
+    this.isLoaded = false;
+    this.isFollowing = false;
+    this.titleService.setTitle('Profile');
+    this.userService.retrieveUserDocumentFromUsername(this.router.url.slice(6)).subscribe(
+      user => {
+        if (user[0]) {
+          const uservar: any = user[0];
+          this.displayName = uservar.displayName;
+          this.userName = uservar.userName;
+          this.status = uservar.status;
+          this.photoURL = uservar.photoURL;
+          this.userid = uservar.uid;
+          this.totalScribes = uservar.totalScribes ? uservar.totalScribes : 0;
+          this.totalFollowing = uservar.totalFollowing ? uservar.totalFollowing : 0;
+          this.totalFollowers = uservar.totalFollowers ? uservar.totalFollowers : 0;
+          this.isLoaded = true;
+          this.titleService.setTitle(this.displayName + ' @' + this.userName);
+          this.checkCurrentUser();
+          this.getFollowData();
+          this.postsService.init('posts', 'uid', this.userid);
+          this.postsService.data.subscribe(
+            posts => {
+              this.posts = posts;
+            });
+        } else {
+          this.isLoaded = true;
+          this.showInvalid = true;
+          this.totalScribes = 0;
+          this.totalFollowing = 0;
+          this.totalFollowers = 0;
+        }
+    });
   }
 
+  showTab(type) {
+    if (type === 'posts') {
+      this.showPosts = true;
+      this.showFollowers = false;
+      this.showFollowing = false;
+      this.showLikes = false;
+    }
+    if (type === 'followers') {
+      this.showPosts = false;
+      this.showFollowers = true;
+      this.showFollowing = false;
+      this.showLikes = false;
+    }
+    if (type === 'following') {
+      this.showPosts = false;
+      this.showFollowers = false;
+      this.showFollowing = true;
+      this.showLikes = false;
+    }
+    if (type === 'likes') {
+      this.showPosts = false;
+      this.showFollowers = false;
+      this.showFollowing = false;
+      this.showLikes = true;
+    }
+  }
 
-   ngOnInit() {
-      this.route.paramMap.subscribe(params => {
-      this.username = params.get('username');
+  getFollowData() {
+    this.follow.getFollowers(this.userid).subscribe(
+      followers => {
+        this.followers = followers;
+        this.userFollowers = followers;
+      });
+    this.follow.getFollowing(this.userid).subscribe(
+      following => {
+        this.following = following;
+        this.userFollowing = following;
+      });
+  }
 
+  followUser() {
+    if (this.isFollowing) {
+      this.isFollowing = false;
+      this.follow.unfollow(this.userid);
+    } else {
+      this.isFollowing = true;
+      this.follow.follow(this.userid);
+    }
+  }
 
+  checkFollowing() {
+    if (this.isFollowing) {
+      return 'Following';
+    } else {
+      return 'Follow';
+    }
+  }
 
-      // Retrieve user collection
-      this.userCollection = this.afs.collection('users', ref => ref.where('userName', '==', this.username));
-      this.userObs = this.userCollection.valueChanges();
-      this.userObs.forEach(user => {
+  scrollHandler(event) {
+    this.postsService.more();
+  }
+  checkCurrentUser() {
+    this.auth.getAuthState().subscribe(
+      user => {
         if (user) {
-          this.user = user;
-          this.useruid = this.user[0].uid;
-          this.photoURL = this.user[0].photoURL;
-          this.displayName = this.user[0].displayName;
-          this.status = this.user[0].status;
-        }
-
-        // Check if current user is profile user
-        this.auth.getAuthState().subscribe(auth => {
-          if( auth ) {
-            if (auth.uid === this.useruid) {
-              this.showAddPost = true;
-            } else {
-              this.showAddPost = false;
+          if (this.userid) {
+            this.isLoggedIn = true;
+            this.currentuid = user.uid;
+            if (this.userid === user.uid) {
+              this.isCurrentUser = true;
+              this.profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto';
             }
+            this.follow.isFollowing(this.userid, this.currentuid).subscribe(
+              followinguser => {
+                if (followinguser[0]) {
+                  this.isFollowing = true;
+                }
+            });
           }
-        });
-      })
-      .catch(
-        (err) => {
-          console.log('User does not exist');
-          this.doesUserExist = false;
+        } else {
+          this.isLoggedIn = false;
+          this.profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto';
         }
-      );
     });
+  }
+
+  getStyle() {
+    if (this.bannerURL) {
+      return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
+    }
   }
 }

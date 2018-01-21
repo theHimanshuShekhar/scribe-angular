@@ -1,0 +1,58 @@
+#login-form {
+  background-color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  border-radius: 7px;
+  color: white;
+  padding-bottom: 10px;
+  width: 19em;
+  margin: 0 auto;
+}
+#login-form > form > h2 {
+  color: #794BC4;
+}
+#login-form {
+  color: #794BC4;
+}
+.jumbotron {
+  background-color: #E83F6F;
+  color: white;
+  border-radius: 0px;
+  margin-bottom: 0px;
+  min-height: calc(100vh - 108px);
+}
+#login-form > form > input {
+  margin-bottom: 5px;
+  border-radius: 20px;
+  border: #794BC4 1px solid;
+}
+#login-btn {
+  width: 100%;
+  font-weight: 600;
+  margin-top: 5px;
+  background-color: #794BC4;
+  color: white;
+  border: none;
+}
+#google-btn {
+  width: 100%;
+  font-weight: 600;
+  background-color: #dd4b39;
+  color: white;
+  border: none;
+  margin-bottom: 7px;
+}
+#login-form > .btn {
+  border-radius: 20px;
+}
+h6 {
+  border: 10px;
+}
+hr {
+  background-color: lightyellow;
+  margin: 7px;
+}
+@media (max-width: 640px) {
+  #login-form {
+    width: 19em;
+  }
+}

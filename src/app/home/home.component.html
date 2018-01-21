@@ -1,17 +1,39 @@
-<div class="container pb-5 row">
-  <div id="user-info-container" class="mt-1 col-12 col-sm-12 col-md-4 col-lg-3 px-0 mb-sm-0 mb-1">
-    <app-user-info-home></app-user-info-home>
-  </div>
-  <div id="post-container" class="col-12 col-sm-12 col-md-8 col-lg-6 px-0">
-    <app-add-post></app-add-post>
-    <app-posts></app-posts>
-  </div>
-  <div id="right-container" class="mt-1 d-none d-lg-inline-block col-lg-3 px-1 mb-sm-0 mb-1">
-    <!-- Right Side Module -->
-    <div class="list-group">
-      <div class="list-group-item">
-        <h6>Right Side Module</h6>
+<div class="container row pt-2" *ngIf="displayName; else Loading">
+  <div id="user-info" class="col-md-3 p-0 m-0 d-none d-md-inline-block">
+    <div id="info-wrapper">
+      <div id="bg-cover" [style]="getStyle()"></div>
+      <div id="user-details">
+        <img id="home-avatar" [src]="photoURL" class="circle bg-primary" height="60" width="60">
+        <div id="user-text" class="mx-1">
+          <h6 class="mb-0">{{displayName}}</h6>
+          <p class="text-muted mb-0">@{{userName}}</p>
+        </div>
+        <div id="user-stats" class="mx-2 mx-lg-2 row justify-content-lg-center">
+          <p class="my-0 col-md-12 col-lg-4 px-1 text-primary"><span class="text-muted font-weight-bold mr-1 mr-lg-0">Scribes</span><br class="d-none d-lg-inline-block">{{totalScribes}}</p>
+          <p class="my-0 col-md-12 col-lg-4 px-1 text-primary"><span  class="text-muted font-weight-bold mr-1 mr-lg-0">Followers</span><br class="d-none d-lg-inline-block">{{totalFollowers}}</p>
+          <p class="my-0 col-md-12 col-lg-4 px-1 text-primary"><span class="text-muted font-weight-bold mr-1 mr-lg-0">Following</span><br class="d-none d-lg-inline-block">{{totalFollowing}}</p>
+        </div>
+      </div><hr class="mt-0 mb-1">
+      <div id="user-info-nav" class="px-3 pb-4">
+        <a (click)="sendTo('profile')">Profile</a><br>
+        <a (click)="sendTo('messages')">Messages</a><br>
+        <a (click)="sendTo('groups')">Groups</a><br><hr class="my-2">
+        <a (click)="sendTo('account')">Account</a>
       </div>
     </div>
   </div>
+  <div id="posts-container" class="col-md-6">
+    <app-add-post [userURL]="photoURL"></app-add-post>
+    <div id="feed-posts" *ngFor="let post of posts" class="px-3">
+      <app-post [inputPost]="post"></app-post>
+    </div>
+  </div>
+  <div id="right-panel" class="col-md-3">right panel</div>
 </div>
+
+<ng-template #Loading>
+  <div class="text-center pt-5 text-primary">
+    <i class="fa fa-spinner fa-4x fa-spin" aria-hidden="true"></i>
+    <h2 class="pt-1">loading your feed...</h2>
+  </div>
+</ng-template>

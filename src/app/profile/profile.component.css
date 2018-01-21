@@ -1,57 +1,122 @@
-.profile-container {
-  max-width: 600px;
+/* Custom Container */
+.container-fluid {
+  overflow-y: scroll;
 }
-
-#display-picture {
-  margin: 0px;
-  padding: 0px;
-  border: 4px solid #eee9e9;
-  width: 150px;
-  height: 150px;
-  max-height: 150px;
-  max-width: 150px;
-  border-radius: 100%;
-  flex-grow: 0;
+#user-posts {
+  overflow: hidden;
 }
-.jumbotron {
-  vertical-align: text-bottom;
-  text-align: left;
-}
-#display-displayName {
-  text-align: left;
-  color: white;
-  font-size: 1.5rem;
-}
-#invalid-user-text {
-  font-size: 2rem;
-}
-#display-username {
-  font-size: 1.2rem;
-  font-weight: 400;
-}
-.col {
-  border: none;
-}
-@media (max-width: 500px) {
-  #display-picture {
-    height: 5%;
-    width: auto;
-    max-height: 100px;
-    max-width: 100px;
-  }
-  #display-displayName {
-    text-align: left;
-    color: white;
-    font-size: 1.2rem;
-  }
-  #display-username {
-    font-size: 0.9rem;
-    font-weight: 400;
-  }
-}
-
 @media (max-width: 768px) {
-  #profile-jumbotron {
-    border-radius: 0px;
+  .container {
+    margin: 0;
   }
+}
+@media (max-width: 1000px) {
+  .container {
+    margin: 0 auto;
+  }
+}
+/* Banner */
+#user-banner {
+  height: 350px;
+  background-color: #E83F6F;
+  background-size: cover;
+}
+@media (max-width: 1000px) {
+  #user-banner {
+    height: 230px;
+  }
+}
+@media (max-width: 768px) {
+  #user-banner {
+    height: 170px;
+  }
+}
+
+/* User Info */
+#profile-photo {
+  height: 11rem;
+  width: 11rem;
+  margin-top: -100px;
+  border: 4px white solid;
+  background-color: #E83F6F;
+}
+.text-mute {
+  color: rgb(120, 120, 120);
+}
+#scribe-btn {
+  font-size: 14px;
+  font-weight: 550;
+}
+#scribe-btn {
+  width: 100%;
+  white-space: normal;
+}
+@media (max-width: 576px) and (max-width: 767px) {
+  #profile-photo {
+    height: 7rem;
+    width: 7rem;
+    margin-top: -70px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #profile-photo {
+    height: 9rem;
+    width: 9rem;
+  }
+}
+
+#top-info {
+  width: 100%;
+  max-height: 60px;
+  background-color: white;
+  border-bottom: 2px solid rgba(190, 190, 190, 0.4);
+}
+.current {
+  border-bottom: #E83F6F 2px solid;
+}
+#info-container {
+  max-width: 100vw;
+}
+#info-container > div {
+  height: 100%;
+  display: inline-block;
+}
+#profile-info-wrapper {
+  min-width: 100%;
+}
+#profile-info-container {
+  min-width: 700px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #profile-info-container {
+    min-width: 500px;
+  }
+}
+#follow-container {
+  position: absolute;
+  top: 10px;
+  right: 90px;
+}
+#followBtn:hover {
+  cursor: pointer;
+  background-color: #3fc4e8!important;
+}
+#user-followers , #user-following, #user-likes {
+  overflow-x: hidden;
+}
+#mobile-profile-info > span:hover {
+  cursor: pointer;
+}
+#profile-info-wrapper > span:hover {
+  cursor: pointer;
+  background-color: #3fc4e8!important;
+  color: white!important;
+}
+#profile-info-wrapper > span:hover .text-muted {
+  color: white!important;
+}
+
+#mobile-profile-info > span:hover {
+  cursor: pointer;
 }

@@ -1,11 +1,49 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top row justify-content-center">
-    <div class="nav-text col-1 col-sm-1 col-md-2 col-lg-2 align-items-center mt-1" id="nav-text">
-      <a class="ml-lg-5 navbar-brand logo-text" routerLink="home">Scribe</a>
+<nav class="navbar px-0 py-1 navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">
+  <div class="container">
+    <div id="logo-container" class="align-items-center col-2 col-md-2 col-lg-1 d-none d-sm-inline-block order-md-1">
+      <img height="40px" src="../../assets/images/logo_long.png" routerLink="/home">
     </div>
-    <div class="justify-content-center col-8 col-sm-9 col-md-7 col-lg-8 m-lg-auto px-0 mr-sm-1 px-md-3" id="nav-search">
-        <app-search></app-search>
+    <div id="logo-container" class="align-items-center col-3 d-sm-none order-md-1" *ngIf="!isUser">
+      <img height="40px" src="../../assets/images/logo_long.png" routerLink="/home">
     </div>
-    <div class="mr-1 mr-lg-2" id="nav-info">
-      <app-user-info></app-user-info>
+    <div id="nav-links" class="col-5 col-md-5 col-lg-6 d-none d-md-inline-block order-2" *ngIf="isUser">
+      <span class="p-1 d-none d-lg-inline-block" (click)="sendTo('home')"><a><i class="fa fa-home mx-2" aria-hidden="true"></i>Home</a></span>
+      <span class="p-1" (click)="sendTo('messages')"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages</a></span>
+      <span class="p-1" (click)="sendTo('groups')"><a><i class="fa fa-users mx-2" aria-hidden="true"></i>Groups</a></span>
     </div>
-  </nav>
+    <div id="search-container" class="col-10 col-sm-6 offset-sm-3 offset-md-0 col-md-4 col-lg-4 order-2" *ngIf="isUser">
+      <app-search></app-search>
+    </div>
+    <div id="search-container" class="col-9 col-sm-auto col-md-5 col-lg-4 order-2 offset-sm-3 offset-md-4 offset-lg-5" *ngIf="!isUser">
+      <app-search></app-search>
+    </div>
+    <a routerLink="/login" id="login-nav" class="text-primary d-none d-sm-inline-block col-sm-1 order-3 font-weight-bold" *ngIf="!isUser">Login</a>
+    <div id="info-container" class="col-1 order-1 order-sm-3" *ngIf="isUser">
+      <div ngbDropdown class="d-inline-block">
+        <img height="40px" width="40px" class="circle" [src]="photoURL" id="dropdownBasic1" ngbDropdownToggle>
+        <div id="ngb-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <div id="user-container" class="mx-2">
+            <img height="50px" width="50px" class="circle" [src]="photoURL" id="dropdownBasic2" ngbDropdownToggle>
+            <h6 class="mb-0">{{displayName}}</h6>
+            <p class="text-muted mb-1">@{{userName}}</p>
+            <div id="user-data">
+              <p class="m-0"><span class="text-muted">Scribes</span> <span class="font-weight-bold">{{totalScribes}}</span></p>
+              <p class="m-0"><span class="text-muted">Following</span> <span class="font-weight-bold">{{totalFollowing}}</span></p>
+              <p class="m-0"><span class="text-muted">Followers</span> <span class="font-weight-bold">{{totalFollowers}}</span></p>
+            </div>
+          </div>
+          <hr>
+          <button class="dropdown-item p-2 d-lg-none" (click)="sendTo('home')">Home</button>
+          <button class="dropdown-item p-2" (click)="sendTo('profile')">Profile</button>
+          <button class="dropdown-item p-2" (click)="sendTo('groups')">Groups</button>
+          <hr>
+          <button class="dropdown-item p-2" (click)="sendTo('account')">Account</button>
+          <button class="dropdown-item p-2 mb-3" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<ng-template #showLogin>
+</ng-template>

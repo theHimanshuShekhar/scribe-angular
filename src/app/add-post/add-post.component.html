@@ -1,27 +1,15 @@
-<div *ngIf="!this.showAccount">
-  <div id="addPosts" class="list-group-item align-items-start p-0 mt-0" *ngIf="auth.user | async" >
-    <div class="addPostContainer mt-0" *ngIf="!this.showAccount">
-      <ngb-accordion #acc="ngbAccordion">
-        <ngb-panel>
-          <ng-template ngbPanelTitle>
-            <div class="d-flex w-100 justify-content-between">
-              <h4 class="text-white align-self-center my-0">Add Post <i class="fa fa-plus-circle align-self-center" aria-hidden="true"></i></h4>
-            </div>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <form>
-              <div class="form-group">
-                <textarea id="new-post-body" class="form-control" placeholder="Enter your post" name="new-post-body" [(ngModel)]="body"></textarea>
-              </div>
-            </form>
-            <div class="d-flex flex-row-reverse">
-              <button class="btn btn-danger" id="post-submit" (click)="addPost()">Post</button>
-            </div>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+<div id="add-post-container" [class]="containerStyle">
+  <div [class]="addPostWrapper">
+    <div [class]="imgcontainerClass">
+      <img [src]="userURL" height="35px" width="35px" class="circle ml-032 ml-sm-4 ml-md-1 ml-lg-4">
+    </div>
+    <textarea type="text" [class]="textareaClass" (click)="expand()" placeholder="What's happening?" [(ngModel)]="postBody"></textarea>
+    <div id="buttons" [class]="buttonsClass">
+      <div class="row justify-content-end mx-1 ml-5">
+        <input type="file" id="inputImage" #inputImage>
+        <button class="btn col-2 bg-none attachment-btn text-primary rounded p-2 mx-3 text-center align-self-center" (click)="inputImage.click()"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
+        <button class="btn col-auto bg-primary text-white btn-round py-0 m-0 px-3 align-self-center" id="btnSubmit" (click)="addPost()">Scribe</button>
+      </div>
     </div>
   </div>
 </div>
-
-

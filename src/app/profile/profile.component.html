@@ -1,23 +1,74 @@
-<div class="profile-container container">
-  <div id="profile-jumbotron" class="jumbotron bg-danger mt-1 mb-0 py-2" *ngIf="this.doesUserExist; else invaliduser">
-    <div class="profile-info row">
-      <img [src]="this.photoURL" alt="" id="display-picture" class="ml-2 col">
-      <div class="user-info col mx-0 my-auto">
-        <h1 id="display-displayName" class="mb-0">{{ this.displayName }}</h1>
-        <h4 id="display-username" class="text-white mt-0 mb-1">@{{ this.username }}</h4>
-        <p class="text-white">"{{ this.status}}"</p>
+<div class="container-fluid" class="p-0" *ngIf="isLoaded; else Loading" appDetectScroll (scrollPosition)="scrollHandler($event)">
+  <div class="wrapper" *ngIf="!showInvalid; else Invalid">
+    <div id="user-banner" [style]="getStyle()"></div>
+    <div id="top-info" class="d-none d-md-block">
+      <div id="info-container" class="text-center row justify-content-center">
+        <div class="col-6 offset-md-1 offset-lg-0" id="profile-info-container">
+          <div [class]="profileInfoClass" id="profile-info-wrapper">
+            <span class="col-2 p-1 px-3 my-0 align-self-center current" (click)="showTab('posts')"><h6 class="text-muted m-0 p-0">Scribes</h6><h5 class="m-0 p-0">{{totalScribes}}</h5></span>
+            <span class="col-2 p-1 px-3 my-0 align-self-center" (click)="showTab('followers')"><h6 class="text-muted m-0 p-0">Followers</h6><h5 class="m-0 p-0">{{totalFollowers}}</h5></span>
+            <span class="col-2 p-1 px-3 my-0 align-self-center" (click)="showTab('following')"><h6 class="text-muted m-0 p-0">Following</h6><h5 class="m-0 p-0">{{totalFollowing}}</h5></span>
+            <span class="col-2 p-1 px-3 my-0 align-self-center" (click)="showTab('likes')"><h6 class="text-muted m-0 p-0">Likes</h6><h5 class="m-0 p-0">{{totalLikes}}</h5></span>
+          </div>
+        </div>
+        <div class="col-2 align-self-center" *ngIf="!isCurrentUser && this.isLoggedIn">
+          <button class="btn btn-round bg-primary text-white px-4 py-2 font-weight-bold align-self-center" id="followBtn" (click)="followUser()">{{checkFollowing()}}</button>
+        </div>
       </div>
     </div>
+    <div id="profile-content" class="container row mb-5">
+      <div id="user-info" class="col-12 col-md-3">
+        <div class="col-2 align-self-center d-md-none" *ngIf="!isCurrentUser && this.isLoggedIn" id="follow-container">
+          <button class="btn btn-round bg-primary text-white px-4 py-2 font-weight-bold align-self-center" id="followBtn" (click)="followUser()">{{checkFollowing()}}</button>
+        </div>
+        <img [src]="photoURL" id="profile-photo" class="circle">
+          <div id="user-text" class="ml-2 mb-0">
+            <h5 class="mb-1">{{displayName}}</h5>
+            <p class="text-muted mb-1">@{{userName}}</p>
+            <p>{{status}}</p>
+            <p><span class="text-mute"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>Joined</span> {{joinDate}}</p>
+            <div id="mobile-profile-info" class="d-md-none">
+                <span (click)="showTab('posts')"><span class="font-weight-bold">{{totalScribes}}</span> <span>Scribes</span></span>
+                <span (click)="showTab('following')"><span class="font-weight-bold ml-2">{{totalFollowing}}</span> <span>Following</span></span>
+                <span (click)="showTab('followers')"><span class="font-weight-bold ml-2">{{totalFollowers}}</span> <span>Followers</span></span>
+            </div>
+          </div>
+          <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-1" *ngIf="displayName && !isCurrentUser">
+            <span id="scribe-btn-text">Scribe to {{displayName | slice:0:16}}<span *ngIf="displayName.length > 16">...</span></span>
+          </button>
+      </div>
+      <div id="user-posts" class="col-12 col-md-6 mt-2 mt-md-0 px-0"*ngIf="showPosts">
+        <app-add-post [userURL]="photoURL" *ngIf="isCurrentUser"></app-add-post>
+        <div *ngFor="let post of posts" class="px-3">
+          <app-post [inputPost]="post" *ngIf="post; else NoPosts" ></app-post>
+        </div>
+        <div *ngIf="posts.loading | async">
+          <div class="text-center pt-5">
+            <i class="fa fa-spinner fa-3x fa-spin text-primary" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div id="user-followers" class="col-12 col-md-6 mt-2 mt-md-0 px-0" *ngIf="showFollowers">
+        <app-user-list [users]="followers" title="Followers"></app-user-list>
+      </div>
+      <div id="user-following" class="col-12 col-md-6 mt-2 mt-md-0 px-0" *ngIf="showFollowing">
+        <app-user-list [users]="following" title="Following"></app-user-list>
+      </div>
+      <div id="right-panel" class="d-none d-md-inline-block col-md-3"></div>
+    </div>
   </div>
-  <app-add-post class="my-0" *ngIf="this.showAddPost"></app-add-post>
-  <app-posts *ngIf="this.useruid" [useruid]="this.useruid"></app-posts>
 </div>
 
-<ng-template #invaliduser>
-  <div class="jumbotron bg-danger mt-2 mb-0 pb-1 pt-3 row">
-    <img [src]="this.photoURL" alt="" class="rounded display-picture mb-2 col">
-    <b class="text-white col mx-2 align-self-center" id="invalid-user-text">
-      User does not exist
-    </b>
+<ng-template #Invalid>
+  <app-error error="nouser"></app-error>
+</ng-template>
+
+<ng-template #NoPosts>
+  <app-error error="noposts"></app-error>
+</ng-template>
+
+<ng-template #Loading>
+  <div class="text-center pt-5">
+    <i class="fa fa-spinner fa-3x fa-spin text-primary" aria-hidden="true"></i>
   </div>
 </ng-template>

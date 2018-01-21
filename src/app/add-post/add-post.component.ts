@@ -1,71 +1,80 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from './../services/auth.service';
 import { PostsService } from './../services/posts.service';
-import * as firebase from 'firebase';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-post',
   templateUrl: './add-post.component.html',
-  styleUrls: ['./add-post.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./add-post.component.css']
 })
 export class AddPostComponent implements OnInit {
 
-  public showAccount = false;
-  private uid;
-  private itemDoc: AngularFirestoreDocument<any>;
-  item: Observable<any>;
+  @Input() userURL: string;
 
-  public 'body': string;
-  private author: string;
-  private pid: string;
-  private imgURL: string;
-  private likes: number;
-  private newPost;
+  buttonsClass = 'col-12 mt-2 d-none';
+  textareaClass = 'form-control col-10';
+  imgcontainerClass = 'col-2';
+  addPostWrapper;
+  containerStyle;
+  route;
+
+  // Post Data
+  postBody;
+  imgURL;
 
   constructor(
     private postService: PostsService,
-    public auth: AuthService,
-    private afs: AngularFirestore
-  ) {
-  }
+    private sanitizer: DomSanitizer,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.auth.getAuthState().subscribe( user => {
-      if (user) {
-        setTimeout(() => {
-          this.postService.getAuthorData();
-        }, 1000);
-      }
-    });
-
-    this.uid = this.auth.getAuthState().subscribe( user => {
-      if ( user ) {
-        this.uid = user.uid;
-        this.itemDoc = this.afs.doc<any>('users/' + this.uid);
-        this.item = this.itemDoc.valueChanges();
-        this.item.forEach(curr_user => {
-          if (!curr_user.userName || !curr_user.displayName) {
-            this.showAccount = true;
-          }
-        });
-      }
-    });
+    this.route = this.router.url.slice(1, 5);
+    if (this.route === 'user') {
+      this.textareaClass = 'form-control col-12 mx-1 my-2';
+      this.imgcontainerClass = 'd-none';
+      this.addPostWrapper = 'row mx-1';
+      this.containerStyle = 'rounded p-2 my-1';
+    } else {
+      this.textareaClass = 'form-control col-10';
+      this.addPostWrapper = 'row mr-2';
+      this.containerStyle = 'rounded p-2 mb-1';
+    }
+    if (!this.userURL) {
+      this.userURL = '../../assets/images/default-profile.jpg';
+    }
   }
 
-  public addPost() {
-    if (this.body) {
-      this.newPost = {
-        body: this.body,
-        date: firebase.firestore.FieldValue.serverTimestamp()
-      };
-      this.postService.addPost(this.newPost);
+  expand() {
+    this.buttonsClass = 'col-12 mt-2';
+    if (this.route === 'user') {
+      this.textareaClass = 'form-control col-11 expanded mr-0 ml-3';
+    } else {
+      this.textareaClass = 'form-control col-10 expanded';
     }
-    this.body = '';
+  }
+  contract() {
+    this.buttonsClass = 'col-9 col-lg-12 mt-2 d-none';
+    if (this.route === 'user') {
+      this.textareaClass = 'form-control col-12 mx-1 my-2';
+    } else {
+      this.textareaClass = 'form-control col-10';
+      this.imgcontainerClass = 'col-2';
+    }
+  }
+
+  addPost() {
+    this.contract();
+    if (this.postBody) {
+      const newPost = {
+        body: this.postBody,
+        imgURL: this.imgURL ? this.imgURL : null
+      };
+      this.postService.addPost(newPost);
+      this.postBody = null;
+    }
   }
 
 }

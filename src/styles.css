@@ -3,25 +3,47 @@
 
 /* Fonts */
 @import './assets/fonts/fonts.css';
-@import '~font-awesome/css/font-awesome.css';
+@import '~font-awesome/css/font-awesome.min.css';
 
 html, body {
   min-width: 320px;
   background-color: #E6ECF0;
+  margin: 0;
+  height: 100%;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
 .test {
   border: 1px solid red;
+}
+.bg-dark {
+  background-color: #383E49;
 }
 .container {
   margin: 0 auto;
   padding: 0px;
 }
-.logo-text {
-  font-family: 'pacifico-regular', cursive;
+.text-primary {
+  color: #E83F6F!important;
+}
+.bg-primary {
+  background-color: #E83F6F!important;
 }
 ::-webkit-scrollbar {
   width: 0px;  /* remove scrollbar space */
 }
 .circle {
   border-radius: 100%;
+  border: 2px solid rgb(241, 241, 241);
+}
+.btn-round{
+  border-radius: 100px;
+}
+.bg-none {
+  background-color: rgba(255, 255, 255, 0)!important;
 }

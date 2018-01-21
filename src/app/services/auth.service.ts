@@ -22,7 +22,7 @@ export class AuthService {
 
   user: Observable<User>;
 
-  userCollection: AngularFirestoreCollection<any>;
+  userCollection: AngularFirestoreCollection<User>;
   userObs: Observable<any>;
 
   private authState: Observable<firebase.User>;
@@ -58,14 +58,7 @@ export class AuthService {
 
 
   getAuthState() {
-    return this.authState;
-  }
-  getUid() {
-      return this.currentUser.uid;
-  }
-
-  getDisplayName() {
-    return this.currentUser.displayName;
+    return this.afAuth.authState;
   }
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -88,8 +81,7 @@ export class AuthService {
     .then(
       (success) => {
         this.router.navigateByUrl('/home');
-      }
-    )
+      })
     .catch (
       (err) => {
         // setup user data in firestore on login
@@ -106,16 +98,15 @@ export class AuthService {
           };
           this.router.navigateByUrl('/account');
           return userRef.set(data);
-        }
-      );
-  }
-
-  public getUserName() {
+        });
   }
 
   logout() {
-    this.afAuth.auth.signOut();
-    this.router.navigateByUrl('/home');
+    this.afAuth.auth.signOut().then(
+      () => {
+      console.log('User logged out successfully.');
+      this.router.navigateByUrl('/home');
+    });
   }
 
   updateUser(displayname, username, status) {
@@ -134,5 +125,24 @@ export class AuthService {
       photoURL : photourl
     };
     return updateRef.update(this.updateData);
+  }
+
+  // Check if user is logged in or not
+  checkNotLogin() {
+    this.afAuth.authState.subscribe(
+      user => {
+        if (user) {
+          this.router.navigateByUrl('/home');
+        }
+      });
+  }
+
+  checkLogin() {
+    this.afAuth.authState.subscribe(
+      user => {
+        if (!user) {
+          this.router.navigateByUrl('/start');
+        }
+      });
   }
 }

@@ -1,114 +1,158 @@
-import { AuthService } from './auth.service';
-import { Injectable, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Injectable, Output } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import * as firebase from 'firebase/app';
-import { UserService } from './user.service';
+import { AuthService } from './auth.service';
+import * as firebase from 'firebase';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/take';
+import { Router } from '@angular/router';
 
-interface Post {
-  title: string;
-  body: string;
-  author: string;
-}
-
-interface NewPost {
-  body: string;
-  date;
-  imgURL?: string;
-  likes: number;
-  useruid: string;
-  pid: string;
+interface QueryConfig {
+  path: string;
+  field?: string;
+  value?: string;
+  limit: number;
+  reverse: boolean;
+  prepend: boolean;
 }
 
 @Injectable()
 export class PostsService {
 
-  // Post Variables
-  private posts: Observable<Post[]>;
-  private postsCollection: AngularFirestoreCollection<Post>;
-  private postDoc: AngularFirestoreDocument<Post>;
+  // New Post update
+  private _updatedPost = new BehaviorSubject<any>(null);
+  updatedPost = this._updatedPost.asObservable();
 
-  // Author Variables
-  private username: string;
-  private userCollection: AngularFirestoreCollection<any>;
-  private userObs: Observable<any>;
-  private user: any;
+  // Post querying with pagination //
 
-  // Author data to store with post
-  useruid: string;
-  photoURL: string;
-  status: string;
-  displayName: string;
-  userName: string;
+  // Source data
+  private _done = new BehaviorSubject(false);
+  private _loading = new BehaviorSubject(false);
+  private _data = new BehaviorSubject([]);
+
+  private query: QueryConfig;
+
+  // Observable data
+  data: Observable<any>;
+  done: Observable<boolean> = this._done.asObservable();
+  loading: Observable<boolean> = this._loading.asObservable();
 
   constructor(
     private afs: AngularFirestore,
     private auth: AuthService,
-    private userService: UserService) {
-  }
+    private router: Router
+  ) { }
 
-  private retrievePosts() {
-    this.postsCollection = this.afs.collection('posts', ref => {
-      return ref.orderBy('date', 'desc').limit(20);
-      });
-    this.posts = this.postsCollection.valueChanges();
-  }
-
-  public getPosts() {
-    this.retrievePosts();
-    return this.posts;
-  }
-
-  public getAuthorData() {
-    // Retrieve user collection
-    this.userCollection = this.afs.collection('users', ref => ref.where('uid', '==', this.auth.getUid()));
-    this.userObs = this.userCollection.valueChanges();
-    this.userObs.forEach(user => {
-      if (user) {
-        this.user = user;
-        if (this.user[0]) {
-          this.useruid = this.user[0].uid;
-          this.photoURL = this.user[0].photoURL;
-          this.displayName = this.user[0].displayName;
-          this.status = this.user[0].status;
-          this.userName = this.user[0].userName;
-        }
-      }
-    });
-  }
-
-  public addPost(newPost) {
-
-    const id = this.afs.createId();
-    const postRef = this.afs.collection('posts').doc(id);
-    const user = this.auth.getAuthState();
-
-      const data: NewPost = {
-        body: newPost.body,
-        date: newPost.date,
-        imgURL: null,
-        likes: 0,
-        useruid: this.auth.getUid(),
-        'pid': id,
+  init(path: string, field: string, value: string) {
+    this._data = new BehaviorSubject([]);
+    this._done = new BehaviorSubject(false);
+    this._loading = new BehaviorSubject(false);
+      this.query = {
+        path,
+        limit: 10,
+        field,
+        value,
+        reverse: false,
+        prepend: false,
       };
+      const first = this.afs.collection(this.query.path,
+        ref => ref
+          .where(this.query.field, '==', this.query.value)
+          .orderBy('date', 'desc')
+          .limit(this.query.limit)
+      );
 
-      return postRef.set(data)
-        .then(() => {
-          console.log('Post Successful - ', id);
-        });
-    }
+    this.mapAndUpdate(first);
 
-    public getUserPosts(useruid) {
-      this.postsCollection = this.afs.collection('posts', ref => {
-        return ref.where('useruid', '==', useruid).orderBy('date', 'desc');
+    this.data = this._data.asObservable().scan(
+      (acc, val) => {
+        return this.query.prepend ? val.concat(acc) : acc.concat(val);
       });
-      this.posts = this.postsCollection.valueChanges();
-      return this.posts;
-    }
+  }
 
-    public getPostDataFromPid(pid) {
-      const postDoc = this.afs.doc<any>('posts/' + pid);
-      return postDoc.valueChanges();
+  more() {
+    let more;
+    const cursor = this.getCursor();
+
+    more = this.afs.collection(this.query.path,
+      ref => ref
+        .where(this.query.field, '==', this.query.value)
+        .orderBy('date', 'desc')
+        .startAfter(cursor)
+        .limit(this.query.limit)
+      );
+
+    this.mapAndUpdate(more);
+  }
+
+  private getCursor() {
+    const current = this._data.value;
+    if (current.length) {
+      return this.query.prepend ? current[0].doc : current[current.length - 1].doc;
     }
+    return null;
+  }
+
+ // Maps the snapshot to usable format the updates source
+ private mapAndUpdate(col: AngularFirestoreCollection<any>) {
+  if (this._done.value || this._loading.value) { return; }
+  // loading
+  this._loading.next(true);
+  // Map snapshot with doc ref (needed for cursor)
+  return col.snapshotChanges()
+    .do(arr => {
+      let values = arr.map(snap => {
+        const data = snap.payload.doc.data();
+        const doc = snap.payload.doc;
+        return { ...data, doc };
+      });
+
+      // If prepending, reverse the batch order
+      values = this.query.prepend ? values.reverse() : values;
+      // update source with new values, done loading
+      this._data.next(values);
+      this._loading.next(false);
+      // no more values, mark done
+      if (!values.length) {
+        this._done.next(true);
+      }
+    })
+    .take(1)
+    .subscribe();
+  }
+
+
+  // Add post //
+  addPost(newPost) {
+    this.auth.getAuthState().subscribe(
+      currentuser => {
+        const pid = this.afs.createId();
+        const date = firebase.firestore.FieldValue.serverTimestamp();
+        const post = {
+          pid: pid,
+          uid: currentuser.uid,
+          date: date,
+          body: newPost.body,
+          photoURL: newPost.photoURL ? newPost.photoURL : null,
+          to: newPost.to ? newPost.to : null,
+          type: newPost.type ? newPost.type : 'user'
+        };
+        const postRef = this.afs.collection('posts').doc(pid);
+        return postRef.set(post)
+          .then(() => {
+            location.reload();
+            console.log('Post Successful -', pid);
+          });
+      });
+  }
+
+  // Get individual post
+  public getPost(pid) {
+    return this.afs.collection('posts', ref => {
+      return ref.where('pid', '==', pid);
+    }).valueChanges();
+  }
 }
+
