@@ -145,23 +145,6 @@ export class PostsService {
             location.reload();
             console.log('Post Successful -', pid);
             this.updateTotalScribes(currentuser);
-            this.updateFeed(currentuser, pid);
-          });
-      });
-  }
-
-  updateFeed(currentuser, pid) {
-    this.afs.collection<any>('users/' + currentuser.uid + '/followers').valueChanges().subscribe(
-      followers => {
-        followers.forEach(
-          follower => {
-            const date = firebase.firestore.FieldValue.serverTimestamp();
-            const data = {
-              pid: pid,
-              date: date
-            };
-            this.afs.collection<any>('users/' + follower.uid + '/feed').doc(pid).set(data);
-            this.afs.collection<any>('users/' + currentuser.uid + '/feed').doc(pid).set(data);
           });
       });
   }
