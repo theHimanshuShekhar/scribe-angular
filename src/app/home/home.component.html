@@ -1,5 +1,5 @@
-<div class="container row pt-2">
-  <div id="user-info" class="col-md-3 p-0 m-0 d-none d-md-inline-block" *ngIf="displayName">
+<div class="container row pt-2" *ngIf="displayName; else Loading">
+  <div id="user-info" class="col-md-3 p-0 m-0 d-none d-md-inline-block">
     <div id="info-wrapper">
       <div id="bg-cover" [style]="getStyle()"></div>
       <div id="user-details">
@@ -30,3 +30,10 @@
   </div>
   <div id="right-panel" class="col-md-3">right panel</div>
 </div>
+
+<ng-template #Loading>
+  <div class="text-center pt-5 text-primary">
+    <i class="fa fa-spinner fa-4x fa-spin" aria-hidden="true"></i>
+    <h2 class="pt-1">loading your feed...</h2>
+  </div>
+</ng-template>
