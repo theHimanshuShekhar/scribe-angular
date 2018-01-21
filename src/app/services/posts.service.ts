@@ -144,26 +144,9 @@ export class PostsService {
           .then(() => {
             location.reload();
             console.log('Post Successful -', pid);
-            this.updateTotalScribes(currentuser);
           });
       });
   }
-
-  updateTotalScribes(currentuser) {
-    let updateScribes = true;
-            this.afs.doc<any>('users/' + currentuser.uid).valueChanges().subscribe(
-              userDoc => {
-                const currentTotal = userDoc.totalScribes ? userDoc.totalScribes : 0;
-                const data = {
-                  totalScribes: currentTotal + 1
-                };
-                if (updateScribes) {
-                  this.afs.doc<any>('users/' + currentuser.uid).update(data);
-                }
-                updateScribes = false;
-              });
-  }
-
 
   // Get individual post
   public getPost(pid) {
