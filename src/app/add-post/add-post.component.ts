@@ -1,6 +1,8 @@
+import { PostsService } from './../services/posts.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-post',
@@ -18,7 +20,12 @@ export class AddPostComponent implements OnInit {
   containerStyle;
   route;
 
+  // Post Data
+  postBody;
+  imgURL;
+
   constructor(
+    private postService: PostsService,
     private sanitizer: DomSanitizer,
     private router: Router
   ) { }
@@ -56,6 +63,16 @@ export class AddPostComponent implements OnInit {
       this.textareaClass = 'form-control col-10';
       this.imgcontainerClass = 'col-2';
     }
+  }
+
+  addPost() {
+    this.contract();
+    const newPost = {
+      body: this.postBody,
+      imgURL: this.imgURL ? this.imgURL : null
+    };
+    this.postService.addPost(newPost);
+    this.postBody = null;
   }
 
 }

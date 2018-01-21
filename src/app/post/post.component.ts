@@ -29,7 +29,7 @@ export class PostComponent implements OnInit {
       this.body = this.inputPost.body;
       this.date = this.inputPost.date;
       this.likes = this.inputPost.likes;
-      this.userService.retrieveUserDocumentFromID(this.inputPost.useruid).subscribe(
+      this.userService.retrieveUserDocumentFromID(this.inputPost.uid).subscribe(
         user => {
           this.displayName = user.displayName;
           this.userName = user.userName;

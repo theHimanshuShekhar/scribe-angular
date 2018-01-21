@@ -43,7 +43,7 @@ export class FeedService {
         prepend: false,
       };
       const first = this.afs.collection(this.query.path,
-        ref => ref.limit(this.query.limit)
+        ref => ref.limit(this.query.limit).orderBy('date', 'desc')
       );
 
     this.mapAndUpdate(first);

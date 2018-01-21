@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
+import { AddPostComponent } from '../add-post/add-post.component';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,8 @@ export class ProfileComponent implements OnInit {
   totalFollowing;
   totalLikes = 23;
 
-  posts: any;
+  posts;
+  newPosts: any[] = [];
   followers: any;
   following: any;
   likes: any;
@@ -63,7 +65,6 @@ export class ProfileComponent implements OnInit {
     this.isLoggedIn = false;
     this.isLoaded = false;
     this.isFollowing = false;
-
     this.titleService.setTitle('Profile');
     this.userService.retrieveUserDocumentFromUsername(this.router.url.slice(6)).subscribe(
       user => {
@@ -81,7 +82,7 @@ export class ProfileComponent implements OnInit {
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
           this.checkCurrentUser();
           this.getFollowData();
-          this.postsService.init('posts', 'useruid', this.userid);
+          this.postsService.init('posts', 'uid', this.userid);
           this.postsService.data.subscribe(
             posts => {
               this.posts = posts;

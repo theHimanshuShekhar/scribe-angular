@@ -110,7 +110,7 @@ const routes: Routes = [
     NgbModule.forRoot(),
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'Scribe'),
-    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule,
     AngularFireAuthModule,
     RouterModule.forRoot(routes),
   ],

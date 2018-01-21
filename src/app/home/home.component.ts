@@ -62,9 +62,9 @@ export class HomeComponent implements OnInit {
               this.userName = userDoc.userName;
               this.photoURL = userDoc.photoURL;
               this.userid = userDoc.uid;
-              this.totalScribes = userDoc.totalScribes;
-              this.totalFollowers = userDoc.totalFollowers;
-              this.totalFollowing = userDoc.totalFollowing;
+              this.totalScribes = userDoc.totalScribes ? userDoc.totalScribes : 0;
+              this.totalFollowers = userDoc.totalFollowers ? userDoc.totalFollowers : 0;
+              this.totalFollowing = userDoc.totalFollowing ? userDoc.totalFollowing : 0;
 
               // Get pids from user feed
               this.feedService.initFeed(this.userid);
@@ -82,7 +82,9 @@ export class HomeComponent implements OnInit {
   getFeedPosts (feed) {
     feed.forEach(feedPost => {
       this.feedService.getPost(feedPost.pid).subscribe(post => {
-        this.posts.push(post[0]);
+        if (post.length > 0) {
+          this.posts.push(post[0]);
+        }
       });
     });
   }

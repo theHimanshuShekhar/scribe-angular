@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from './auth.service';
+import * as firebase from 'firebase';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/take';
+import { Router } from '@angular/router';
 
 interface QueryConfig {
   path: string;
@@ -17,6 +20,12 @@ interface QueryConfig {
 
 @Injectable()
 export class PostsService {
+
+  // New Post update
+  private _updatedPost = new BehaviorSubject<any>(null);
+  updatedPost = this._updatedPost.asObservable();
+
+  // Post querying with pagination //
 
   // Source data
   private _done = new BehaviorSubject(false);
@@ -31,9 +40,10 @@ export class PostsService {
   loading: Observable<boolean> = this._loading.asObservable();
 
   constructor(
-    private afs: AngularFirestore
-  ) {
-   }
+    private afs: AngularFirestore,
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   init(path: string, field: string, value: string) {
     this._data = new BehaviorSubject([]);
@@ -113,6 +123,66 @@ export class PostsService {
     .subscribe();
   }
 
+
+  // Add post //
+  addPost(newPost) {
+    this.auth.getAuthState().subscribe(
+      currentuser => {
+        const pid = this.afs.createId();
+        const date = firebase.firestore.FieldValue.serverTimestamp();
+        const post = {
+          pid: pid,
+          uid: currentuser.uid,
+          date: date,
+          body: newPost.body,
+          photoURL: newPost.photoURL ? newPost.photoURL : null,
+          to: newPost.to ? newPost.to : null,
+          type: newPost.type ? newPost.type : 'user'
+        };
+        const postRef = this.afs.collection('posts').doc(pid);
+        return postRef.set(post)
+          .then(() => {
+            location.reload();
+            console.log('Post Successful -', pid);
+            this.updateTotalScribes(currentuser);
+            this.updateFeed(currentuser, pid);
+          });
+      });
+  }
+
+  updateFeed(currentuser, pid) {
+    this.afs.collection<any>('users/' + currentuser.uid + '/followers').valueChanges().subscribe(
+      followers => {
+        followers.forEach(
+          follower => {
+            const date = firebase.firestore.FieldValue.serverTimestamp();
+            const data = {
+              pid: pid,
+              date: date
+            };
+            this.afs.collection<any>('users/' + follower.uid + '/feed').doc(pid).set(data);
+            this.afs.collection<any>('users/' + currentuser.uid + '/feed').doc(pid).set(data);
+          });
+      });
+  }
+
+  updateTotalScribes(currentuser) {
+    let updateScribes = true;
+            this.afs.doc<any>('users/' + currentuser.uid).valueChanges().subscribe(
+              userDoc => {
+                const currentTotal = userDoc.totalScribes ? userDoc.totalScribes : 0;
+                const data = {
+                  totalScribes: currentTotal + 1
+                };
+                if (updateScribes) {
+                  this.afs.doc<any>('users/' + currentuser.uid).update(data);
+                }
+                updateScribes = false;
+              });
+  }
+
+
+  // Get individual post
   public getPost(pid) {
     return this.afs.collection('posts', ref => {
       return ref.where('pid', '==', pid);
