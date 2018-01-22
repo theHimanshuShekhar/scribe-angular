@@ -1,3 +1,4 @@
+import { PostsService } from './../services/posts.service';
 import { DateFormatPipe } from './../services/date.pipe';
 import { UserService } from './../services/user.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -10,6 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PostComponent implements OnInit {
 
   @Input() inputPost;
+  @Input() inputPostID;
 
   displayName;
   userName;
@@ -22,6 +24,7 @@ export class PostComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dateFormat: DateFormatPipe,
+    private postService: PostsService
   ) { }
 
   ngOnInit() {
@@ -36,6 +39,14 @@ export class PostComponent implements OnInit {
           this.photoURL = user.photoURL;
         }
       );
+    }
+    if (this.inputPostID) {
+      this.postService.getPost(this.inputPostID).subscribe(
+        post => {
+          this.inputPost = post[0];
+          this.inputPostID = null;
+          this.ngOnInit();
+        });
     }
   }
 
