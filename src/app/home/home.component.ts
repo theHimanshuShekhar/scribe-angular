@@ -1,4 +1,4 @@
-import { FeedService } from './../services/feed.service';
+import { PostsService } from './../services/posts.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
@@ -22,12 +22,12 @@ export class HomeComponent implements OnInit {
   totalFollowing;
   totalScribes;
 
-  posts = [];
+  feedPosts;
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private feedService: FeedService,
+    private postsService: PostsService,
     private titleService: Title,
     private userService: UserService,
     private sanitizer: DomSanitizer
@@ -67,25 +67,14 @@ export class HomeComponent implements OnInit {
               this.totalFollowing = userDoc.totalFollowing ? userDoc.totalFollowing : 0;
 
               // Get pids from user feed
-              this.feedService.initFeed(this.userid);
-              this.feedService.data.subscribe(
-                feed => {
-                  if (feed.length >= 1) {
-                    this.getFeedPosts(feed);
-                  }
+              this.postsService.getFeed(this.userid).subscribe(
+                feedPosts => {
+                  this.feedPosts = feedPosts;
                 });
             });
+        } else {
+          this.router.navigateByUrl('login');
         }
-    });
-  }
-
-  getFeedPosts (feed) {
-    feed.forEach(feedPost => {
-      this.feedService.getPost(feedPost.pid).subscribe(post => {
-        if (post.length > 0) {
-          this.posts.push(post[0]);
-        }
-      });
     });
   }
 }

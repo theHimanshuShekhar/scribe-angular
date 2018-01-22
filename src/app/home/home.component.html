@@ -24,8 +24,8 @@
   </div>
   <div id="posts-container" class="col-md-6">
     <app-add-post [userURL]="photoURL"></app-add-post>
-    <div id="feed-posts" *ngFor="let post of posts" class="px-3">
-      <app-post [inputPost]="post"></app-post>
+    <div id="feed-posts" *ngFor="let feedPost of feedPosts" class="px-3">
+      <app-post [inputPostID]="feedPost.pid"></app-post>
     </div>
   </div>
   <div id="right-panel" class="col-md-3">right panel</div>

@@ -142,10 +142,20 @@ export class PostsService {
         const postRef = this.afs.collection('posts').doc(pid);
         return postRef.set(post)
           .then(() => {
-            this.router.initialNavigation();
+            if (this.router.url !== '/home') {
+              this.init('posts', 'uid', currentuser.uid);
+            }
             console.log('Post Successful -', pid);
           });
       });
+  }
+
+  // Get user's feed
+  getFeed(uid) {
+    return this.afs.collection<any>('users/' + uid + '/feed',
+      ref => ref.orderBy('date', 'desc')
+      .limit(200))
+      .valueChanges();
   }
 
   // Get individual post

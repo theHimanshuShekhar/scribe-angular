@@ -18,7 +18,6 @@ import { AuthService } from './services/auth.service';
 import { UploadService } from './services/upload.service';
 import { UserService } from './services/user.service';
 import { FollowService } from './services/follow.service';
-import { FeedService } from './services/feed.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -120,7 +119,6 @@ const routes: Routes = [
     UserService,
     PostsService,
     FollowService,
-    FeedService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
