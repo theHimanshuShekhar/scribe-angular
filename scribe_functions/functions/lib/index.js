@@ -32,16 +32,17 @@ function deleteFeedPosts(postUser, pid) {
                 console.log('delete error', err);
             });
         });
+    }).then(() => {
+        afs.doc('users/' + postUser + '/feed/' + pid).delete()
+            .then(() => {
+            console.log('Feed Post Deleted for PostUser-', postUser);
+        })
+            .catch(err => {
+            console.log('delete error', err);
+        });
     })
         .catch(err => {
         console.log(err);
-    });
-    afs.doc('users/' + postUser + '/feed/' + pid).delete()
-        .then(() => {
-        console.log('Feed Post Deleted for user ', postUser);
-    })
-        .catch(err => {
-        console.log('delete error', err);
     });
     updateTotalScribes(postUser);
 }
