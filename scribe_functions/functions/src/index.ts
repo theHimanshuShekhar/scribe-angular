@@ -28,8 +28,21 @@ exports.onDelete = functions.firestore
     const personuid = event.params.userID;
     const currentuid = event.params.followerID;
     updateFollowers(personuid);
+    updateFollowers(currentuid);
     updateFollowing(currentuid);
-});
+    updateFollowing(personuid);
+  });
+
+  exports.onUnFollow = functions.firestore
+  .document('users/{userID}/followers/{followerID}')
+  .onDelete(event => {
+    const personuid = event.params.userID;
+    const currentuid = event.params.followerID;
+    updateFollowers(personuid);
+    updateFollowers(currentuid);
+    updateFollowing(currentuid);
+    updateFollowing(personuid);
+  });
 
 function updateFollowing(uid) {
     afs.collection('users/' + uid + '/following').get()
