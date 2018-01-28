@@ -183,6 +183,23 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  getActiveTabStyle(tabName){
+    const style = 'col-2 p-1 px-3 my-0 align-self-center';
+    if (this.showPosts && tabName === 'posts') {
+      return style + ' current';
+    }
+    if (this.showFollowing && tabName === 'following') {
+      return style + ' current';
+    }
+    if (this.showFollowers && tabName === 'followers') {
+      return style + ' current';
+    }
+    if (this.showLikes && tabName === 'likes') {
+      return style + ' current';
+    }
+    return style;
+  }
+
   getStyle() {
     if (this.bannerURL) {
       return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
