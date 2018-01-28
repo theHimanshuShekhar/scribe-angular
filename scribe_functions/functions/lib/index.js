@@ -14,6 +14,37 @@ exports.onPost = functions.firestore
     updateFollowerFeeds(currentuid, pid, date);
     updateTotalScribes(currentuid);
 });
+exports.onDelete = functions.firestore
+    .document('posts/{postId}')
+    .onDelete(event => {
+    const deletedPost = event.data.previous.data();
+    deleteFeedPosts(deletedPost.uid, deletedPost.pid);
+});
+function deleteFeedPosts(postUser, pid) {
+    afs.collection('users/' + postUser + '/followers').get()
+        .then(snapshot => {
+        snapshot.forEach(doc => {
+            afs.doc('users/' + doc.id + '/feed/' + pid).delete()
+                .then(() => {
+                console.log('Feed Post Deleted for user ', doc.id);
+            })
+                .catch(err => {
+                console.log('delete error', err);
+            });
+        });
+    })
+        .catch(err => {
+        console.log(err);
+    });
+    afs.doc('users/' + postUser + '/feed/' + pid).delete()
+        .then(() => {
+        console.log('Feed Post Deleted for user ', postUser);
+    })
+        .catch(err => {
+        console.log('delete error', err);
+    });
+    updateTotalScribes(postUser);
+}
 function updateFollowerFeeds(currentuid, pid, date) {
     afs.collection('users/' + currentuid + '/followers').get()
         .then((snapshot) => {
@@ -39,11 +70,14 @@ function updateFollowerFeeds(currentuid, pid, date) {
 function updateTotalScribes(uid) {
     afs.collection('posts').where('uid', '==', uid).get()
         .then(posts => {
-        const totalScribes = posts.size;
+        const scribes = posts.size;
         const data = {
-            totalScribes: totalScribes
+            totalScribes: scribes
         };
         afs.doc('users/' + uid).update(data)
+            .then(() => {
+            console.log('totalScribes updated for user- ', uid);
+        })
             .catch((err) => {
             console.log(err);
         });

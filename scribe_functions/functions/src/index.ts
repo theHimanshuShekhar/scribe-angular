@@ -18,8 +18,36 @@ exports.onPost = functions.firestore
 exports.onDelete = functions.firestore
   .document('posts/{postId}')
   .onDelete(event => {
-    console.log(event.data.data());
+    const deletedPost = event.data.previous.data();
+    deleteFeedPosts(deletedPost.uid, deletedPost.pid);
   })
+
+function deleteFeedPosts(postUser, pid) {
+    afs.collection('users/' + postUser + '/followers').get()
+    .then(snapshot => {
+        snapshot.forEach(
+            doc => {
+                afs.doc('users/' + doc.id + '/feed/' + pid).delete()
+                .then(() => {
+                    console.log('Feed Post Deleted for user ', doc.id);
+                })
+                .catch(err => {
+                    console.log('delete error', err);
+                });
+            });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+    afs.doc('users/' + postUser + '/feed/' + pid).delete()
+    .then(() => {
+        console.log('Feed Post Deleted for user ', postUser);
+    })
+    .catch(err => {
+        console.log('delete error', err);
+    });
+    updateTotalScribes(postUser);
+}
 
 function updateFollowerFeeds(currentuid, pid, date) {
     afs.collection('users/' + currentuid + '/followers').get()
