@@ -19,6 +19,7 @@ export class PostComponent implements OnInit {
   isCurrentUser = false;
   isInvalid;
   isLoaded = false;
+  showLoader = false;
 
   pid;
   displayName;
@@ -38,6 +39,7 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.checkURL();
 
     // If the post comes from the parent component
     if (this.inputPost) {
@@ -90,6 +92,14 @@ export class PostComponent implements OnInit {
           this.isInvalid = true;
         }
       });
+    }
+  }
+
+  checkURL() {
+    const routerURL = this.router.url;
+    console.log(routerURL);
+    if (routerURL !== '/home') {
+      this.showLoader = true;
     }
   }
 
