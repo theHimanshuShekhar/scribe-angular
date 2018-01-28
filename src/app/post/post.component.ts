@@ -79,7 +79,6 @@ export class PostComponent implements OnInit {
     // If the post comes from the URL
     if (!this.inputPost && !this.inputPostID && this.router.url !== 'home') {
       this.pid = this.router.url.slice(6);
-      this.isInvalid = true;
       this.postService.getPost(this.pid).subscribe(post => {
         if (post) {
           this.inputPostID = this.pid;
