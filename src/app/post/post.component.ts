@@ -17,6 +17,8 @@ export class PostComponent implements OnInit {
 
   isSingle = false;
   isCurrentUser = false;
+  isInvalid;
+  isLoaded = false;
 
   pid;
   displayName;
@@ -36,8 +38,10 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     // If the post comes from the parent component
     if (this.inputPost) {
+      this.isInvalid = false;
       this.body = this.inputPost.body;
       this.date = this.inputPost.date;
       this.likes = this.inputPost.likes;
@@ -47,6 +51,7 @@ export class PostComponent implements OnInit {
           this.displayName = user.displayName;
           this.userName = user.userName;
           this.photoURL = user.photoURL;
+          this.isLoaded = true;
         }
       );
       this.auth.getAuthState().subscribe(
@@ -60,27 +65,37 @@ export class PostComponent implements OnInit {
     if (this.inputPostID) {
       this.postService.getPost(this.inputPostID).subscribe(
         post => {
-          this.inputPost = post;
-          this.inputPostID = null;
-          this.ngOnInit();
+          if (post) {
+            this.inputPost = post;
+            this.inputPostID = null;
+            this.isInvalid = false;
+            this.ngOnInit();
+          } else {
+            console.log('invalid');
+            this.isInvalid = true;
+          }
         });
     }
     // If the post comes from the URL
-    if (!this.inputPost && !this.inputPostID) {
+    if (!this.inputPost && !this.inputPostID && this.router.url !== 'home') {
       this.pid = this.router.url.slice(6);
-      this.postService.getPost(this.pid).subscribe(
-        post => {
-          if (post) {
-            this.isSingle = true;
-            this.inputPost = post;
-            this.ngOnInit();
-          }
-        });
+      this.isInvalid = true;
+      this.postService.getPost(this.pid).subscribe(post => {
+        if (post) {
+          this.inputPostID = this.pid;
+          this.isSingle = true;
+          this.isInvalid = false;
+          this.isLoaded = true;
+          this.ngOnInit();
+        } else {
+          this.isInvalid = true;
+        }
+      });
     }
   }
 
   delete() {
-    alert('Delete not implemented yet.');
+    this.postService.deletePost(this.pid);
   }
 
   retrieveDate(date, type?) {

@@ -162,5 +162,10 @@ export class PostsService {
   public getPost(pid) {
     return this.afs.doc<any>('posts/' + pid).valueChanges();
   }
+
+  // Delete post
+  public deletePost (pid) {
+    this.afs.doc<any>('posts/' + pid).delete();
+  }
 }
 
