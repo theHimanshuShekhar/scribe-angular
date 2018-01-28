@@ -160,9 +160,7 @@ export class PostsService {
 
   // Get individual post
   public getPost(pid) {
-    return this.afs.collection('posts', ref => {
-      return ref.where('pid', '==', pid);
-    }).valueChanges();
+    return this.afs.doc<any>('posts/' + pid).valueChanges();
   }
 }
 

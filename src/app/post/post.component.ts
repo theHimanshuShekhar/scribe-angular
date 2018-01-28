@@ -2,6 +2,8 @@ import { PostsService } from './../services/posts.service';
 import { DateFormatPipe } from './../services/date.pipe';
 import { UserService } from './../services/user.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -13,6 +15,10 @@ export class PostComponent implements OnInit {
   @Input() inputPost;
   @Input() inputPostID;
 
+  isSingle = false;
+  isCurrentUser = false;
+
+  pid;
   displayName;
   userName;
   photoURL = '../../assets/images/default-profile.jpg';
@@ -24,14 +30,18 @@ export class PostComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dateFormat: DateFormatPipe,
-    private postService: PostsService
+    private postService: PostsService,
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    // If the post comes from the parent component
     if (this.inputPost) {
       this.body = this.inputPost.body;
       this.date = this.inputPost.date;
       this.likes = this.inputPost.likes;
+      this.pid = this.inputPost.pid;
       this.userService.retrieveUserDocumentFromID(this.inputPost.uid).subscribe(
         user => {
           this.displayName = user.displayName;
@@ -39,13 +49,32 @@ export class PostComponent implements OnInit {
           this.photoURL = user.photoURL;
         }
       );
+      this.auth.getAuthState().subscribe(
+        user => {
+          if (this.inputPost.uid === user.uid) {
+            this.isCurrentUser = true;
+          }
+        });
     }
+    // If the postID comes from the parent component
     if (this.inputPostID) {
       this.postService.getPost(this.inputPostID).subscribe(
         post => {
-          this.inputPost = post[0];
+          this.inputPost = post;
           this.inputPostID = null;
           this.ngOnInit();
+        });
+    }
+    // If the post comes from the URL
+    if (!this.inputPost && !this.inputPostID) {
+      this.pid = this.router.url.slice(6);
+      this.postService.getPost(this.pid).subscribe(
+        post => {
+          if (post) {
+            this.isSingle = true;
+            this.inputPost = post;
+            this.ngOnInit();
+          }
         });
     }
   }
@@ -78,6 +107,15 @@ export class PostComponent implements OnInit {
           }
         }
       }
+    }
+  }
+
+  sendTo(type) {
+    if (type === 'profile') {
+      this.router.navigateByUrl('user/' + this.userName);
+    }
+    if (type === 'post') {
+      this.router.navigateByUrl('post/' + this.pid);
     }
   }
 

@@ -1,6 +1,7 @@
 #post-container {
   background-color: white;
   border-bottom: 1px solid lightgray;
+  max-width: 700px;
 }
 #post-date {
   font-size: 0.8em;
@@ -11,4 +12,13 @@
 }
 #post-body {
   word-wrap: break-word;
+}
+#user-text:hover {
+  cursor: pointer;
+}
+#single-post-container {
+  background-color: white;
+  border-bottom: 1px solid lightgray;
+  max-width: 700px;
+  margin: 0 auto;
 }

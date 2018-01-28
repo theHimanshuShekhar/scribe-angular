@@ -56,6 +56,10 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
+    path: 'post/:pid',
+    component: PostComponent
+  },
+  {
     path: 'account',
     component: AccountComponent
   },
