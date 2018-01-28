@@ -97,7 +97,6 @@ export class PostComponent implements OnInit {
 
   checkURL() {
     const routerURL = this.router.url;
-    console.log(routerURL);
     if (routerURL !== '/home') {
       this.showLoader = true;
     }
