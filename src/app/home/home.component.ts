@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private postsService: PostsService,
+    private afs: AngularFirestore,
     private titleService: Title,
     private userService: UserService,
     private sanitizer: DomSanitizer

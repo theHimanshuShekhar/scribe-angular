@@ -22,6 +22,10 @@ export class ErrorComponent implements OnInit {
       this.errormsg = 'Profile not found';
       this.message = 'The profile does not exist or the URL is incorrect.';
     }
+    if (this.error === 'nopost') {
+      this.errormsg = 'Post not found';
+      this.message = 'The post does not exist or the URL is incorrect. The post may have been deleted.';
+    }
     if (this.error === 'nogroup') {
       this.errormsg = 'Group not found';
       this.message = 'The group does not exist or the URL is incorrect.';
