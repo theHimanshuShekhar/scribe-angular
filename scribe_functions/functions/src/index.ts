@@ -22,6 +22,60 @@ exports.onDelete = functions.firestore
     deleteFeedPosts(deletedPost.uid, deletedPost.pid);
   })
 
+  exports.onFollow = functions.firestore
+  .document('users/{userID}/followers/{followerID}')
+  .onCreate(event => {
+    const personuid = event.params.userID;
+    const currentuid = event.params.followerID;
+    updateFollowers(personuid);
+    updateFollowers(currentuid);
+    updateFollowing(currentuid);
+    updateFollowing(personuid);
+  });
+
+  exports.onUnFollow = functions.firestore
+  .document('users/{userID}/followers/{followerID}')
+  .onDelete(event => {
+    const personuid = event.params.userID;
+    const currentuid = event.params.followerID;
+    updateFollowers(personuid);
+    updateFollowers(currentuid);
+    updateFollowing(currentuid);
+    updateFollowing(personuid);
+  });
+
+function updateFollowing(uid) {
+    afs.collection('users/' + uid + '/following').get()
+    .then(snapshot => {
+        const data = {
+            totalFollowing: snapshot.size
+        };
+        afs.doc('users/' + uid).update(data)
+        .catch(err => {
+            console.log(err);
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
+
+function updateFollowers(uid) {
+    afs.collection('users/' + uid + '/followers').get()
+    .then(snapshot => {
+        const data = {
+            totalFollowers: snapshot.size
+        };
+        afs.doc('users/' + uid).update(data)
+        .catch(err => {
+            console.log(err);
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
+
 function deleteFeedPosts(postUser, pid) {
     afs.collection('users/' + postUser + '/followers').get()
     .then(snapshot => {
