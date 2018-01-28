@@ -37,7 +37,7 @@ function updateFollowing(uid) {
         const data = {
             totalFollowing: snapshot.size
         };
-        afs.doc('user/' + uid).update(data)
+        afs.doc('users/' + uid).update(data)
         .catch(err => {
             console.log(err);
         });
@@ -53,7 +53,7 @@ function updateFollowers(uid) {
         const data = {
             totalFollowers: snapshot.size
         };
-        afs.doc('user/' + uid).update(data)
+        afs.doc('users/' + uid).update(data)
         .catch(err => {
             console.log(err);
         });
