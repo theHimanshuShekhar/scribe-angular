@@ -11,9 +11,15 @@ exports.onPost = functions.firestore
     const currentuid = post.uid;
     const pid = post.pid;
     const date = post.date;
-    updateFollowerFeeds(currentuid, pid, date);   
-    updateTotalScribes(currentuid); 
+    updateFollowerFeeds(currentuid, pid, date);
+    updateTotalScribes(currentuid);
 });
+
+exports.onDelete = functions.firestore
+  .document('posts/{postId}')
+  .onDelete(event => {
+    console.log(event.data.data());
+  })
 
 function updateFollowerFeeds(currentuid, pid, date) {
     afs.collection('users/' + currentuid + '/followers').get()
@@ -52,7 +58,7 @@ function updateTotalScribes(uid) {
             })
             .catch(
                 (err) => {
-                 console.log(err);   
+                 console.log(err);
                 });
         })
     .catch ((err) => {
