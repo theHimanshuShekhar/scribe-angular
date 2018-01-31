@@ -87,7 +87,6 @@ export class PostComponent implements OnInit {
             this.isInvalid = false;
             this.ngOnInit();
           } else {
-            console.log('invalid');
             this.isInvalid = true;
           }
         });
@@ -106,6 +105,15 @@ export class PostComponent implements OnInit {
           this.isInvalid = true;
         }
       });
+    }
+  }
+
+  checkShowError() {
+    const url = this.router.url;
+    if (url === '/post/' + this.pid) {
+      return true;
+    } else {
+      return false;
     }
   }
 

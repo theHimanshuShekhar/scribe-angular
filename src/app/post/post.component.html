@@ -67,5 +67,5 @@
 </ng-template>
 
 <ng-template #Invalid>
-  <app-error error="nopost"></app-error>
+  <app-error error="nopost" *ngIf="checkShowError()"></app-error>
 </ng-template>
