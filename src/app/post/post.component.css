@@ -2,7 +2,6 @@
   background-color: white;
   border-bottom: 1px solid lightgray;
   max-width: 700px;
-  overflow-y: hidden;
 }
 #post-date {
   font-size: 0.8em;
@@ -30,4 +29,8 @@
 }
 #post-info > span > i {
   font-size: 15px;
+}
+#post-info > span:hover {
+  color: #E83F6F;
+  cursor: pointer;
 }

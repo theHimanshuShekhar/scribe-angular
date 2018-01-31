@@ -25,6 +25,7 @@ export class PostComponent implements OnInit {
   isLoaded = false;
   showLoader = false;
   closeResult: string;
+  isLiked;
 
   pid;
   displayName;
@@ -33,6 +34,7 @@ export class PostComponent implements OnInit {
   body;
   date;
   likes;
+
 
 
   constructor(
@@ -115,6 +117,9 @@ export class PostComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  Like() {
   }
 
   checkURL() {
