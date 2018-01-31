@@ -4,6 +4,8 @@ import { UserService } from './../services/user.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-post',
@@ -15,11 +17,14 @@ export class PostComponent implements OnInit {
   @Input() inputPost;
   @Input() inputPostID;
 
+  modalRef;
+
   isSingle = false;
   isCurrentUser = false;
   isInvalid;
   isLoaded = false;
   showLoader = false;
+  closeResult: string;
 
   pid;
   displayName;
@@ -35,8 +40,17 @@ export class PostComponent implements OnInit {
     private dateFormat: DateFormatPipe,
     private postService: PostsService,
     private auth: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private modalService: NgbModal,
+    private location: PlatformLocation,
+  ) { 
+    location.onPopState((event) => {
+      // ensure that modal is opened
+      if (this.modalRef !== undefined) {
+          this.modalRef.close();
+      }
+    }); 
+  }
 
   ngOnInit() {
     this.checkURL();
@@ -134,11 +148,37 @@ export class PostComponent implements OnInit {
   }
 
   sendTo(type) {
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
     if (type === 'profile') {
       this.router.navigateByUrl('user/' + this.userName);
     }
     if (type === 'post') {
       this.router.navigateByUrl('post/' + this.pid);
+    }
+  }
+  
+  // Modal
+  open(content) {
+    this.modalRef = this.modalService.open(content);
+    // push new state to history
+    history.pushState(null, null, 'post/' + this.pid);
+    this.modalRef.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    history.back();
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
     }
   }
 
