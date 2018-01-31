@@ -10,14 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import * as firebase from 'firebase';
 
-// Pipes
+// Pipes and Directives
 import { DateFormatPipe } from './services/date.pipe';
+import { DetectScrollDirective } from './directives/detect-scroll.directive';
 
 // Services
 import { AuthService } from './services/auth.service';
 import { UploadService } from './services/upload.service';
 import { UserService } from './services/user.service';
 import { FollowService } from './services/follow.service';
+import { LikesService } from './services/likes.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -36,7 +38,6 @@ import { AboutComponent } from './about/about.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user-list/user/user.component';
-import { DetectScrollDirective } from './directives/detect-scroll.directive';
 
 
 firebase.initializeApp(environment.firebase);
@@ -123,6 +124,7 @@ const routes: Routes = [
     UserService,
     PostsService,
     FollowService,
+    LikesService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
