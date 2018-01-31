@@ -57,7 +57,7 @@
               </div>
           </div>
           <div id="post-body" class="py-2" (click)="sendTo('post')">
-            {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
+            {{body}}
             <div id="post-date" class="mt-3 align-self-center">{{retrieveDate(this.date, 'long')}}</div>
             <br>
           </div>
