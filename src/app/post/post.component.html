@@ -19,9 +19,16 @@
             </div>
           </div>
       </div>
-      <div id="post-body" class="pb-2" (click)="open(SinglePost)">
-        {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
-        <br>
+      <div (click)="open(SinglePost)">
+        <div id="post-body" class="pb-2">
+          {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
+          <br>
+        </div>
+        <div class="col-12 text-center pt-1" id="post-info">
+          <span class="px-3 py-2"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>12</span></span>
+          <span class="px-3 py-2"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>123</span></span>
+          <span class="px-3 py-2"><i class="fa fa-retweet" aria-hidden="true"></i> <span>123</span></span>
+        </div>
       </div>
     </div>
   </div>

@@ -43,13 +43,13 @@ export class PostComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private location: PlatformLocation,
-  ) { 
+  ) {
     location.onPopState((event) => {
       // ensure that modal is opened
       if (this.modalRef !== undefined) {
           this.modalRef.close();
       }
-    }); 
+    });
   }
 
   ngOnInit() {
@@ -166,7 +166,7 @@ export class PostComponent implements OnInit {
       this.router.navigateByUrl('post/' + this.pid);
     }
   }
-  
+
   // Modal
   open(content) {
     this.modalRef = this.modalService.open(content);
