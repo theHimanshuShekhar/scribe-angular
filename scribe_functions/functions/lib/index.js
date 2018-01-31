@@ -14,6 +14,39 @@ exports.onPost = functions.firestore
     updateFollowerFeeds(currentuid, pid, date);
     updateTotalScribes(currentuid);
 });
+exports.onLike = functions.firestore
+    .document('posts/{postID}/likes/{userID}')
+    .onCreate(event => {
+    const uid = event.params.userID;
+    const pid = event.params.postID;
+    const data = {
+        pid: pid
+    };
+    afs.doc('users/' + uid + '/likes/' + pid).set(data)
+        .then(() => updateUserLikes(uid))
+        .catch(err => console.log(err));
+});
+exports.onUnLike = functions.firestore
+    .document('posts/{postID}/likes/{userID}')
+    .onDelete(event => {
+    const uid = event.params.userID;
+    const pid = event.params.postID;
+    afs.doc('users/' + uid + '/likes/' + pid).delete()
+        .then(() => updateUserLikes(uid))
+        .catch(err => console.log(err));
+});
+function updateUserLikes(uid) {
+    afs.collection('users/' + uid + '/likes').get()
+        .then(likes => {
+        console.log(likes.size);
+        const data = {
+            totalLikes: likes.size
+        };
+        afs.doc('users/' + uid).update(data)
+            .catch(err => console.log(err));
+    })
+        .catch(err => console.log(err));
+}
 exports.onDelete = functions.firestore
     .document('posts/{postId}')
     .onDelete(event => {
