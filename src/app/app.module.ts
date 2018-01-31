@@ -128,6 +128,8 @@ const routes: Routes = [
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
-  entryComponents: []
+  entryComponents: [
+    AddPostComponent
+  ]
 })
 export class AppModule { }

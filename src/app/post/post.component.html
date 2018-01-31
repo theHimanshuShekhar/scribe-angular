@@ -12,14 +12,14 @@
           </div>
           <span id="post-date" class="ml-1 col-2 col-sm-3 col-lg-2 p-0 align-self-start">{{retrieveDate(this.date)}}</span>
         </div>
-        <div ngbDropdown class="col-1 d-inline-block align-self-start" placement="bottom-right" *ngIf="isCurrentUser">
+        <div ngbDropdown class="col-1 d-inline-block align-self-start" placement="bottom-right">
             <button class="btn" id="dropdownBasic1" ngbDropdownToggle></button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button class="dropdown-item" (click)="delete()">Delete</button>
+              <button class="dropdown-item" (click)="delete()" *ngIf="isCurrentUser">Delete</button>
             </div>
           </div>
       </div>
-      <div id="post-body" class="pb-2" (click)="sendTo('post')">
+      <div id="post-body" class="pb-2" (click)="open(SinglePost)">
         {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
         <br>
       </div>
@@ -42,10 +42,10 @@
                 <small>@{{userName}}</small>
               </div>
             </div>
-            <div ngbDropdown class="col-1 d-inline-block align-self-start" placement="bottom-right" *ngIf="isCurrentUser">
+            <div ngbDropdown class="col-1 d-inline-block align-self-start" placement="bottom-right">
                 <button class="btn" id="dropdownBasic1" ngbDropdownToggle></button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button class="dropdown-item" (click)="delete()">Delete</button>
+                  <button class="dropdown-item" (click)="delete()" *ngIf="isCurrentUser">Delete</button>
                 </div>
               </div>
           </div>
@@ -67,5 +67,5 @@
 </ng-template>
 
 <ng-template #Invalid>
-  <app-error error="nopost"></app-error>
+  <app-error error="nopost" *ngIf="checkShowError()"></app-error>
 </ng-template>

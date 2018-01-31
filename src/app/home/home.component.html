@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <div id="posts-container" class="col-md-6">
+  <div id="posts-container" class="col-md-6 pb-4">
     <app-add-post [userURL]="photoURL"></app-add-post>
     <div id="feed-posts" *ngFor="let feedPost of feedPosts" class="px-3">
       <app-post [inputPostID]="feedPost.pid"></app-post>
