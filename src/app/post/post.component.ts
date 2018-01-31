@@ -6,10 +6,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { PlatformLocation } from '@angular/common';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
@@ -174,7 +176,10 @@ export class PostComponent implements OnInit {
 
   // Modal
   open(content) {
-    this.modalRef = this.modalService.open(content);
+    this.modalRef = this.modalService.open(content, {
+      size: 'lg',
+      windowClass: 'modal-style'
+    });
     // push new state to history
     history.pushState(null, null, 'post/' + this.pid);
     this.modalRef.result.then((result) => {

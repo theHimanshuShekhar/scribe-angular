@@ -22,7 +22,12 @@
   max-width: 700px;
   margin: 0 auto;
 }
-
+#single-post-container > div > #post-content > #post-body {
+  font-size: 30px;
+}
+.modal-style .modal-dialog {
+  max-width: 50%!important;
+}
 /* Post Info */
 #post-info {
   font-size: 12px;
