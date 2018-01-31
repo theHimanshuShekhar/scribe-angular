@@ -30,6 +30,11 @@
     max-width: 50%!important;
   }
 }
+@media (min-width: 1500px) {
+  .modal-style .modal-dialog {
+    max-width: 700px!important;
+  }
+}
 /* Post Info */
 #post-info {
   font-size: 12px;
