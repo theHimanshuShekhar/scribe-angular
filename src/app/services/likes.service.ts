@@ -13,7 +13,7 @@ export class LikesService {
   }
 
   getUserLikes(uid) {
-    return this.afs.collection('users/' + uid + '/likes', ref => ref.orderBy('date', 'desc')).valueChanges();
+    return this.afs.collection('users/' + uid + '/likes', ref => ref.orderBy('date', 'asc')).valueChanges();
   }
 
   addLike(pid, uid) {
