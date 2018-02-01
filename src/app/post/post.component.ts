@@ -123,7 +123,6 @@ export class PostComponent implements OnInit {
 
   getLikes(pid) {
     this.likeService.getLikes(pid).subscribe(likes => {
-      console.log(likes.length);
       this.likes = likes;
       this.likeLen = likes.length;
       this.auth.getAuthState().subscribe(
