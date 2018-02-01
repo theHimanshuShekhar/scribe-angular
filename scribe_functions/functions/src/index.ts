@@ -43,7 +43,6 @@ exports.onUnLike = functions.firestore
 function updateUserLikes(uid) {
     afs.collection('users/' + uid + '/likes').get()
     .then(likes => {
-        console.log(likes.size);
         const data = {
             totalLikes: likes.size 
         };
