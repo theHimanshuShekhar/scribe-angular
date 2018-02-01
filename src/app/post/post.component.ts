@@ -1,3 +1,4 @@
+import { LikesService } from './../services/likes.service';
 import { PostsService } from './../services/posts.service';
 import { DateFormatPipe } from './../services/date.pipe';
 import { UserService } from './../services/user.service';
@@ -21,6 +22,8 @@ export class PostComponent implements OnInit {
 
   modalRef;
 
+  currentuser;
+
   isSingle = false;
   isCurrentUser = false;
   isInvalid;
@@ -28,6 +31,8 @@ export class PostComponent implements OnInit {
   showLoader = false;
   closeResult: string;
   isLiked;
+  likeStyle = 'fa fa-thumbs-o-up';
+  likeLen = 0;
 
   pid;
   displayName;
@@ -47,6 +52,7 @@ export class PostComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private location: PlatformLocation,
+    private likeService: LikesService
   ) {
     location.onPopState((event) => {
       // ensure that modal is opened
@@ -64,7 +70,6 @@ export class PostComponent implements OnInit {
       this.isInvalid = false;
       this.body = this.inputPost.body;
       this.date = this.inputPost.date;
-      this.likes = this.inputPost.likes;
       this.pid = this.inputPost.pid;
       this.userService.retrieveUserDocumentFromID(this.inputPost.uid).subscribe(
         user => {
@@ -77,9 +82,11 @@ export class PostComponent implements OnInit {
       this.auth.getAuthState().subscribe(
         user => {
           if (this.inputPost.uid === user.uid) {
+            this.currentuser = user.uid;
             this.isCurrentUser = true;
           }
         });
+        this.getLikes(this.inputPost.pid);
     }
     // If the postID comes from the parent component
     if (this.inputPostID) {
@@ -109,6 +116,35 @@ export class PostComponent implements OnInit {
           this.isInvalid = true;
         }
       });
+    }
+  }
+
+  getLikes(pid) {
+    this.likeService.getLikes(pid).subscribe(likes => {
+      this.likes = likes;
+      this.likeLen = likes.length;
+      this.auth.getAuthState().subscribe(
+        user => {
+          this.currentuser = user;
+          this.likes.forEach(like => {
+            if (like.uid === user.uid) {
+              this.isLiked = true;
+              this.likeStyle = 'fa fa-thumbs-up post-liked';
+            }
+          });
+        });
+    });
+  }
+
+  clickLike() {
+    if (!this.isLiked) {
+      this.likeStyle = 'fa fa-thumbs-up post-liked';
+      this.likeService.addLike(this.pid, this.currentuser.uid);
+      this.isLiked = true;
+    } else {
+      this.likeStyle = 'fa fa-thumbs-o-up';
+      this.likeService.removeLike(this.pid, this.currentuser.uid);
+      this.isLiked = false;
     }
   }
 

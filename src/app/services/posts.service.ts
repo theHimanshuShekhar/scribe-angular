@@ -8,6 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/take';
 import { Router } from '@angular/router';
+import { LikesService } from './likes.service';
 
 interface QueryConfig {
   path: string;
@@ -42,7 +43,7 @@ export class PostsService {
   constructor(
     private afs: AngularFirestore,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
   ) { }
 
   init(path: string, field: string, value: string) {
