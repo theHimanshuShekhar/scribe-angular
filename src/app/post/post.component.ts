@@ -81,9 +81,11 @@ export class PostComponent implements OnInit {
       );
       this.auth.getAuthState().subscribe(
         user => {
-          if (this.inputPost.uid === user.uid) {
-            this.currentuser = user.uid;
-            this.isCurrentUser = true;
+          if (user) {
+            if (this.inputPost.uid === user.uid) {
+              this.currentuser = user.uid;
+              this.isCurrentUser = true;
+            }
           }
         });
         this.getLikes(this.inputPost.pid);
@@ -125,23 +127,26 @@ export class PostComponent implements OnInit {
       this.likeLen = likes.length;
       this.auth.getAuthState().subscribe(
         user => {
-          this.currentuser = user;
-          this.likes.forEach(like => {
-            if (like.uid === user.uid) {
-              this.isLiked = true;
-              this.likeStyle = 'fa fa-thumbs-up post-liked';
-            }
-          });
+          if (user) {
+            this.currentuser = user;
+            this.likes.forEach(like => {
+              if (like.uid === user.uid) {
+                this.isLiked = true;
+                this.likeStyle = 'fa fa-thumbs-up post-liked';
+              }
+            });
+          }
         });
     });
   }
 
   clickLike() {
-    if (!this.isLiked) {
+    if (!this.isLiked && this.currentuser) {
       this.likeStyle = 'fa fa-thumbs-up post-liked';
       this.likeService.addLike(this.pid, this.currentuser.uid);
       this.isLiked = true;
-    } else {
+    }
+    if (this.isLiked && this.currentuser) {
       this.likeStyle = 'fa fa-thumbs-o-up';
       this.likeService.removeLike(this.pid, this.currentuser.uid);
       this.isLiked = false;
