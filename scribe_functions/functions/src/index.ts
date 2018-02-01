@@ -20,8 +20,10 @@ exports.onLike = functions.firestore
     .onCreate(event => {
         const uid = event.params.userID;
         const pid = event.params.postID;
+        const newDate = admin.firestore.FieldValue.serverTimestamp();
         const data = {
-            pid: pid
+            pid: pid,
+            date: newDate
         };
         afs.doc('users/' + uid + '/likes/' + pid).set(data)
         .then(() => updateUserLikes(uid))
