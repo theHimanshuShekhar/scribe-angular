@@ -123,6 +123,7 @@ export class PostComponent implements OnInit {
 
   getLikes(pid) {
     this.likeService.getLikes(pid).subscribe(likes => {
+      console.log(likes.length);
       this.likes = likes;
       this.likeLen = likes.length;
       this.auth.getAuthState().subscribe(
@@ -141,15 +142,16 @@ export class PostComponent implements OnInit {
   }
 
   clickLike() {
-    if (!this.isLiked && this.currentuser) {
-      this.likeStyle = 'fa fa-thumbs-up post-liked';
-      this.likeService.addLike(this.pid, this.currentuser.uid);
-      this.isLiked = true;
-    }
-    if (this.isLiked && this.currentuser) {
-      this.likeStyle = 'fa fa-thumbs-o-up';
-      this.likeService.removeLike(this.pid, this.currentuser.uid);
-      this.isLiked = false;
+    if (this.currentuser) {
+      if (!this.isLiked) {
+        this.likeStyle = 'fa fa-thumbs-up post-liked';
+        this.likeService.addLike(this.pid, this.currentuser.uid);
+        this.isLiked = true;
+      } else {
+        this.likeStyle = 'fa fa-thumbs-o-up';
+        this.likeService.removeLike(this.pid, this.currentuser.uid);
+        this.isLiked = false;
+      }
     }
   }
 
@@ -160,9 +162,6 @@ export class PostComponent implements OnInit {
     } else {
       return false;
     }
-  }
-
-  Like() {
   }
 
   checkURL() {
