@@ -2,7 +2,7 @@
 .container-fluid {
   overflow-y: scroll;
 }
-#user-posts {
+#user-posts , #user-likes{
   overflow: hidden;
   min-height: 500px;
 }
@@ -120,4 +120,7 @@
 
 #mobile-profile-info > span:hover {
   cursor: pointer;
+}
+h4 {
+  border-bottom: 1px solid lightgray;
 }

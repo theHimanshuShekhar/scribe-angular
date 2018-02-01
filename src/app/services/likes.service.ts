@@ -12,6 +12,10 @@ export class LikesService {
     return this.afs.collection('posts/' + pid + '/likes').valueChanges();
   }
 
+  getUserLikes(uid) {
+    return this.afs.collection('users/' + uid + '/likes').valueChanges();
+  }
+
   addLike(pid, uid) {
     const data = {
       uid: uid

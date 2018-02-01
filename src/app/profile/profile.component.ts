@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
 import { AddPostComponent } from '../add-post/add-post.component';
+import { LikesService } from '../services/likes.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,7 @@ export class ProfileComponent implements OnInit {
   totalScribes;
   totalFollowers;
   totalFollowing;
-  totalLikes = 23;
+  totalLikes = 0;
 
   posts;
   newPosts: any[] = [];
@@ -56,7 +57,8 @@ export class ProfileComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private titleService: Title,
     private auth: AuthService,
-    private follow: FollowService
+    private follow: FollowService,
+    private likeService: LikesService
   ) { }
 
   ngOnInit() {
@@ -82,6 +84,7 @@ export class ProfileComponent implements OnInit {
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
           this.checkCurrentUser();
           this.getFollowData();
+          this.getLikes();
           this.postsService.init('posts', 'uid', this.userid);
           this.postsService.data.subscribe(
             posts => {
@@ -204,5 +207,13 @@ export class ProfileComponent implements OnInit {
     if (this.bannerURL) {
       return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
     }
+  }
+
+  getLikes() {
+    this.likeService.getUserLikes(this.userid).subscribe(
+      likes => {
+        this.likes = likes;
+        this.totalLikes = likes.length;
+      });
   }
 }
