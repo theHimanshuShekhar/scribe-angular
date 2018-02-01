@@ -49,3 +49,6 @@
 .post-liked {
   color: #E83F6F;
 }
+#post-container, #single-post-container, #dropdownBasic1 {
+  cursor: pointer;
+}
