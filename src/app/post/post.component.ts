@@ -64,7 +64,6 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.checkURL();
-
     // If the post comes from the parent component
     if (this.inputPost) {
       this.isInvalid = false;
@@ -73,10 +72,12 @@ export class PostComponent implements OnInit {
       this.pid = this.inputPost.pid;
       this.userService.retrieveUserDocumentFromID(this.inputPost.uid).subscribe(
         user => {
-          this.displayName = user.displayName;
-          this.userName = user.userName;
-          this.photoURL = user.photoURL;
-          this.isLoaded = true;
+          if (user) {
+            this.displayName = user.displayName;
+            this.userName = user.userName;
+            this.photoURL = user.photoURL;
+            this.isLoaded = true;
+          }
         }
       );
       this.auth.getAuthState().subscribe(

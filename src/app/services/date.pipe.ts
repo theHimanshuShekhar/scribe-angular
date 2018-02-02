@@ -11,6 +11,9 @@ export class DateFormatPipe implements PipeTransform {
     if (type === 'long') {
       value = datePipe.transform(value, 'h:mm a - d MMM yyy');
     }
+    if (type === 'month') {
+      value = datePipe.transform(value, 'MMM yyy');
+    }
     return value;
  }
 }

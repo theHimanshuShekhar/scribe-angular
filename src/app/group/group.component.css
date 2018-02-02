@@ -1,0 +1,12 @@
+.container {
+  width: 1000px;
+}
+#side-nav {
+  word-wrap: break-word;
+}
+#banner-image {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-color: #E83F6F;
+}

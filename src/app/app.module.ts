@@ -1,3 +1,4 @@
+import { GroupService } from './services/group.service';
 import { PostsService } from './services/posts.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -38,6 +39,7 @@ import { AboutComponent } from './about/about.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user-list/user/user.component';
+import { GroupComponent } from './group/group.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -59,6 +61,10 @@ const routes: Routes = [
   {
     path: 'post/:pid',
     component: PostComponent
+  },
+  {
+    path: 'group/:gid',
+    component: GroupComponent
   },
   {
     path: 'account',
@@ -107,7 +113,8 @@ const routes: Routes = [
     AddPostComponent,
     UserListComponent,
     UserComponent,
-    DetectScrollDirective
+    DetectScrollDirective,
+    GroupComponent
     ],
   imports: [
     BrowserModule,
@@ -125,6 +132,7 @@ const routes: Routes = [
     PostsService,
     FollowService,
     LikesService,
+    GroupService,
     DateFormatPipe,
   ],
   bootstrap: [AppComponent],
