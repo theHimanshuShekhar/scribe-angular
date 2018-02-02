@@ -1,18 +1,23 @@
-<div id="user-panel" class="bg-white p-2" *ngIf="this.username">
-  <div class="row">
-    <span class="col-2">
-      <img [src]="photoURL" height="60px" width="60px" class="circle">
-    </span>
-    <span class="col-7 col-md-8 col-lg-9 align-self-start ml-2 ml-md-1">
-      <div class="row justify-content-between">
-        <span class="col" id="user-text">
-          <span class="font-weight-bold">{{displayname}}</span><span class="text-muted"> @{{username}}</span> <br> {{status}} <br>
-        </span>
-        <span class="col-2 align-self-start">
-          <button class="btn bg-primary btn-round text-white font-weight-bold mr-4">Follow</button>
-        </span>
-      </div>
-    </span>
-
+<div *ngIf="type != 'member'; else MemberList">
+  <div id="user-panel" class="bg-white p-2" *ngIf="this.username">
+    <div class="row">
+      <span class="col-2">
+        <img [src]="photoURL" height="60px" width="60px" class="circle">
+      </span>
+      <span class="col-7 col-md-8 col-lg-9 align-self-start ml-2 ml-md-1">
+        <div class="row justify-content-between">
+          <span class="col" id="user-text">
+            <span class="font-weight-bold">{{displayname}}</span><span class="text-muted"> @{{username}}</span> <br> {{status}} <br>
+          </span>
+          <span class="col-2 align-self-start">
+            <button class="btn bg-primary btn-round text-white font-weight-bold mr-4">Follow</button>
+          </span>
+        </div>
+      </span>
+    </div>
   </div>
 </div>
+
+<ng-template #MemberList>
+    <img [src]="photoURL" height="60px" width="60px" class="rounded" *ngIf="photoURL">
+</ng-template>

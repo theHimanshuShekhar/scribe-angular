@@ -18,6 +18,7 @@ export class GroupComponent implements OnInit {
   totalMembers;
   totalPosts;
   createDate;
+  members;
 
   isInvalid;
 
@@ -48,6 +49,10 @@ export class GroupComponent implements OnInit {
       this.groupService.getFeed(this.gid).subscribe(
         feed => {
           this.posts = feed;
+        });
+      this.groupService.getMembers(this.gid).subscribe(
+        memberList => {
+          this.members = memberList;
         });
     });
   }

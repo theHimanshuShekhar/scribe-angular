@@ -14,8 +14,11 @@
             <p>{{desc}}</p>
             <p>Created on {{getDate()}}</p>
           </div>
-      <div class="bg-white px-2 py-2 mb-1" id="member-list">
-        <h4>Members</h4><hr class="mt-1">
+      <div class="bg-white px-2 py-2 mb-1" id="member-list" *ngIf="members">
+        <h4>Members</h4>
+          <div *ngFor="let member of members" class="user-block">
+            <app-user [uid]="member.uid" type='member'></app-user>
+          </div>
       </div>
     </div>
   </div>
