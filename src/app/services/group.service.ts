@@ -6,7 +6,7 @@ interface Group {
   gid: string;
   desc: string;
   createDate;
-};
+}
 
 @Injectable()
 export class GroupService {
@@ -17,6 +17,10 @@ export class GroupService {
 
   getGroup(gid) {
     return this.afs.doc<Group>('groups/' + gid).valueChanges();
+  }
+
+  getFeed(gid) {
+    return this.afs.collection('groups/' + gid + '/feed', ref => ref.orderBy('date')).valueChanges();
   }
 
 }

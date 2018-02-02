@@ -45,14 +45,14 @@ export class GroupComponent implements OnInit {
               this.isInvalid = true;
             }
           });
+      this.groupService.getFeed(this.gid).subscribe(
+        feed => {
+          this.posts = feed;
+        });
     });
-    this.afs.collection('posts')
-    .valueChanges()
-    .subscribe(posts => this.posts = posts);
   }
 
   getDate() {
     return this.datePipe.transform(this.createDate, 'month');
   }
-
 }
