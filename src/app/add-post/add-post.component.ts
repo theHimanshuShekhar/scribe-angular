@@ -35,12 +35,12 @@ export class AddPostComponent implements OnInit {
     if (this.route === 'user') {
       this.textareaClass = 'form-control col-12 mx-1 my-2';
       this.imgcontainerClass = 'd-none';
-      this.addPostWrapper = 'row mx-1';
-      this.containerStyle = 'rounded p-2 my-1';
+      this.addPostWrapper = 'row mx-1 justify-content-center';
+      this.containerStyle = 'rounded p-2 my-1 container-fluid';
     } else {
       this.textareaClass = 'form-control col-10';
-      this.addPostWrapper = 'row mr-2';
-      this.containerStyle = 'rounded p-2 mb-1';
+      this.addPostWrapper = 'row mr-1 justify-content-center';
+      this.containerStyle = 'rounded p-2 mb-1 container-fluid';
     }
     if (!this.userURL) {
       this.userURL = '../../assets/images/default-profile.jpg';
@@ -50,7 +50,7 @@ export class AddPostComponent implements OnInit {
   expand() {
     this.buttonsClass = 'col-12 mt-2';
     if (this.route === 'user') {
-      this.textareaClass = 'form-control col-11 expanded mr-0 ml-3';
+      this.textareaClass = 'form-control col-12 expanded mx-1 my-2';
     } else {
       this.textareaClass = 'form-control col-10 expanded';
     }
