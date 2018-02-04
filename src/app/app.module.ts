@@ -15,8 +15,8 @@ import * as firebase from 'firebase';
 
 // Pipes and Directives
 import { DateFormatPipe } from './services/date.pipe';
-import { DetectScrollDirective } from './directives/detect-scroll.directive';
 import { LinkifyPipe } from './services/linkify.pipe';
+import { DetectScrollDirective } from './directives/detect-scroll.directive';
 
 // Services
 import { AuthService } from './services/auth.service';
