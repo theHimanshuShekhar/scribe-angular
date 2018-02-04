@@ -1,14 +1,14 @@
-<div class="container pt-2 pb-3">
+<div class="container-fluid pt-2 pb-3">
   <div id="banner-image"></div>
   <h2 class="bg-white p-2">{{gname}}</h2>
   <div class="row justify-content-center">
-    <div class="col-8 m-0 pr-0">
+    <div class="col-7 m-0 pr-0">
       <app-add-post></app-add-post>
       <div *ngFor="let post of posts">
         <app-post [inputPostID]="post.pid" *ngIf="post"></app-post>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-5">
         <div class="bg-white px-2 py-2 mb-1" id="about">
             <h4>About</h4><hr class="mt-1">
             <p>{{desc}}</p>
@@ -16,9 +16,13 @@
           </div>
       <div class="bg-white px-2 py-2 mb-1" id="member-list" *ngIf="members">
         <h4>Members</h4>
-          <div *ngFor="let member of members" class="user-block">
-            <app-user [uid]="member.uid" type='member'></app-user>
+         <div class="container-fluid">
+          <div class="row justify-content-between">
+            <div *ngFor="let member of members" class="col user-block p-0">
+              <app-user [uid]="member.uid" type='member'></app-user>
+            </div>
           </div>
+         </div>
       </div>
     </div>
   </div>
