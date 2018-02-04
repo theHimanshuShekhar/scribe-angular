@@ -38,6 +38,7 @@ export class AddPostComponent implements OnInit {
       this.addPostWrapper = 'row mx-1 justify-content-center';
       this.containerStyle = 'rounded p-2 my-1 container-fluid';
     } else {
+      this.imgcontainerClass = 'col-2 mx-0';
       this.textareaClass = 'form-control col-10';
       this.addPostWrapper = 'row mr-1 justify-content-center';
       this.containerStyle = 'rounded p-2 mb-1 container-fluid';
@@ -61,7 +62,6 @@ export class AddPostComponent implements OnInit {
       this.textareaClass = 'form-control col-12 mx-1 my-2';
     } else {
       this.textareaClass = 'form-control col-10';
-      this.imgcontainerClass = 'col-2';
     }
   }
 
