@@ -1,8 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-  name: 'linkify'
-})
+@Pipe({name: 'linkify'})
 
 export class LinkifyPipe implements PipeTransform {
   transform(link: string): string {
@@ -20,8 +18,7 @@ export class LinkifyPipe implements PipeTransform {
 
     // URLs starting with http://, https://, or ftp://
     replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    displayLink = plainText.replace(/(^\w+:|^)\/\//, '');
-    replacedText = plainText.replace(replacePattern1, '<a href="$1" target="_blank">' + displayLink + '</a>');
+    replacedText = plainText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
 
     // URLs starting with "www." (without // before it, or it'd re-link the ones done above).
     replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
