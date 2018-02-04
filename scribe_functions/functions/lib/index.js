@@ -19,13 +19,17 @@ exports.onLike = functions.firestore
     .onCreate(event => {
     const uid = event.params.userID;
     const pid = event.params.postID;
-    const newDate = admin.firestore.FieldValue.serverTimestamp();
-    const data = {
-        pid: pid,
-        date: newDate
-    };
-    afs.doc('users/' + uid + '/likes/' + pid).set(data)
-        .then(() => updateUserLikes(uid))
+    afs.doc('posts/' + pid).get()
+        .then(postData => {
+        const postDate = postData.data().date;
+        const data = {
+            pid: pid,
+            date: postDate
+        };
+        afs.doc('users/' + uid + '/likes/' + pid).set(data)
+            .then(() => updateUserLikes(uid))
+            .catch(err => console.log(err));
+    })
         .catch(err => console.log(err));
 });
 exports.onUnLike = functions.firestore
