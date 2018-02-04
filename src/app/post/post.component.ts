@@ -165,7 +165,7 @@ export class PostComponent implements OnInit {
   }
 
   checkURL() {
-    const routerURL = this.router.url.slice(1,5);
+    const routerURL = this.router.url.slice(1, 5);
     if (routerURL === 'post') {
       this.showLoader = true;
     }
@@ -173,6 +173,10 @@ export class PostComponent implements OnInit {
 
   delete() {
     this.postService.deletePost(this.pid);
+  }
+
+  report() {
+    alert('Reporting is not implemented yet');
   }
 
   retrieveDate(date, type?) {
