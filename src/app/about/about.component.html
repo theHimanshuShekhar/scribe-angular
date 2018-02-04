@@ -1,5 +1,44 @@
 <div class="container">
-  <div class="jumbotron text-white bg-primary">
-    <h1>About</h1>
+  <div class="jumbotron text-white mb-0 px-5">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <img class="ml-5" id="about-brand" src="../../assets/images/logo_long.png">
+        </div>
+        <div class="col">
+          <h4 class="mx-2 my-5 font-weight-bold">
+            A social networking app<br>
+            built with Angular and AngularFire<br>
+            using Firebase as backend <br>
+            and the new Cloud Firestore database.
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid bg-white p-3">
+    <div class="row">
+      <div class="col-8 px-5">
+        <div style="display: block;">
+          <canvas baseChart width="400" height="200"
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </div>
+      <div class="col">
+        <div class="my-5 text-center">
+          <h4>Users <span class="text-primary font-weight-bold">232</span></h4>
+          <h4>Groups <span class="text-primary font-weight-bold">232</span></h4>
+          <h4>Scribes <span class="text-primary font-weight-bold">232</span></h4>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

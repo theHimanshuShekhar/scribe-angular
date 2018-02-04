@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ChartsModule } from 'ng2-charts';
 import * as firebase from 'firebase';
 
+
 // Pipes and Directives
 import { DateFormatPipe } from './services/date.pipe';
 import { DetectScrollDirective } from './directives/detect-scroll.directive';
@@ -135,6 +136,7 @@ const routes: Routes = [
     AngularFirestoreModule,
     AngularFireAuthModule,
     RouterModule.forRoot(routes),
+    ChartsModule
   ],
   providers: [
     AuthService,
