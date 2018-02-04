@@ -9,6 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UserComponent implements OnInit {
 
   @Input() uid: string;
+  @Input() type: string;
 
   username;
   displayname;
@@ -22,10 +23,12 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.userService.retrieveUserDocumentFromID(this.uid).subscribe(
       user => {
-        this.username = user.userName;
-        this.displayname = user.displayName;
-        this.status = user.status;
-        this.photoURL = user.photoURL;
+        if (user) {
+          this.username = user.userName;
+          this.displayname = user.displayName;
+          this.status = user.status;
+          this.photoURL = user.photoURL;
+        }
     });
   }
 
