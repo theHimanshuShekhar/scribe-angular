@@ -1,9 +1,5 @@
-/* Bootstrap */
-@import '~bootstrap/dist/css/bootstrap.min.css';
-
 /* Fonts */
 @import './assets/fonts/fonts.css';
-@import '~font-awesome/css/font-awesome.min.css';
 
 html, body {
   min-width: 320px;
