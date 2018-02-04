@@ -11,7 +11,6 @@ export class LinkifyPipe implements PipeTransform {
 
   private linkify(plainText): string {
     let replacedText;
-    let displayLink;
     let replacePattern1;
     let replacePattern2;
     let replacePattern3;
