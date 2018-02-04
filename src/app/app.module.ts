@@ -14,6 +14,7 @@ import * as firebase from 'firebase';
 // Pipes and Directives
 import { DateFormatPipe } from './services/date.pipe';
 import { DetectScrollDirective } from './directives/detect-scroll.directive';
+import { LinkifyPipe } from './services/linkify.pipe';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -40,6 +41,7 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user-list/user/user.component';
 import { GroupComponent } from './group/group.component';
+import { TestComponent } from './test/test.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -87,6 +89,10 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
+    path: 'test',
+    component: TestComponent
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -98,6 +104,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     DateFormatPipe,
+    LinkifyPipe,
     HomeComponent,
     NavbarComponent,
     FooterComponent,
@@ -114,7 +121,8 @@ const routes: Routes = [
     UserListComponent,
     UserComponent,
     DetectScrollDirective,
-    GroupComponent
+    GroupComponent,
+    TestComponent
     ],
   imports: [
     BrowserModule,
@@ -134,6 +142,7 @@ const routes: Routes = [
     LikesService,
     GroupService,
     DateFormatPipe,
+    LinkifyPipe
   ],
   bootstrap: [AppComponent],
   entryComponents: [

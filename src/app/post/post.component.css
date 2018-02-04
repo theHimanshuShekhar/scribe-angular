@@ -3,6 +3,12 @@
   border-bottom: 1px solid lightgray;
   max-width: 700px;
 }
+a {
+  color: #E83F6F;
+}
+a:hover {
+  color: #3fc4e8;
+}
 #post-date {
   font-size: 0.8em;
   margin-top: 2.5px;
@@ -11,7 +17,7 @@
   background-color: rgba(255, 255, 255, 0);
 }
 #post-body {
-  word-wrap: break-word;
+  word-break: break-all;
 }
 #user-text:hover {
   cursor: pointer;

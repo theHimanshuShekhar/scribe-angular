@@ -20,8 +20,8 @@
           </div>
       </div>
       <div>
-        <div id="post-body" class="pb-2" (click)="open(SinglePost)">
-          {{body | slice:0:200}}<span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
+        <div id="post-body" class="pb-2" (click)="open(SinglePost)" [innerHTML]="body | linkify | slice:0:200">
+          <span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
           <br>
         </div>
         <div class="col-12 text-left pt-1 mx-0 px-0" id="post-info">
@@ -56,8 +56,7 @@
                 </div>
               </div>
           </div>
-          <div id="post-body" class="py-2">
-            {{body}}
+          <div id="post-body" class="py-2" [innerHTML]="body | linkify">
           </div>
           <div id="post-date" class="mt-3 align-self-center">{{retrieveDate(this.date, 'long')}}</div>
           <div class="col-12 text-left pt-3 pb-4 mx-0 px-0" id="post-info">
