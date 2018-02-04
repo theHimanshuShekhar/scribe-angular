@@ -4,7 +4,7 @@
   <div class="row justify-content-center">
     <div class="col-8 m-0 pr-0">
       <app-add-post></app-add-post>
-      <div *ngFor="let post of posts" class="px-3">
+      <div *ngFor="let post of posts">
         <app-post [inputPostID]="post.pid" *ngIf="post"></app-post>
       </div>
     </div>
