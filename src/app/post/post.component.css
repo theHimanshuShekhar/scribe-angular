@@ -5,6 +5,7 @@
 }
 a {
   color: #E83F6F;
+  word-break: break-all;
 }
 a:hover {
   color: #3fc4e8;
@@ -17,7 +18,7 @@ a:hover {
   background-color: rgba(255, 255, 255, 0);
 }
 #post-body {
-  word-break: break-all;
+  word-wrap: break-word;
 }
 #user-text:hover {
   cursor: pointer;
