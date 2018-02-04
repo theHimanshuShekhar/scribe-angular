@@ -1,14 +1,15 @@
-import { GroupService } from './services/group.service';
-import { PostsService } from './services/posts.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { environment } from './../environments/environment';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+
+// Third party
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from './../environments/environment';
-import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
 import * as firebase from 'firebase';
 
 // Pipes and Directives
@@ -19,6 +20,8 @@ import { LinkifyPipe } from './services/linkify.pipe';
 // Services
 import { AuthService } from './services/auth.service';
 import { UploadService } from './services/upload.service';
+import { GroupService } from './services/group.service';
+import { PostsService } from './services/posts.service';
 import { UserService } from './services/user.service';
 import { FollowService } from './services/follow.service';
 import { LikesService } from './services/likes.service';
