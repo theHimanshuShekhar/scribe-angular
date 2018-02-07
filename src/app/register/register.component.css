@@ -1,0 +1,66 @@
+.container-fluid {
+  background-color: #794BC4;
+  color: white;
+}
+@media (min-width: 768px) {
+  .container-fluid {
+    height: calc(100vh - 108px);
+  }
+}
+.register-form {
+  background-color: rgb(255, 255, 255);
+  max-width: 500px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  color: white;
+  padding-bottom: 10px;
+  width: 100%;
+  margin: 0 auto;
+}
+.register-form > form > input {
+  margin-bottom: 5px;
+  border-radius: 20px;
+  border: #794BC4 1px solid;
+}
+.register-btn {
+  width: 100%;
+  font-weight: 600;
+  margin-top: 5px;
+  background-color: #794BC4;
+  color: white;
+  border: none;
+}
+h6 {
+  border: 10px;
+}
+hr {
+  background-color: lightyellow;
+  margin: 7px;
+}
+@media (max-width: 640px) {
+  .register-form {
+    width: 19em;
+  }
+}
+
+/* Email Form CSS */
+#email-register-form > form > h2 {
+  color: #794BC4;
+}
+#email-register-form {
+  color: #794BC4;
+}
+
+/* Google Form CSS */
+#google-register-form > form > h2 {
+  color: #dd4b39;
+}
+#google-register-form {
+  color: #dd4b39;
+}
+#google-register-btn {
+  background-color: #dd4b39;
+}
+.register-form > .btn {
+  border-radius: 20px;
+}
