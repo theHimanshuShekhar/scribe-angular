@@ -53,6 +53,6 @@ hr {
 }
 @media (max-width: 640px) {
   #login-form {
-    width: 19em;
+    width: 90%;
   }
 }
