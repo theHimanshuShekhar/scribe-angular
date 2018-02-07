@@ -1,12 +1,12 @@
 #landing-wrapper{
-  background-color: rgb(107, 207, 224);
+  background-color: #794BC4;
   margin-bottom: 0px;
   height: calc(100vh - 108px);
   border-radius: 0px;
 }
 #landing-logo {
   width: 18em;
-} 
+}
 #landing-logo-wrapper {
   overflow: hidden;
 }
