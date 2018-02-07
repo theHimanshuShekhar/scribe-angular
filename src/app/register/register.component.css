@@ -39,7 +39,7 @@ hr {
 }
 @media (max-width: 640px) {
   .register-form {
-    width: 19em;
+    width: 90%;
   }
 }
 
