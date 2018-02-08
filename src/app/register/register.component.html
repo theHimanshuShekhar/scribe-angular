@@ -5,22 +5,47 @@
     </div>
     <div class="order-md-3 col-12 col-md-5 col-lg-3 mx-2 p-0 my-2">
         <div id="email-register-form" class="register-form text-center py-3">
-          <form>
+          <form [formGroup]="emailform">
             <h2 class="mb-3">Email</h2>
-            <input class="form-control form-control-md" type="text" placeholder="Username">
-            <input class="form-control form-control-md" type="text" placeholder="Display Name">
-            <input class="form-control form-control-md" type="text" placeholder="Email">
-            <input class="form-control form-control-md" type="text" placeholder="Password">
-            <input class="form-control form-control-md" type="text" placeholder="Confirm Password">
+
+            <input type="text" formControlName="username" class="form-control form-control-md" type="text" placeholder="Username">
+            <small class="mt-0 mb-1 text-danger" *ngIf="username.touched && username.errors">
+              <div *ngIf="username.errors.required">A Username is required.</div>
+              <div *ngIf="username.errors.minlength">Username should be minimum {{username.errors.minlength.requiredLength}} characters.</div>
+              <div *ngIf="username.errors.cannotContainSpace">Username cannot contain space.</div>
+              <div *ngIf="username.errors.shouldBeUnique">Username already taken.</div>
+            </small>
+
+            <input formControlName="displayname" class="form-control form-control-md" type="text" placeholder="Display Name">
+            <small class="mt-0 mb-1 text-danger" *ngIf="displayname.touched && displayname.errors">
+              <div *ngIf="displayname.errors.required">A Display Name is required.</div>
+              <div *ngIf="displayname.errors.minlength">Username should be minimum {{displayname.errors.minlength.requiredLength}} characters.</div>
+            </small>
+
+            <input formControlName="email" class="form-control form-control-md" type="text" placeholder="Email">
+            <small class="mt-0 mb-1 text-danger" *ngIf="email.touched && email.errors">
+              <div *ngIf="email.errors.email && !email.errors.required">Please enter a valid Email.</div>
+              <div *ngIf="email.errors.required">An Email is required.</div>
+            </small>
+
+            <input type="password" minlength="6" name="password" required class="form-control form-control-md" type="text" placeholder="Password">
+
+            <input type="password" required class="form-control form-control-md" type="text" placeholder="Confirm Password">
           </form>
           <button id="email-register-btn" class="register-btn btn btn-dark btn-disabled py-2">Signup</button>
         </div>
       </div>
       <div class="order-md-2 col-12 col-md-5 col-lg-3 mx-2 p-0 my-2">
         <div id="google-register-form" class="register-form text-center py-3">
-          <form>
+          <form [formGroup]="googleform">
             <h2 class="mb-3">Google</h2>
-            <input class="form-control form-control-md" type="text" placeholder="Username">
+            <input formControlName="googleusername" class="form-control form-control-md" type="text" placeholder="Username">
+            <small class="mt-0 mb-1 text-danger" *ngIf="googleusername.touched && googleusername.errors">
+              <div *ngIf="googleusername.errors.required">A Username is required.</div>
+              <div *ngIf="googleusername.errors.minlength">Username should be minimum 3 characters.</div>
+              <div *ngIf="googleusername.errors.cannotContainSpace">Username cannot contain space.</div>
+              <div *ngIf="googleusername.errors.shouldBeUnique">Username already taken.</div>
+            </small>
           </form>
           <button id="google-register-btn" class="register-btn btn btn-dark btn-disabled py-2">Signup</button>
         </div>
