@@ -52,12 +52,14 @@ export class NavbarComponent implements OnInit {
           this.isUser = true;
           this.userService.retrieveUserDocument(user.uid).subscribe(
             userDoc => {
-              this.displayName = userDoc.displayName;
-              this.userName = userDoc.userName;
-              this.photoURL = userDoc.photoURL;
-              this.totalFollowing = userDoc.totalFollowing;
-              this.totalFollowers = userDoc.totalFollowers;
-              this.totalScribes = userDoc.totalScribes;
+              if (userDoc) {
+                this.displayName = userDoc.displayName;
+                this.userName = userDoc.userName;
+                this.photoURL = userDoc.photoURL;
+                this.totalFollowing = userDoc.totalFollowing;
+                this.totalFollowers = userDoc.totalFollowers;
+                this.totalScribes = userDoc.totalScribes;
+              }
             });
         }
       });

@@ -67,9 +67,53 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        this.updateUserData(credential.user);
+        this.router.navigateByUrl('/home');
       });
   }
+
+  register(userdata) {
+    if (userdata.type === 'google') {
+      this.googleRegister(userdata);
+    }
+    if (userdata.type === 'email') {
+      this.emailRegister(userdata);
+    }
+  }
+
+  private emailRegister(formdata) {
+    this.afAuth.auth.createUserWithEmailAndPassword(formdata.email, formdata.password)
+    .then(() => {
+      this.getAuthState().subscribe(user => {
+        if (user) {
+          const userData = {
+            uid: user.uid,
+            email: user.email,
+            displayName: formdata.displayname,
+            status: 'Hi, I am using Scribe',
+            userName: formdata.username,
+          };
+          this.updateUserData(userData);
+        }
+      });
+    });
+  }
+
+  private googleRegister(formdata) {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(credential => {
+      const user = credential.user;
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        status: 'Hi, I am using Scribe',
+        userName: formdata.username,
+      };
+      this.updateUserData(userData);
+    });
+  }
+
   private updateUserData(user) {
 
     // check if user already exists
@@ -86,17 +130,17 @@ export class AuthService {
       (err) => {
         // setup user data in firestore on login
           console.log('New User login.\nSetting up user in database.');
-          const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+          const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
           const data: User = {
             uid: user.uid,
             email: user.email,
             displayName: user.displayName,
-            photoURL: user.photoURL,
+            photoURL: user.photoURL ? user.photoURL : 'https://scribe-angular.firebaseapp.com/assets/images/default-profile.jpg',
             status: 'Hi, I am using Scribe',
-            userName: null,
+            userName: user.userName,
           };
-          this.router.navigateByUrl('/account');
+          this.router.navigateByUrl('/home');
           return userRef.set(data);
         });
   }

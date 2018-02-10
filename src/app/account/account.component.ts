@@ -33,10 +33,12 @@ export class AccountComponent implements OnInit {
         if (currentuser) {
           this.userService.retrieveUserDocument(currentuser.uid).subscribe(
             user => {
-              this.displayName = user.displayName;
-              this.userName = user.userName;
-              this.photoURL = user.photoURL;
-              this.status = user.status;
+              if (user) {
+                this.displayName = user.displayName;
+                this.userName = user.userName;
+                this.photoURL = user.photoURL;
+                this.status = user.status;
+              }
             });
         } else {
           this.router.navigateByUrl('start');

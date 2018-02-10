@@ -40,7 +40,7 @@
             </small>
 
           </form>
-          <button id="email-register-btn" class="register-btn btn btn-dark btn-disabled py-2">Signup</button>
+          <button id="email-register-btn" class="register-btn btn btn-dark btn-disabled py-2" (click)="register('email')">Signup</button>
         </div>
       </div>
       <div class="order-md-2 col-12 col-md-5 col-lg-3 mx-2 p-0 my-2">
@@ -55,7 +55,7 @@
               <div *ngIf="googleusername.errors.shouldBeUnique">Username already taken.</div>
             </small>
           </form>
-          <button id="google-register-btn" class="register-btn btn btn-dark btn-disabled py-2">Signup</button>
+          <button id="google-register-btn" class="register-btn btn btn-dark btn-disabled py-2" (click)="register('google')">Signup</button>
         </div>
       </div>
   </div>

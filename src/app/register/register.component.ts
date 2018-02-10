@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsernameValidators } from '../validators/username.validators';
@@ -13,7 +14,8 @@ import { ValidationErrors } from '@angular/forms/src/directives/validators';
 export class RegisterComponent implements OnInit {
 
   constructor(
-    private title: Title
+    private title: Title,
+    private auth: AuthService
   ) {}
 
   emailform = new FormGroup({
@@ -72,6 +74,27 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Signup');
+  }
+
+
+  register(type) {
+    if (type === 'google') {
+      const data = {
+        type: 'google',
+        username: this.googleusername.value
+      };
+      this.auth.register(data);
+
+    }
+    if (type === 'email') {
+      const data = {
+        username: this.username.value,
+        displayname: this.displayname.value,
+        email: this.email.value,
+        password: this.password.value,
+        type: 'email'
+      };
+      this.auth.register(data);
   }
 
 }
