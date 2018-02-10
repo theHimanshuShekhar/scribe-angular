@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsernameValidators } from '../Validators/username.validators';
+import { UsernameValidators } from '../validators/username.validators';
 import { Title } from '@angular/platform-browser';
+import { AbstractControl } from '@angular/forms/src/model';
+import { ValidationErrors } from '@angular/forms/src/directives/validators';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,7 @@ export class RegisterComponent implements OnInit {
     private title: Title
   ) {}
 
-  emailform = new FormGroup({
+  private emailform = new FormGroup({
     username: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -28,8 +30,14 @@ export class RegisterComponent implements OnInit {
       Validators.email,
       Validators.required
     ]),
-    password: new FormControl('', Validators.required)
-  });
+    password: new FormControl('', [
+      Validators.minLength(6),
+      Validators.required
+    ]),
+    passwordConfirm: new FormControl('',
+      Validators.required
+    )
+  }, this.passwordMatchValidator);
 
   googleform = new FormGroup({
     googleusername: new FormControl('', [
@@ -38,6 +46,13 @@ export class RegisterComponent implements OnInit {
       UsernameValidators.cannotContainSpace
     ])
   });
+
+  passwordMatchValidator(g: FormGroup) {
+    if (g.get('password').value && g.get('passwordConfirm').value) {
+      return g.get('passwordConfirm').value === g.get('password').value
+       ? null : {'mismatch': true};
+    }
+ }
 
   get googleusername() {
     return this.googleform.get('googleusername');
@@ -50,6 +65,9 @@ export class RegisterComponent implements OnInit {
   }
   get email() {
     return this.emailform.get('email');
+  }
+  get password() {
+    return this.emailform.get('password');
   }
 
   ngOnInit() {

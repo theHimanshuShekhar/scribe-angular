@@ -28,9 +28,17 @@
               <div *ngIf="email.errors.required">An Email is required.</div>
             </small>
 
-            <input type="password" minlength="6" name="password" required class="form-control form-control-md" type="text" placeholder="Password">
+            <input type="password" formControlName="password" class="form-control form-control-md" type="text" placeholder="Password">
+            <small class="mt-0 mb-1 text-danger" *ngIf="password?.touched && password.errors">
+              <div *ngIf="password.errors.minLength && !password.errors.required">Password should be minimum 6 characters.</div>
+              <div *ngIf="password.errors.required">A Password is required is required.</div>
+            </small>
 
-            <input type="password" required class="form-control form-control-md" type="text" placeholder="Confirm Password">
+            <input type="password" formControlName="passwordConfirm" class="form-control form-control-md" type="text" placeholder="Confirm Password">
+            <small class="mt-0 mb-1 text-danger" *ngIf="emailform.errors">
+              <div *ngIf="emailform.errors">Passwords do not match!</div>
+            </small>
+
           </form>
           <button id="email-register-btn" class="register-btn btn btn-dark btn-disabled py-2">Signup</button>
         </div>
