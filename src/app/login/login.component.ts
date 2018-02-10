@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,23 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.auth.checkNotLogin();
     this.titleService.setTitle('Login');
+  }
+
+  emailform = new FormGroup({
+    email: new FormControl('', [
+      Validators.email,
+      Validators.required
+    ]),
+    password: new FormControl('', [
+      Validators.minLength(6),
+      Validators.required
+    ])
+  });
+  get email() {
+    return this.emailform.get('email');
+  }
+  get password() {
+    return this.emailform.get('password');
   }
 
   login(mode) {

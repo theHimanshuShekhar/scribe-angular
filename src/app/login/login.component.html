@@ -4,10 +4,18 @@
       <h2 class="text-small text-center text-md-right">Login to post and access your profile.</h2>
     </div>
     <div id="login-form" class="text-center col-11 col-sm-9 col-md-5 col-lg-4">
-      <form>
+      <form [formGroup]="emailform">
         <h2 class="mb-3">Login</h2>
-        <input class="form-control form-control-md" type="text" placeholder="Email">
-        <input class="form-control form-control-md" type="text" placeholder="Password">
+        <input class="form-control form-control-md" formControlName="email" type="text" placeholder="Email">
+        <small class="mt-0 mb-1 text-danger" *ngIf="email.touched && email.errors">
+          <div *ngIf="email.errors.email && !email.errors.required">Please enter a valid Email.</div>
+          <div *ngIf="email.errors.required">An Email is required.</div>
+        </small>
+
+        <input formControlName="password" class="form-control form-control-md" type="text" placeholder="Password">
+        <small class="mt-0 mb-1 text-danger" *ngIf="password.touched && password.errors">
+          <div *ngIf="password.errors.required">A Password is required is required.</div>
+        </small>
       </form>
       <button id="login-btn" class="btn btn-dark btn-disabled py-2" (click)="login('email')">Login</button>
       <h6 class="align-self-center my-1">or</h6>
