@@ -56,3 +56,6 @@ hr {
     width: 90%;
   }
 }
+button {
+  cursor: pointer;
+}

@@ -14,10 +14,11 @@
 
         <input formControlName="password" class="form-control form-control-md" type="text" placeholder="Password">
         <small class="mt-0 mb-1 text-danger" *ngIf="password.touched && password.errors">
+            <div *ngIf="password.errors.minlength">Password should be minimum 6 characters.</div>
           <div *ngIf="password.errors.required">A Password is required is required.</div>
         </small>
       </form>
-      <button id="login-btn" class="btn btn-dark btn-disabled py-2" (click)="login('email')">Login</button>
+      <button id="login-btn" class="btn btn-dark py-2" (click)="login('email')">Login</button>
       <h6 class="align-self-center my-1">or</h6>
       <button id="google-btn" class="btn btn-dark py-2" (click)="login('google')">Google</button>
     </div>

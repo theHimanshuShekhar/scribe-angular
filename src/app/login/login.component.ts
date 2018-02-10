@@ -17,11 +17,6 @@ export class LoginComponent implements OnInit {
     private titleService: Title
   ) { }
 
-  ngOnInit() {
-    this.auth.checkNotLogin();
-    this.titleService.setTitle('Login');
-  }
-
   emailform = new FormGroup({
     email: new FormControl('', [
       Validators.email,
@@ -32,11 +27,17 @@ export class LoginComponent implements OnInit {
       Validators.required
     ])
   });
+
   get email() {
     return this.emailform.get('email');
   }
   get password() {
     return this.emailform.get('password');
+  }
+
+  ngOnInit() {
+    this.auth.checkNotLogin();
+    this.titleService.setTitle('Login');
   }
 
   login(mode) {
