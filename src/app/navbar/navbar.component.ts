@@ -61,6 +61,8 @@ export class NavbarComponent implements OnInit {
                 this.totalScribes = userDoc.totalScribes;
               }
             });
+        } else {
+          this.isUser = false;
         }
       });
   }

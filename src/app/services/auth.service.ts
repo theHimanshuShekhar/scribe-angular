@@ -74,7 +74,15 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        this.router.navigateByUrl('/home');
+        this.afs.doc('users/' + credential.user.uid).valueChanges().subscribe(
+          user => {
+          if (user) {
+            this.router.navigateByUrl('/home');
+          } else {
+            this.afAuth.auth.signOut()
+            .then(() => this.router.navigateByUrl('/signup'));
+          }
+        });
       });
   }
 

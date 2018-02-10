@@ -60,19 +60,21 @@ export class HomeComponent implements OnInit {
         if (user) {
           this.userService.retrieveUserDocument(user.uid).subscribe(
             userDoc => {
-              this.displayName = userDoc.displayName;
-              this.userName = userDoc.userName;
-              this.photoURL = userDoc.photoURL;
-              this.userid = userDoc.uid;
-              this.totalScribes = userDoc.totalScribes ? userDoc.totalScribes : 0;
-              this.totalFollowers = userDoc.totalFollowers ? userDoc.totalFollowers : 0;
-              this.totalFollowing = userDoc.totalFollowing ? userDoc.totalFollowing : 0;
+              if (userDoc) {
+                this.displayName = userDoc.displayName;
+                this.userName = userDoc.userName;
+                this.photoURL = userDoc.photoURL;
+                this.userid = userDoc.uid;
+                this.totalScribes = userDoc.totalScribes ? userDoc.totalScribes : 0;
+                this.totalFollowers = userDoc.totalFollowers ? userDoc.totalFollowers : 0;
+                this.totalFollowing = userDoc.totalFollowing ? userDoc.totalFollowing : 0;
 
-              // Get pids from user feed
-              this.postsService.getFeed(this.userid).subscribe(
-                feedPosts => {
-                  this.feedPosts = feedPosts;
-                });
+                // Get pids from user feed
+                this.postsService.getFeed(this.userid).subscribe(
+                  feedPosts => {
+                    this.feedPosts = feedPosts;
+                  });
+              }
             });
         } else {
           this.router.navigateByUrl('start');
