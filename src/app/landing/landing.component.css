@@ -28,5 +28,6 @@
   font-size: 1.5rem;
   color: white;
 }
-.jumbotron {
+button {
+  cursor: pointer;
 }
