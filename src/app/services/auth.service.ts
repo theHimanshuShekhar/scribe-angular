@@ -56,9 +56,16 @@ export class AuthService {
       });
   }
 
+  getAuth() {
+    return this.afAuth.auth;
+  }
+
 
   getAuthState() {
     return this.afAuth.authState;
+  }
+  emailLogin(email, password) {
+    this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();

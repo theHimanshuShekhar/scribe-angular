@@ -6,6 +6,7 @@
     <div id="login-form" class="text-center col-11 col-sm-9 col-md-5 col-lg-4">
       <form [formGroup]="emailform">
         <h2 class="mb-3">Login</h2>
+        <small class="mt-0 mb-1 text-danger" *ngIf="error">{{error}}</small>
         <input class="form-control form-control-md" formControlName="email" type="text" placeholder="Email">
         <small class="mt-0 mb-1 text-danger" *ngIf="email.touched && email.errors">
           <div *ngIf="email.errors.email && !email.errors.required">Please enter a valid Email.</div>

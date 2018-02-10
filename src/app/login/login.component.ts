@@ -11,6 +11,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  error: string;
+
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -45,8 +47,21 @@ export class LoginComponent implements OnInit {
       this.auth.googleLogin().then(() => {
         this.router.navigateByUrl('/home');
       });
-    } else {
-      alert('Email login not implemented yet');
+    }
+    if (mode === 'email') {
+        this.auth.getAuth().signInWithEmailAndPassword(this.email.value, this.password.value)
+        .then(() => this.router.navigateByUrl('/home'))
+        .catch(err => {
+          if (err.code === 'auth/user-not-found') {
+            this.error = 'No User with the given Email found.';
+          }
+          if (err.code === 'auth/wrong-password') {
+            this.error = 'Password incorrect!';
+          }
+          if (err.code === 'auth/user-disabled') {
+            this.error = 'User has been banned. Please contact the administrator.';
+          }
+        });
     }
   }
 

@@ -95,6 +95,6 @@ export class RegisterComponent implements OnInit {
         type: 'email'
       };
       this.auth.register(data);
+    }
   }
-
 }
