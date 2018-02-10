@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
     private title: Title
   ) {}
 
-  private emailform = new FormGroup({
+  emailform = new FormGroup({
     username: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
