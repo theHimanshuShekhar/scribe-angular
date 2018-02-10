@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
 
 
   register(type) {
-    if (type === 'google') {
+    if (type === 'google' && this.googleusername.value) {
       const data = {
         type: 'google',
         username: this.googleusername.value
@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
       this.auth.register(data);
 
     }
-    if (type === 'email') {
+    if (type === 'email' && !this.password.errors && !this.username.errors && !this.displayname.errors && !this.email.errors) {
       const data = {
         username: this.username.value,
         displayname: this.displayname.value,
