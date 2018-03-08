@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
   totalLikes = 0;
 
   posts;
-  newPosts: any[] = [];
   followers: any;
   following: any;
   likes: any;
@@ -85,10 +84,12 @@ export class ProfileComponent implements OnInit {
           this.checkCurrentUser();
           this.getFollowData();
           this.getLikes();
-          this.postsService.init('posts', 'uid', this.userid);
-          this.postsService.data.subscribe(
+          this.postsService.getProfilePosts(this.userid).subscribe(
             posts => {
-              this.posts = posts;
+              if (posts) {
+                this.posts = posts;
+                console.log(this.posts);
+              }
             });
         } else {
           this.isLoaded = true;
@@ -158,9 +159,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  scrollHandler(event) {
-    this.postsService.more();
-  }
   checkCurrentUser() {
     this.auth.getAuthState().subscribe(
       user => {

@@ -1,4 +1,4 @@
-<div class="container-fluid" class="p-0" *ngIf="isLoaded; else Loading" appDetectScroll (scrollPosition)="scrollHandler($event)">
+<div class="container-fluid" class="p-0" *ngIf="isLoaded; else Loading">
   <div class="wrapper" *ngIf="!showInvalid; else Invalid">
     <div id="user-banner" [style]="getStyle()"></div>
     <div id="top-info" class="d-none d-md-block">
@@ -41,11 +41,6 @@
         <app-add-post [userURL]="photoURL" *ngIf="isCurrentUser"></app-add-post>
         <div *ngFor="let post of posts">
           <app-post [inputPost]="post" *ngIf="post; else NoPosts"></app-post>
-        </div>
-        <div *ngIf="posts.loading | async">
-          <div class="text-center pt-5">
-            <i class="fa fa-spinner fa-3x fa-spin text-primary" aria-hidden="true"></i>
-          </div>
         </div>
       </div>
       <div id="user-followers" class="col-12 col-md-6 mt-2 mt-md-0 px-0" *ngIf="showFollowers">
