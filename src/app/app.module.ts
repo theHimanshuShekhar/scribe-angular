@@ -46,6 +46,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user-list/user/user.component';
 import { GroupComponent } from './group/group.component';
 import { TestComponent } from './test/test.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -126,7 +127,8 @@ const routes: Routes = [
     UserComponent,
     DetectScrollDirective,
     GroupComponent,
-    TestComponent
+    TestComponent,
+    AddCommentComponent
     ],
   imports: [
     BrowserModule,

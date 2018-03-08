@@ -1,0 +1,47 @@
+#add-post-container {
+  background-color: white;
+}
+img {
+  margin-top: 2px;
+}
+textarea {
+  border: 1px solid #E83F6F;
+  resize: none;
+  height: 40px;
+}
+.expanded {
+  height: 100px;
+  border: 2px solid #3fc4e8;
+}
+textarea::-webkit-input-placeholder {
+  font-weight: 400;
+  color: #E83F6F!important;
+}
+textarea:-moz-placeholder { /* Firefox 18- */
+  color: #E83F6F!important;
+  font-weight: 400;
+}
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: #E83F6F!important;
+  font-weight: 400;
+}
+textarea:-ms-input-placeholder {
+  color: #E83F6F!important;
+  font-weight: 400;
+}
+.bg-none:hover {
+  background-color: #E83F6F!important;
+  color: white!important;
+  cursor: pointer;
+}
+#inputImage {
+  display: none;
+}
+#btnSubmit {
+  height: 35px;
+  font-weight: 600;
+}
+#btnSubmit:hover {
+  background-color: #3fc4e8!important;
+  cursor: pointer;
+}

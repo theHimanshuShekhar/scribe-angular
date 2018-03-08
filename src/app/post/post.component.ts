@@ -19,6 +19,9 @@ export class PostComponent implements OnInit {
 
   @Input() inputPost;
   @Input() inputPostID;
+  @Input() parentPid;
+
+  @Input() ParentModalRef;
 
   modalRef;
 
@@ -41,6 +44,7 @@ export class PostComponent implements OnInit {
   body;
   date;
   likes;
+  comments;
 
 
 
@@ -90,6 +94,7 @@ export class PostComponent implements OnInit {
           }
         });
         this.getLikes(this.inputPost.pid);
+        this.getComments(this.inputPost.pid);
     }
     // If the postID comes from the parent component
     if (this.inputPostID) {
@@ -120,6 +125,14 @@ export class PostComponent implements OnInit {
         }
       });
     }
+  }
+
+  getComments(pid) {
+    this.postService.getComments(pid).subscribe(comments => {
+      if (comments) {
+        this.comments = comments;
+      }
+    });
   }
 
   getLikes(pid) {
@@ -220,6 +233,9 @@ export class PostComponent implements OnInit {
 
   // Modal
   open(content) {
+    if (this.ParentModalRef) {
+      this.ParentModalRef.close();
+    }
     this.modalRef = this.modalService.open(content, {
       size: 'lg',
       windowClass: 'modal-style'

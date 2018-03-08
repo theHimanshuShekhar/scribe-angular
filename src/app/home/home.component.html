@@ -24,7 +24,7 @@
       </div>
     </div>
     <div id="posts-container" class="col-md-6 pb-4">
-      <app-add-post [userURL]="photoURL"></app-add-post>
+      <app-add-post [userURL]="photoURL" [showAvatar]="true"></app-add-post>
       <div id="feed-posts" *ngFor="let feedPost of feedPosts" style="overflow-y: hidden">
         <app-post [inputPostID]="feedPost.pid"></app-post>
       </div>

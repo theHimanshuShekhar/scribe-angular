@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class AddPostComponent implements OnInit {
 
   @Input() userURL: string;
+  @Input() showAvatar;
 
   buttonsClass = 'col-12 mt-2 d-none';
   textareaClass = 'form-control col-10';

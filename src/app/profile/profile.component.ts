@@ -88,7 +88,6 @@ export class ProfileComponent implements OnInit {
             posts => {
               if (posts) {
                 this.posts = posts;
-                console.log(this.posts);
               }
             });
         } else {

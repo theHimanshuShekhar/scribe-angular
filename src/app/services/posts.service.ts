@@ -34,8 +34,9 @@ export class PostsService {
     private router: Router,
   ) { }
 
+  // Get a user's posts
   getProfilePosts(uid) {
-    return this.afs.collection('posts', ref => ref.where('uid', '==', uid)).valueChanges();
+    return this.afs.collection('posts', ref => ref.where('uid', '==', uid).orderBy('date', 'desc')).valueChanges();
   }
 
   // Add post //
@@ -59,6 +60,11 @@ export class PostsService {
             console.log('Post Successful -', pid);
           });
       });
+  }
+
+  // Get a post's comments
+  getComments(pid) {
+    return this.afs.collection('posts/' + pid + '/comments').valueChanges();
   }
 
   // Get user's feed
