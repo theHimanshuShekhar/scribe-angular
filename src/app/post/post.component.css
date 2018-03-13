@@ -3,6 +3,9 @@
   margin-bottom: 2px;
   max-width: 700px;
 }
+#post-container:hover {
+  background-color: rgb(240, 240, 240);
+}
 a {
   color: #E83F6F;
   word-break: break-all;
