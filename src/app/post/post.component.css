@@ -1,6 +1,6 @@
 #post-container {
   background-color: white;
-  border-bottom: 1px solid lightgray;
+  margin-bottom: 2px;
   max-width: 700px;
 }
 a {

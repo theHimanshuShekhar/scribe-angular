@@ -9,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AddCommentComponent implements OnInit {
 
+  @Input() parentpid;
+
   buttonsClass = 'col-12 mt-2 d-none';
   textareaClass = 'form-control col-10';
   imgcontainerClass = 'col-2';
@@ -47,9 +49,11 @@ export class AddCommentComponent implements OnInit {
     if (this.postBody) {
       const newPost = {
         body: this.postBody,
+        type: 'comment',
+        to: this.parentpid,
         imgURL: this.imgURL ? this.imgURL : null
       };
-      this.postService.addPost(newPost);
+      this.postService.addComment(newPost);
       this.postBody = null;
     }
   }

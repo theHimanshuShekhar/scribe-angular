@@ -62,9 +62,37 @@ export class PostsService {
       });
   }
 
+  // Add Comment //
+  addComment(newPost) {
+    this.auth.getAuthState().subscribe(
+      currentuser => {
+        const pid = this.afs.createId();
+        const date = firebase.firestore.FieldValue.serverTimestamp();
+        const post = {
+          pid: pid,
+          uid: currentuser.uid,
+          date: date,
+          body: newPost.body,
+          photoURL: newPost.photoURL ? newPost.photoURL : null,
+          to: newPost.to ? newPost.to : null,
+          type: newPost.type ? newPost.type : 'user'
+        };
+        const postRef = this.afs.collection('posts').doc(pid);
+        return postRef.set(post)
+          .then(() => {
+            const comment = {
+              pid: pid,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            this.afs.doc('posts/' + newPost.to + '/comments/' + pid).set(comment);
+            console.log('Comment Successful -', pid);
+          });
+      });
+  }
+
   // Get a post's comments
   getComments(pid) {
-    return this.afs.collection('posts/' + pid + '/comments').valueChanges();
+    return this.afs.collection('posts/' + pid + '/comments', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
   }
 
   // Get user's feed

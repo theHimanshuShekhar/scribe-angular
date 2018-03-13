@@ -67,7 +67,7 @@
             <span class="py-2" (click)="clickLike()"><i [class]="likeStyle" aria-hidden="true"></i> <span>{{likeLen}}</span></span>
           </div>
           <div id="add-comment" class="mb-1">
-            <app-add-comment></app-add-comment>
+            <app-add-comment [parentpid]="pid"></app-add-comment>
           </div>
           <div id="comments" *ngIf="comments">
             <div *ngFor="let comment of comments">
