@@ -36,6 +36,7 @@ export class PostComponent implements OnInit {
   isLiked;
   likeStyle = 'fa fa-thumbs-o-up';
   likeLen = 0;
+  commentLen = 0;
 
   pid;
   displayName;
@@ -130,6 +131,7 @@ export class PostComponent implements OnInit {
   getComments(pid) {
     this.postService.getComments(pid).subscribe(comments => {
       if (comments) {
+        this.commentLen = comments.length;
         this.comments = comments;
       }
     });

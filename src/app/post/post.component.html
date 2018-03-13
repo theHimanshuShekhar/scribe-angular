@@ -26,7 +26,7 @@
           <br>
         </div>
         <div class="col-12 text-left pt-1 mx-0 px-0" id="post-info">
-          <span class="pr-3 py-2"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>123</span></span>
+          <span class="pr-3 py-2"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{commentLen}}</span></span>
           <span class="pr-3 py-2"><i class="fa fa-retweet" aria-hidden="true"></i> <span>123</span></span>
           <span class="py-2" (click)="clickLike()"><i [class]="likeStyle" aria-hidden="true"></i> <span>{{likeLen}}</span></span>
         </div>
@@ -62,7 +62,7 @@
           </div>
           <div id="post-date" class="mt-3 align-self-center">{{retrieveDate(this.date, 'long')}}</div>
           <div class="col-12 text-left pt-3 pb-2 mx-0 px-0" id="post-info">
-            <span class="pr-3 py-2"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>123</span></span>
+            <span class="pr-3 py-2"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{commentLen}}</span></span>
             <span class="pr-3 py-2"><i class="fa fa-retweet" aria-hidden="true"></i> <span>123</span></span>
             <span class="py-2" (click)="clickLike()"><i [class]="likeStyle" aria-hidden="true"></i> <span>{{likeLen}}</span></span>
           </div>
