@@ -39,15 +39,21 @@
 <ng-template #SinglePost>
   <div class="container pt-2">
     <div id="single-post-container" *ngIf="body && userName">
+      <div *ngIf="parentPid" id="parentPostContainer" class="mx-2 py-1 pb-4 row">
+        <h4 class="col-12 px-0 my-1">Replying to...</h4><hr>
+        <div id="parentPost" class="col-12 px-0 border border-primary">
+         <app-post [inputPostID]="parentPid"></app-post>
+        </div>
+      </div>
       <div class="mx-1 py-1 pb-4 row">
         <div id="img-container" class="ml-1 col-1 p-0 mr-1 mr-md-2 mr-lg-1">
-          <img [src]="photoURL" height="50px" width="50px" class="circle">
+          <img [src]="photoURL" height="55px" width="55px" class="circle">
         </div>
         <div id="post-content" class="col-10 ml-1">
           <div id="user-info" class="row justify-content-between">
             <div class="col-11 row align-self-center">
               <div id="user-text" class="col-9 col-sm-auto col-md-auto col-lg-auto pr-0" (click)="sendTo('profile')">
-                <span class="font-weight-bold"><h6 class="p-0 m-0 d-inline-block">{{displayName}}</h6></span>
+                <span class="font-weight-bold"><h5 class="p-0 m-0 d-inline-block">{{displayName}}</h5></span>
                 <small>@{{userName}}</small>
               </div>
             </div>
@@ -68,9 +74,11 @@
             <span class="py-2" (click)="clickLike()"><i [class]="likeStyle" aria-hidden="true"></i> <span>{{likeLen}}</span></span>
           </div>
           <div id="add-comment" class="mb-1">
-            <app-add-comment [parentpid]="pid"></app-add-comment>
+            <app-add-comment [parentpid]="pid" *ngIf="isLoggedIn"></app-add-comment>
+            <p class="text-primary" *ngIf="!isLoggedIn" (click)="sendTo('landing')">Login to post a comment.</p>
           </div>
-          <div id="comments" *ngIf="comments">
+          <div id="comments" *ngIf="commentLen >= 1">
+            <h4>Comments</h4><hr class="my-1">
             <div *ngFor="let comment of comments">
               <app-post [inputPostID]="comment.pid" [ParentModalRef]=this.modalRef [parentPid]="this.inputPostID"></app-post>
             </div>

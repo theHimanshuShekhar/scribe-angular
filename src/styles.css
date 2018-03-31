@@ -27,6 +27,9 @@ body {
 .text-primary {
   color: #E83F6F!important;
 }
+.border-primary {
+  border: 1px solid rgba(232, 63, 111, 0.726)!important;
+}
 .bg-primary {
   background-color: #E83F6F!important;
 }

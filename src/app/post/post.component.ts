@@ -27,6 +27,7 @@ export class PostComponent implements OnInit {
 
   currentuser;
 
+  isLoggedIn = false;
   isSingle = false;
   isCurrentUser = false;
   isInvalid;
@@ -72,6 +73,13 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.auth.getAuthState().subscribe(user => {
+      if (user) {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+      }
+    });
     this.checkURL();
     // If the post comes from the parent component
     if (this.inputPost) {
@@ -243,6 +251,9 @@ export class PostComponent implements OnInit {
   sendTo(type, id?) {
     if (this.modalRef) {
       this.modalRef.close();
+    }
+    if (type === 'landing') {
+      this.router.navigateByUrl('start');
     }
     if (type === 'profile') {
       this.router.navigateByUrl('user/' + this.userName);

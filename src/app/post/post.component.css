@@ -6,6 +6,9 @@
 #post-container:hover {
   background-color: rgb(240, 240, 240);
 }
+small {
+  font-size: 1rem;
+}
 a {
   color: #E83F6F;
   word-break: break-all;
