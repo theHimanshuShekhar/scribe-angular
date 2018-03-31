@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
+import { AuthService } from './auth.service';
 
 interface Group {
   gname: string;
@@ -13,9 +14,12 @@ interface Group {
 @Injectable()
 export class GroupService {
 
+  currentuser;
+
   constructor(
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   createGroup(data) {
@@ -27,9 +31,17 @@ export class GroupService {
       gid: gid
     };
     this.afs.doc('groups/' + gid).set(GData).then(() => {
-      this.router.navigateByUrl('group/' + gid);
+     this.auth.getAuthState().subscribe(user => {
+      this.currentuser = user;
+      const guserdata = {
+        gid: gid,
+        last: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      this.afs.doc('users/' + this.currentuser.uid + '/groups/' + gid).set(guserdata).then(() => this.router.navigateByUrl('group/' + gid));
+     });
     });
   }
+
   getGroup(gid) {
     return this.afs.doc<Group>('groups/' + gid).valueChanges();
   }

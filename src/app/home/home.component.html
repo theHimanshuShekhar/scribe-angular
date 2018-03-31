@@ -22,7 +22,7 @@
           <a (click)="sendTo('account')">Account</a>
         </div>
       </div>
-      <div id="group-list" class="bg-white my-2 pb-2">
+      <div id="group-list" class="bg-white my-2 pb-2" *ngIf="groups">
         <div class="container-fluid">
           <div class="row">
             <h5 class="pt-1 col-5">Groups</h5>
@@ -30,8 +30,10 @@
           </div>
         </div>
         <hr class="p-0 my-1">
-        <div *ngFor="let feed of feedPosts" class="mx-2">
-          group
+        <div *ngIf="groups; else noGroups" class="mt-2">
+          <div *ngFor="let group of groups" class="mx-3">
+            <p class="grouplistitem my-1" (click)="sendTo('group', group.gid)">{{group.gname}}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -51,6 +53,9 @@
     </div>
   </div>
 </div>
+<ng-template #noGroups>
+  <p class="mx-1 text-center">You are not a member of any groups</p>
+</ng-template>
 
 <ng-template #Loading>
   <div class="text-center pt-5 text-primary">

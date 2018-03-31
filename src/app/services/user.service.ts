@@ -23,4 +23,8 @@ export class UserService {
   retrieveUserDocumentFromID(uid) {
     return this.afs.doc<any>('users/' + uid).valueChanges();
   }
+
+  getUserGroups(uid) {
+    return this.afs.collection('users/' + uid + '/groups', ref => ref.limit(10).orderBy('last', 'desc')).valueChanges();
+  }
 }

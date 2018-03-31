@@ -57,3 +57,7 @@
 #btnCreateGroup:hover {
   cursor: pointer;
 }
+.grouplistitem:hover {
+  cursor: pointer;
+  color: #E83F6F;
+}

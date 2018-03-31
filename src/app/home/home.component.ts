@@ -1,3 +1,4 @@
+import { GroupService } from './../services/group.service';
 import { PostsService } from './../services/posts.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   feedPosts;
 
-  groupList;
+  groups = [];
 
   constructor(
     private auth: AuthService,
@@ -37,7 +38,8 @@ export class HomeComponent implements OnInit {
     private titleService: Title,
     private userService: UserService,
     private sanitizer: DomSanitizer,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private groupService: GroupService
   ) { }
 
   getStyle() {
@@ -51,12 +53,15 @@ export class HomeComponent implements OnInit {
     this.titleService.setTitle('Home');
     this.getCurrentUser();
   }
-  sendTo(path) {
+  sendTo(path, location?) {
     if (path === 'profile') {
       this.router.navigateByUrl('user/' + this.userName);
     }
     if (path === 'account') {
       this.router.navigateByUrl('account');
+    }
+    if (path === 'group' && location) {
+      this.router.navigateByUrl('group/' + location);
     }
   }
   getCurrentUser() {
@@ -76,12 +81,23 @@ export class HomeComponent implements OnInit {
 
                 // Get pids from user feed
                 this.postsService.getFeed(this.userid).subscribe(
-                  feedPosts => {
-                    this.feedPosts = feedPosts;
-                  });
+                  feedPosts => this.feedPosts = feedPosts
+                );
 
                 // Get user's groups
-
+                this.userService.getUserGroups(this.userid).subscribe(
+                  userGroups => {
+                    if (userGroups) {
+                      this.groups = [];
+                      userGroups.forEach((groupData) => {
+                        this.groupService.getGroup(groupData.gid).subscribe(
+                          groupDetails => {
+                            this.groups.push(groupDetails);
+                          });
+                      });
+                    }
+                  }
+                );
               }
             });
         } else {
