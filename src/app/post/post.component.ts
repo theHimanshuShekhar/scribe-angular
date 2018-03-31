@@ -98,7 +98,7 @@ export class PostComponent implements OnInit {
                 if (parentUserData) {
                   this.parentUsername = parentUserData.userName;
                 }
-              });            
+              });
             }
         });
       }
@@ -264,7 +264,6 @@ export class PostComponent implements OnInit {
       } else {
         this.router.navigateByUrl('post/' + this.pid);
       }
-      
     }
   }
 

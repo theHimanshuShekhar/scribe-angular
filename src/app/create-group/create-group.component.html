@@ -1,0 +1,24 @@
+<div id="create-group-card" class="bg-white rounded p-2 px-4">
+  <div id="create-group-header" class="row justify-content-between mt-2 mt-md-3 mr-3">
+    <h3 class="col-auto align-self-center">Group</h3>
+    <button class="col-auto btn bg-primary text-white font-weight-bold px-4 py-2 align-self-center" id="btnCreate" (click)="createGroup()">Create Group</button>
+  </div>
+  <hr>
+  <div class="form-group mt-4 mb-2">
+    <label for="InputGroupName">Group Name</label>
+    <input type="text" class="form-control" id="InputDisplayName" aria-describedby="emailHelp" [(ngModel)]="gname">
+    <small class="form-text text-muted">The group name must be unique. (Max 30 characters)</small>
+  </div>
+  <div class="form-group mb-2">
+    <label for="InputDesc">Description</label>
+    <input type="text" class="form-control" id="InputStatus" aria-describedby="emailHelp" [(ngModel)]="description">
+    <small class="form-text text-muted">Tell everyone what the group is about. (Max 150 characters)</small>
+  </div>
+  <div class="row mb-5">
+    <div class="form-group pt-4 col-12 col-sm-6 mb-1 align-self-center">
+      <input type="file" id="InputPhoto" class="inputfile" (change)="processImage($event)" accept="image/*">
+      <label for="InputPhoto" class="mx-0 text-center"><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{filename}}</label>
+    </div>
+    <span class="col-auto p-0 ml-3"><img id="displayPhoto" class="circle align-self-center" *ngIf="photoURL" [src]="photoURL"></span>
+  </div>
+</div>

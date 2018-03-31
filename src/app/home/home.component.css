@@ -54,3 +54,6 @@
 #user-stats > p {
   font-weight: 550;
 }
+#btnCreateGroup:hover {
+  cursor: pointer;
+}

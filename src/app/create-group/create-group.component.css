@@ -1,0 +1,48 @@
+#create-group-card {
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+#btnCreate, .form-control {
+  border-radius: 100px;
+}
+#displayPhoto {
+  height: 150px;
+  width: 150px;
+  max-width: 150px;
+  max-height: 150px
+}
+
+/* File Input */
+label, small {
+  margin-left: 12px;
+}
+label {
+  font-weight: 450;
+}
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.inputfile + label {
+  font-size: 1em;
+  font-weight: 700;
+  color: white;
+  background-color: #E83F6F;
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 100%;
+}
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #3fc4e8;
+}
+#btnCreate:hover {
+  background-color: #3fc4e8!important;
+  cursor: pointer;
+}

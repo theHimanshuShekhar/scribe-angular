@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AngularFirestore } from 'angularfire2/firestore';
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { CreateGroupComponent } from '../create-group/create-group.component';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +36,8 @@ export class HomeComponent implements OnInit {
     private afs: AngularFirestore,
     private titleService: Title,
     private userService: UserService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalService: NgbModal
   ) { }
 
   getStyle() {
@@ -84,6 +87,13 @@ export class HomeComponent implements OnInit {
         } else {
           this.router.navigateByUrl('start');
         }
+    });
+  }
+
+  createGroup() {
+    const modalRef = this.modalService.open(CreateGroupComponent, {
+      size: 'lg',
+      windowClass: 'modal-style'
     });
   }
 }
