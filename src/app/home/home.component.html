@@ -23,7 +23,13 @@
         </div>
       </div>
       <div id="group-list" class="bg-white my-2 pb-2">
-        <h5 class="pt-1 mx-2">Groups</h5><hr class="p-0 my-1">
+        <div class="container-fluid">
+          <div class="row">
+            <h5 class="pt-1 col-5">Groups</h5>
+            <i class="fa fa-plus-square fa-2x align-self-center text-primary col-3 ml-auto"></i>
+          </div>
+        </div>
+        <hr class="p-0 my-1">
         <div *ngFor="let feed of feedPosts" class="mx-2">
           group
         </div>
