@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
 
   feedPosts;
 
-  groupList[];
+  groupList;
 
   constructor(
     private auth: AuthService,
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
                   });
 
                 // Get user's groups
-                
+
               }
             });
         } else {
