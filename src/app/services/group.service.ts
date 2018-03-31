@@ -38,6 +38,11 @@ export class GroupService {
         last: firebase.firestore.FieldValue.serverTimestamp()
       };
       this.afs.doc('users/' + this.currentuser.uid + '/groups/' + gid).set(guserdata).then(() => this.router.navigateByUrl('group/' + gid));
+      const ugroupdata = {
+        uid: this.currentuser.uid,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      this.afs.doc('groups/' + gid + '/members/' + this.currentuser.uid).set(ugroupdata);
      });
     });
   }

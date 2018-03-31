@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
                   userGroups => {
                     if (userGroups) {
                       this.groups = [];
-                      userGroups.forEach((groupData) => {
+                      userGroups.forEach((groupData: any) => {
                         this.groupService.getGroup(groupData.gid).subscribe(
                           groupDetails => {
                             this.groups.push(groupDetails);
