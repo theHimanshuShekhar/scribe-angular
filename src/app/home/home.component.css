@@ -47,7 +47,10 @@
 #feed-posts {
   overflow-x: hidden;
 }
-
+#group-list {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
 #user-stats > p {
   font-weight: 550;
 }

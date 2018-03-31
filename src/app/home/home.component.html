@@ -22,6 +22,12 @@
           <a (click)="sendTo('account')">Account</a>
         </div>
       </div>
+      <div id="group-list" class="bg-white my-2 pb-2">
+        <h5 class="pt-1 mx-2">Groups</h5><hr class="p-0 my-1">
+        <div *ngFor="let feed of feedPosts" class="mx-2">
+          group
+        </div>
+      </div>
     </div>
     <div id="posts-container" class="col-md-6 pb-4">
       <app-add-post [userURL]="photoURL" [showAvatar]="true"></app-add-post>
