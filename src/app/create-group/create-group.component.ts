@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { GroupService } from './../services/group.service';
+import { Component, OnInit, Input, group } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -15,12 +16,20 @@ export class CreateGroupComponent implements OnInit {
   inputFile;
   photoURL = '../../assets/images/default-profile.jpg';
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private groupService: GroupService
+  ) {}
 
   ngOnInit() {
   }
 
   createGroup() {
+    const groupData = {
+      gname: this.gname,
+      desc: this.description
+    };
+    this.groupService.createGroup(groupData);
     this.activeModal.close();
   }
 
