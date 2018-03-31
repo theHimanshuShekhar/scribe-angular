@@ -45,7 +45,11 @@ export class PostComponent implements OnInit {
   body;
   date;
   likes;
+  type;
   comments;
+
+  parentUsername;
+  parentUID;
 
 
 
@@ -75,6 +79,21 @@ export class PostComponent implements OnInit {
       this.body = this.inputPost.body;
       this.date = this.inputPost.date;
       this.pid = this.inputPost.pid;
+      this.type = this.inputPost.type;
+      if (this.type == 'comment') {
+        this.parentPid = this.inputPost.to;
+        this.postService.getPost(this.parentPid).subscribe(
+          parentPost => {
+            if (parentPost) {
+              this.parentUID = parentPost.uid;
+              this.userService.retrieveUserDocumentFromID(this.parentUID).subscribe(parentUserData => {
+                if (parentUserData) {
+                  this.parentUsername = parentUserData.userName;
+                }
+              });            
+            }
+        });
+      }
       this.userService.retrieveUserDocumentFromID(this.inputPost.uid).subscribe(
         user => {
           if (user) {
@@ -221,7 +240,7 @@ export class PostComponent implements OnInit {
     }
   }
 
-  sendTo(type) {
+  sendTo(type, id?) {
     if (this.modalRef) {
       this.modalRef.close();
     }
@@ -229,7 +248,12 @@ export class PostComponent implements OnInit {
       this.router.navigateByUrl('user/' + this.userName);
     }
     if (type === 'post') {
-      this.router.navigateByUrl('post/' + this.pid);
+      if (id) {
+        this.router.navigateByUrl('post/' + this.parentPid);
+      } else {
+        this.router.navigateByUrl('post/' + this.pid);
+      }
+      
     }
   }
 
