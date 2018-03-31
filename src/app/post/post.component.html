@@ -40,7 +40,7 @@
   <div class="container pt-2">
     <div id="single-post-container" *ngIf="body && userName">
       <div *ngIf="parentPid" id="parentPostContainer" class="mx-2 py-1 pb-4 row">
-        <h4 class="col-12 px-0 my-1">Replying to...</h4><hr>
+        <h4 class="col-12 px-0 my-1 mb-2">Replying to...</h4><hr>
         <div id="parentPost" class="col-12 px-0 border border-primary">
          <app-post [inputPostID]="parentPid"></app-post>
         </div>
