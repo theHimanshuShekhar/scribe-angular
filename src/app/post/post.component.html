@@ -42,7 +42,7 @@
       <div *ngIf="parentPid" id="parentPostContainer" class="mx-2 py-1 pb-4 row">
         <h4 class="col-12 px-0 my-1 mb-2">Replying to...</h4><hr>
         <div id="parentPost" class="col-12 px-0 border border-primary">
-         <app-post [inputPostID]="parentPid"></app-post>
+         <app-post [inputPostID]="parentPid" [ParentModalRef]="this.modalRef"></app-post>
         </div>
       </div>
       <div class="mx-1 py-1 pb-4 row">
@@ -80,7 +80,7 @@
           <div id="comments" *ngIf="commentLen >= 1">
             <h4>Comments</h4><hr class="my-1">
             <div *ngFor="let comment of comments">
-              <app-post [inputPostID]="comment.pid" [ParentModalRef]=this.modalRef [parentPid]="this.inputPostID"></app-post>
+              <app-post [inputPostID]="comment.pid" [ParentModalRef]="this.modalRef" [parentPid]="this.inputPostID"></app-post>
             </div>
           </div>
         </div>

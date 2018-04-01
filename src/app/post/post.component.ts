@@ -252,6 +252,9 @@ export class PostComponent implements OnInit {
     if (this.modalRef) {
       this.modalRef.close();
     }
+    if (this.ParentModalRef) {
+      this.ParentModalRef.close();
+    }
     if (type === 'landing') {
       this.router.navigateByUrl('start');
     }
