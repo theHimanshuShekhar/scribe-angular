@@ -57,7 +57,12 @@
 #btnCreateGroup:hover {
   cursor: pointer;
 }
-.grouplistitem:hover {
+.grouplistitem:hover, #alt-footer > a:hover {
   cursor: pointer;
   color: #E83F6F;
+}
+#alt-footer {
+  color: #E83F6F;
+  font-size: 1.05rem;
+  font-weight: 350;
 }

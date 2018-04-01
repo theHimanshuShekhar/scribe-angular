@@ -63,6 +63,9 @@ export class HomeComponent implements OnInit {
     if (path === 'group' && location) {
       this.router.navigateByUrl('group/' + location);
     }
+    if (path === 'custom' && location) {
+      this.router.navigateByUrl(location);
+    }
   }
   getCurrentUser() {
     this.auth.getAuthState().subscribe(
