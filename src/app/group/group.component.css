@@ -15,3 +15,9 @@
   height: 60px;
   display: inline-block;
 }
+#joinPanel {
+  width: 100%;
+}
+.btn:hover {
+ cursor: pointer;
+}

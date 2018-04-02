@@ -13,6 +13,8 @@ export class AddPostComponent implements OnInit {
 
   @Input() userURL: string;
   @Input() showAvatar;
+  @Input() type;
+  @Input() id;
 
   buttonsClass = 'col-12 mt-2 d-none';
   textareaClass = 'form-control col-10';
@@ -68,14 +70,27 @@ export class AddPostComponent implements OnInit {
 
   addPost() {
     this.contract();
-    if (this.postBody) {
-      const newPost = {
-        body: this.postBody,
-        imgURL: this.imgURL ? this.imgURL : null
-      };
-      this.postService.addPost(newPost);
-      this.postBody = null;
+    if (!this.type) {
+      if (this.postBody) {
+        const newPost = {
+          body: this.postBody,
+          imgURL: this.imgURL ? this.imgURL : null
+        };
+        this.postService.addPost(newPost);
+        this.postBody = null;
+      }
+    }
+    if (this.type === 'group') {
+      if (this.postBody) {
+        const newPost = {
+          body: this.postBody,
+          imgURL: this.imgURL ? this.imgURL : null,
+          to: this.id,
+          type: 'group'
+        };
+        this.postService.addPost(newPost);
+        this.postBody = null;
+      }
     }
   }
-
 }

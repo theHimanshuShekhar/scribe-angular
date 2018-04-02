@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../services/posts.service';
@@ -21,11 +22,14 @@ export class GroupComponent implements OnInit {
   members;
 
   isInvalid;
+  isSubbed = false;
+  isLoggedin;
 
   posts;
 
   constructor(
     private afs: AngularFirestore,
+    private auth: AuthService,
     private route: ActivatedRoute,
     private groupService: GroupService,
     private datePipe: DateFormatPipe
@@ -54,7 +58,44 @@ export class GroupComponent implements OnInit {
         memberList => {
           this.members = memberList;
         });
+        this.checkSub();
+        this.checkLogin();
     });
+  }
+
+  checkLogin() {
+    this.auth.getAuthState().subscribe(user => {
+      if (user) {
+        this.isLoggedin = true;
+      } else {
+        this.isLoggedin = false;
+      }
+    });
+  }
+
+  checkSub() {
+    this.auth.getAuthState().subscribe(currentuser => {
+      if (currentuser) {
+        this.afs.doc('groups/' + this.gid + '/members/' + currentuser.uid)
+        .valueChanges()
+        .subscribe(user => {
+          if (user) {
+            this.isSubbed = true;
+          } else {
+            this.isSubbed = false;
+          }
+        });
+      }
+    });
+  }
+
+  subscribe() {
+    this.groupService.subscribe(this.gid);
+  }
+
+  unsubscribe() {
+    this.groupService.unsubscribe(this.gid);
+    this.checkSub();
   }
 
   getDate() {

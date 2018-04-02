@@ -47,6 +47,27 @@ export class GroupService {
     });
   }
 
+  subscribe(gid) {
+    this.auth.getAuthState().subscribe(currentuser => {
+      if (currentuser) {
+        const uid = currentuser.uid;
+        const data = {
+          uid: uid,
+          date: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        this.afs.doc('groups/' + gid + '/members/' + uid).set(data);
+      }
+    });
+  }
+  unsubscribe(gid) {
+    this.auth.getAuthState().subscribe(currentuser => {
+      if (currentuser) {
+        const uid = currentuser.uid;
+        this.afs.doc('groups/' + gid + '/members/' + uid).delete();
+      }
+    });
+  }
+
   getGroup(gid) {
     return this.afs.doc<Group>('groups/' + gid).valueChanges();
   }
