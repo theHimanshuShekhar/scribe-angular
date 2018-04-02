@@ -20,9 +20,10 @@ exports.onPost = functions.firestore
 });
 
 function updateGroupFeed(pid, gid) {
+  const date = admin.firestore.FieldValue.serverTimestamp();
   const data = {
     pid: pid,
-    date: firebase.firestore.FieldValue.serverTimestamp(),
+    date: date,
     totalLikes: 0
   };
   afs.doc('groups/' + gid + '/feed/' + pid).set(data)
@@ -225,9 +226,10 @@ function updateTotalScribes(uid) {
   .onCreate(event => {
     const gid = event.params.gid;
     const userid = event.params.uid;
+    const date = admin.firestore.FieldValue.serverTimestamp();
     const gdata = {
       gid: gid,
-      last: firebase.firestore.FieldValue.serverTimestamp()
+      last: date
     };
     afs.doc('users/' + userid + '/groups/' + gid).set(gdata).catch(err => console.log(err));
   });

@@ -11,9 +11,40 @@ exports.onPost = functions.firestore
     const currentuid = post.uid;
     const pid = post.pid;
     const date = post.date;
+    if (post.type === 'group') {
+        const gid = post.to;
+        updateGroupFeed(pid, gid);
+    }
     updateFollowerFeeds(currentuid, pid, date);
     updateTotalScribes(currentuid);
 });
+function updateGroupFeed(pid, gid) {
+    const data = {
+        pid: pid,
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        totalLikes: 0
+    };
+    afs.doc('groups/' + gid + '/feed/' + pid).set(data)
+        .then(() => {
+        updateSubFeed(pid, gid, data.date);
+    }).catch(err => console.log(err));
+}
+function updateSubFeed(pid, gid, date) {
+    afs.collection('groups/' + gid + '/members').get()
+        .then(memberList => {
+        if (memberList) {
+            memberList.forEach(member => {
+                const feeddata = {
+                    pid: pid,
+                    date: date
+                };
+                afs.doc('/users/' + member.data().uid + '/feed/' + pid).set(feeddata)
+                    .catch(err => console.log(err));
+            });
+        }
+    }).catch(err => console.log(err));
+    ;
+}
 exports.onLike = functions.firestore
     .document('posts/{postID}/likes/{userID}')
     .onCreate(event => {
@@ -49,8 +80,7 @@ function updateUserLikes(uid) {
         };
         afs.doc('users/' + uid).update(data)
             .catch(err => console.log(err));
-    })
-        .catch(err => console.log(err));
+    }).catch(err => console.log(err));
 }
 exports.onDelete = functions.firestore
     .document('posts/{postId}')
@@ -151,8 +181,7 @@ function updateFollowerFeeds(currentuid, pid, date) {
                 console.log(err);
             });
         });
-    })
-        .catch((err) => {
+    }).catch((err) => {
         console.log('Error updating feeds', err);
     });
 }
@@ -173,6 +202,24 @@ function updateTotalScribes(uid) {
     })
         .catch((err) => {
         console.log(err);
+    });
+    exports.onSub = functions.firestore
+        .document('groups/{gid}/members/{uid}')
+        .onCreate(event => {
+        const gid = event.params.gid;
+        const userid = event.params.uid;
+        const gdata = {
+            gid: gid,
+            last: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        afs.doc('users/' + userid + '/groups/' + gid).set(gdata).catch(err => console.log(err));
+    });
+    exports.onUnSub = functions.firestore
+        .document('groups/{gid}/members/{uid}')
+        .onDelete(event => {
+        const gid = event.params.gid;
+        const userid = event.params.uid;
+        afs.doc('users/' + userid + '/groups/' + gid).delete().catch(err => console.log(err));
     });
 }
 //# sourceMappingURL=index.js.map
