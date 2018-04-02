@@ -4,6 +4,27 @@ import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 const afs = admin.firestore();
 
+exports.onSub = functions.firestore
+  .document('groups/{gid}/members/{uid}')
+  .onCreate(event => {
+    const gid = event.params.gid;
+    const userid = event.params.uid;
+    const date = admin.firestore.FieldValue.serverTimestamp();
+    const gdata = {
+      gid: gid,
+      last: date
+    };
+    afs.doc('users/' + userid + '/groups/' + gid).set(gdata).catch(err => console.log(err));
+  });
+
+  exports.onUnSub = functions.firestore
+  .document('groups/{gid}/members/{uid}')
+  .onDelete(event => {
+    const gid = event.params.gid;
+    const userid = event.params.uid;
+    afs.doc('users/' + userid + '/groups/' + gid).delete().catch(err => console.log(err));
+  });
+
 exports.onPost = functions.firestore
   .document('posts/{postId}')
   .onCreate(event => {
@@ -220,25 +241,4 @@ function updateTotalScribes(uid) {
     .catch ((err) => {
         console.log(err);
     });
-
-  exports.onSub = functions.firestore
-  .document('groups/{gid}/members/{uid}')
-  .onCreate(event => {
-    const gid = event.params.gid;
-    const userid = event.params.uid;
-    const date = admin.firestore.FieldValue.serverTimestamp();
-    const gdata = {
-      gid: gid,
-      last: date
-    };
-    afs.doc('users/' + userid + '/groups/' + gid).set(gdata).catch(err => console.log(err));
-  });
-
-  exports.onUnSub = functions.firestore
-  .document('groups/{gid}/members/{uid}')
-  .onDelete(event => {
-    const gid = event.params.gid;
-    const userid = event.params.uid;
-    afs.doc('users/' + userid + '/groups/' + gid).delete().catch(err => console.log(err));
-  });
 }
