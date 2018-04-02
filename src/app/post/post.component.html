@@ -68,6 +68,9 @@
                 </div>
               </div>
           </div>
+          <span *ngIf="showContext">
+            <p class="text-primary my-0" *ngIf="type =='group'" (click)="sendTo('group', gid)">Posted in {{gname}}</p>
+          </span>
           <div id="post-body" class="py-2" [innerHTML]="body | linkify">
           </div>
           <div id="post-date" class="mt-3 align-self-center">{{retrieveDate(this.date, 'long')}}</div>
