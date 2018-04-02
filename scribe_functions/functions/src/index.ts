@@ -28,8 +28,7 @@ function updateGroupFeed(pid, gid) {
   afs.doc('groups/' + gid + '/feed/' + pid).set(data)
   .then(() => {
     updateSubFeed(pid, gid, data.date);
-  })
-  .catch(err => console.log(err));
+  }).catch(err => console.log(err));
 }
 
 function updateSubFeed(pid, gid, date) {
@@ -45,8 +44,7 @@ function updateSubFeed(pid, gid, date) {
         .catch(err => console.log(err));
       });
     }
-  })
-  .catch(err => console.log(err));;
+  }).catch(err => console.log(err));;
 }
 
 exports.onLike = functions.firestore
@@ -87,8 +85,7 @@ function updateUserLikes(uid) {
         };
         afs.doc('users/' + uid).update(data)
         .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+    }).catch(err => console.log(err));
 }
 
 exports.onDelete = functions.firestore
@@ -197,8 +194,7 @@ function updateFollowerFeeds(currentuid, pid, date) {
                 console.log(err);
             });
         })
-    })
-    .catch((err) => {
+    }).catch((err) => {
         console.log('Error updating feeds', err);
     });
 }
@@ -233,8 +229,7 @@ function updateTotalScribes(uid) {
       gid: gid,
       last: firebase.firestore.FieldValue.serverTimestamp()
     };
-    afs.doc('users/' + userid + '/groups/' + gid).set(gdata)
-    .catch(err => console.log(err));
+    afs.doc('users/' + userid + '/groups/' + gid).set(gdata).catch(err => console.log(err));
   });
 
   exports.onUnSub = functions.firestore
@@ -242,7 +237,6 @@ function updateTotalScribes(uid) {
   .onDelete(event => {
     const gid = event.params.gid;
     const userid = event.params.uid;
-    afs.doc('users/' + userid + '/groups/' + gid).delete()
-    .catch(err => console.log(err));
+    afs.doc('users/' + userid + '/groups/' + gid).delete().catch(err => console.log(err));
   });
 }
