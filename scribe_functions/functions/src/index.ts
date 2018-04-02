@@ -45,7 +45,8 @@ function updateSubFeed(pid, gid, date) {
         .catch(err => console.log(err));
       });
     }
-  });
+  })
+  .catch(err => console.log(err));;
 }
 
 exports.onLike = functions.firestore
