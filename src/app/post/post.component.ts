@@ -1,3 +1,4 @@
+import { GroupService } from './../services/group.service';
 import { LikesService } from './../services/likes.service';
 import { PostsService } from './../services/posts.service';
 import { DateFormatPipe } from './../services/date.pipe';
@@ -26,6 +27,7 @@ export class PostComponent implements OnInit {
   modalRef;
 
   currentuser;
+  showContext = true;
 
   isLoggedIn = false;
   isSingle = false;
@@ -52,6 +54,9 @@ export class PostComponent implements OnInit {
   parentUsername;
   parentUID;
 
+  gname;
+  gid;
+
 
 
   constructor(
@@ -62,7 +67,8 @@ export class PostComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private location: PlatformLocation,
-    private likeService: LikesService
+    private likeService: LikesService,
+    private groupService: GroupService
   ) {
     location.onPopState((event) => {
       // ensure that modal is opened
@@ -88,7 +94,7 @@ export class PostComponent implements OnInit {
       this.date = this.inputPost.date;
       this.pid = this.inputPost.pid;
       this.type = this.inputPost.type;
-      if (this.type == 'comment') {
+      if (this.type === 'comment') {
         this.parentPid = this.inputPost.to;
         this.postService.getPost(this.parentPid).subscribe(
           parentPost => {
@@ -100,6 +106,17 @@ export class PostComponent implements OnInit {
                 }
               });
             }
+        });
+      }
+      if (this.type === 'group') {
+        if (this.router.url.slice(1, 6) === 'group') {
+          this.showContext = false;
+        }
+        this.gid = this.inputPost.to;
+        this.groupService.getGroup(this.gid).subscribe(groupDetails => {
+          if (groupDetails) {
+            this.gname = groupDetails.gname;
+          }
         });
       }
       this.userService.retrieveUserDocumentFromID(this.inputPost.uid).subscribe(
@@ -260,6 +277,11 @@ export class PostComponent implements OnInit {
     }
     if (type === 'profile') {
       this.router.navigateByUrl('user/' + this.userName);
+    }
+    if (type === 'group') {
+      if (id) {
+        this.router.navigateByUrl('group/' + id);
+      }
     }
     if (type === 'post') {
       if (id) {

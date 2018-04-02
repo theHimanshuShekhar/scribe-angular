@@ -21,7 +21,10 @@
         </div>
       </div>
       <div>
-        <p class="text-primary my-0" *ngIf="type=='comment'" (click)="sendTo('post', parentPid)">Replying to @{{parentUsername}}</p>
+        <span *ngIf="showContext">
+          <p class="text-primary my-0" *ngIf="type =='group'" (click)="sendTo('group', gid)">Posted in {{gname}}</p>
+        </span>
+        <p class="text-primary my-0" *ngIf="type =='comment'" (click)="sendTo('post', parentPid)">Replying to @{{parentUsername}}</p>
         <div id="post-body" class="pb-2" (click)="open(SinglePost)" [innerHTML]="body | linkify | slice:0:200">
           <span *ngIf="inputPost.body.length > 200"><a id="more-anchor">...more</a></span>
           <br>
