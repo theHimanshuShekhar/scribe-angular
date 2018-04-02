@@ -237,7 +237,7 @@ function updateTotalScribes(uid) {
     .catch(err => console.log(err));
   });
 
-  exports.onSub = functions.firestore
+  exports.onUnSub = functions.firestore
   .document('groups/{gid}/members/{uid}')
   .onDelete(event => {
     const gid = event.params.gid;
