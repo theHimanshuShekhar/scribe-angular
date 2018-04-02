@@ -9,8 +9,10 @@
   <div class="row justify-content-center">
     <div class="col-7 m-0 pr-0">
       <app-add-post type="group" [id]="gid"></app-add-post>
-      <div *ngFor="let post of posts">
-        <app-post [inputPostID]="post.pid" *ngIf="post"></app-post>
+      <div class="mt-2">
+        <div *ngFor="let post of posts">
+          <app-post [inputPostID]="post.pid" *ngIf="post"></app-post>
+        </div>
       </div>
     </div>
     <div class="col-5">
