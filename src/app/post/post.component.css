@@ -1,7 +1,7 @@
 #post-container {
   background-color: white;
   margin-bottom: 2px;
-  max-width: 700px;
+  max-width: 800px;
 }
 #post-container:hover {
   background-color: rgb(240, 240, 240);

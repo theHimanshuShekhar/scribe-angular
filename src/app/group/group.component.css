@@ -21,3 +21,13 @@
 .btn:hover {
  cursor: pointer;
 }
+@media (max-width: 768px) {
+  #banner-image {
+    height: 100px;
+  }
+}
+@media (max-width: 970px) {
+  .user-block {
+    margin-right: 11px;
+  }
+}
