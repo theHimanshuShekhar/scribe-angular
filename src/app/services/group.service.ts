@@ -73,7 +73,7 @@ export class GroupService {
   }
 
   getFeed(gid) {
-    return this.afs.collection('groups/' + gid + '/feed', ref => ref.orderBy('date')).valueChanges();
+    return this.afs.collection('groups/' + gid + '/feed', ref => ref.orderBy('date', 'desc')).valueChanges();
   }
 
   getMembers(gid) {

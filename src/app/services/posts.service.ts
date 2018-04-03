@@ -92,7 +92,7 @@ export class PostsService {
 
   // Get a post's comments
   getComments(pid) {
-    return this.afs.collection('posts/' + pid + '/comments', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
+    return this.afs.collection('posts/' + pid + '/comments', ref => ref.orderBy('timestamp', 'asc')).valueChanges();
   }
 
   // Get user's feed
