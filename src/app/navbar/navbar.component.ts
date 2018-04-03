@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl('account');
     }
     if (path === 'messages') {
-      this.router.navigateByUrl('messages');
+      this.router.navigateByUrl('messaging');
     }
     if (path === 'groups') {
       this.router.navigateByUrl('groups');
