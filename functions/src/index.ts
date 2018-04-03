@@ -66,7 +66,7 @@ function updateSubFeed(pid, gid, date) {
         .catch(err => console.log(err));
       });
     }
-  }).catch(err => console.log(err));;
+  }).catch(err => console.log(err));
 }
 
 exports.onLike = functions.firestore
@@ -114,6 +114,11 @@ exports.onDelete = functions.firestore
   .document('posts/{postId}')
   .onDelete(event => {
     const deletedPost = event.data.previous.data();
+    if (deletedPost.type = 'comment') {
+      const parentid = deletedPost.to;
+      afs.doc('/posts/' + parentid + '/comments/' + deletedPost.pid).delete()
+      .catch((err) => console.log(err));
+    }
     deleteFeedPosts(deletedPost.uid, deletedPost.pid);
   })
 
