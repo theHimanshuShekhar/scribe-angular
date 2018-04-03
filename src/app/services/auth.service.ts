@@ -155,7 +155,9 @@ export class AuthService {
             status: 'Hi, I am using Scribe',
             userName: user.userName,
           };
-          this.router.navigateByUrl('/home');
+          this.getAuth().currentUser.sendEmailVerification().then(() => {
+            this.logout();
+          });
           return userRef.set(data);
         });
   }
@@ -164,7 +166,7 @@ export class AuthService {
     this.afAuth.auth.signOut().then(
       () => {
       console.log('User logged out successfully.');
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/login');
     });
   }
 

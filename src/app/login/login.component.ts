@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  @ViewChild('content') modalContent: ElementRef;
+
   error: string;
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private modalService: NgbModal
   ) { }
 
   emailform = new FormGroup({
@@ -50,7 +54,18 @@ export class LoginComponent implements OnInit {
     }
     if (mode === 'email') {
         this.auth.getAuth().signInWithEmailAndPassword(this.email.value, this.password.value)
-        .then(() => this.router.navigateByUrl('/home'))
+        .then(() => {
+          this.auth.getAuthState().subscribe(user => {
+            if (user) {
+              if (user.emailVerified) {
+                this.router.navigateByUrl('/home');
+              } else {
+                this.auth.getAuth().currentUser.sendEmailVerification();
+                this.auth.getAuth().signOut().then(() => this.open(this.modalContent));
+              }
+            }
+          });
+        })
         .catch(err => {
           if (err.code === 'auth/user-not-found') {
             this.error = 'No User with the given Email found.';
@@ -63,6 +78,10 @@ export class LoginComponent implements OnInit {
           }
         });
     }
+  }
+
+  open(content) {
+    this.modalService.open(content);
   }
 
 }
