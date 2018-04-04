@@ -1,7 +1,7 @@
 <div class="container pt-3">
   <div id="error-card" class="px-3 py-4 bg-white rounded text-center">
     <i class="fa fa-exclamation-circle fa-5x text-primary" aria-hidden="true" *ngIf="error != 'nouser'"></i>
-    <i class="fa fa-user-times fa-5x text-primary" aria-hidden="true"></i>
+    <i class="fa fa-user-times fa-5x text-primary" aria-hidden="true" *ngIf="error == 'nouser'"></i>
     <h4><u>{{errormsg}}</u></h4>
     <h5>{{message}}</h5>
   </div>

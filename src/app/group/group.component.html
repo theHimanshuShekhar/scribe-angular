@@ -1,4 +1,4 @@
-<div class="container-fluid px-0 pt-0 pt-lg-2 mb-5">
+<div class="container-fluid px-0 pt-0 pt-lg-2 mb-5" *ngIf="gname; else Invalid">
   <div id="banner-image"></div>
   <div class="container-fluid">
     <div id="name-bar" class="bg-white p-2 row mb-2 justify-content-between">
@@ -54,4 +54,14 @@
     <div id="joinPanel" class="text-center btn mb-2 text-primary bg-white border border-primary" routerLink="start">
       <h6 class="mx-auto">Login to subscribe<br>to<br>{{gname}}</h6>
     </div>
+</ng-template>
+
+<ng-template #Invalid>
+  <app-error error="nogroup"></app-error>
+</ng-template>
+
+<ng-template #Loading>
+  <div class="text-center pt-5">
+    <i class="fa fa-spinner fa-3x fa-spin text-primary" aria-hidden="true"></i>
+  </div>
 </ng-template>
