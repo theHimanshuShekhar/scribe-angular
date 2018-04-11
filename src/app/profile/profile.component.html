@@ -66,7 +66,13 @@
           <app-post [inputPostID]="like.pid" *ngIf="like; else NoPosts"></app-post>
         </div>
       </div>
-      <div id="right-panel" class="d-none d-md-inline-block col-md-3"></div>
+      <div id="right-panel" class="d-none d-md-inline-block col-md-3">
+        <div id="noLoginPanel" class="bg-white mt-1 mb-2 px-3 p-0 pt-3 pb-1" *ngIf="!isLoggedIn">
+          <h5>New to Scribe?</h5>
+          <p class="mb-0">Sign up now to get your own personalized profile!</p>
+          <button id="scribe-btn" class="btn bg-primary text-white btn-round px-3 my-2" routerLink="/signup">Sign Up</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
