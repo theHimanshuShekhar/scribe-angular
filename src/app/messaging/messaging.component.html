@@ -1,9 +1,17 @@
 <div class="container py-3">
   <div class="jumbotron bg-white py-3">
-    <h4>Messages</h4><hr>
-    <app-search></app-search>
-    <div id="roomList">
-
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4">
+          <h4 class="pb-0">Messages</h4>
+          <app-search></app-search>
+          <div id="roomList">
+          </div>
+        </div>
+        <div id="chatroom-container" class="col-8">
+          <app-chatroom></app-chatroom>
+        </div>
+      </div>
     </div>
   </div>
 </div>
