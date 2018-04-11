@@ -124,3 +124,6 @@
 h4 {
   border-bottom: 1px solid lightgray;
 }
+.btn {
+  cursor: pointer;
+}

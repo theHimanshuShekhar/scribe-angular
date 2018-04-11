@@ -22,20 +22,31 @@
           <button class="btn btn-round bg-primary text-white px-4 py-2 font-weight-bold align-self-center" id="followBtn" (click)="followUser()">{{checkFollowing()}}</button>
         </div>
         <img [src]="photoURL" id="profile-photo" class="circle">
-          <div id="user-text" class="ml-2 mb-0">
-            <h5 class="mb-1">{{displayName}}</h5>
-            <p class="text-muted mb-1">@{{userName}}</p>
-            <p>{{status}}</p>
-            <p><span class="text-mute"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>Joined</span> {{joinDate}}</p>
-            <div id="mobile-profile-info" class="d-md-none">
-                <span (click)="showTab('posts')"><span class="font-weight-bold">{{totalScribes}}</span> <span>Scribes</span></span>
-                <span (click)="showTab('following')"><span class="font-weight-bold ml-2">{{totalFollowing}}</span> <span>Following</span></span>
-                <span (click)="showTab('followers')"><span class="font-weight-bold ml-2">{{totalFollowers}}</span> <span>Followers</span></span>
+        <div id="user-text" class="ml-2 mb-0">
+          <h5 class="mb-1">{{displayName}}</h5>
+          <p class="text-muted mb-1">@{{userName}}</p>
+          <p>{{status}}</p>
+          <p><span class="text-mute"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>Joined</span> {{joinDate}}</p>
+          <div id="mobile-profile-info" class="d-md-none">
+              <span (click)="showTab('posts')"><span class="font-weight-bold">{{totalScribes}}</span> <span>Scribes</span></span>
+              <span (click)="showTab('following')"><span class="font-weight-bold ml-2">{{totalFollowing}}</span> <span>Following</span></span>
+              <span (click)="showTab('followers')"><span class="font-weight-bold ml-2">{{totalFollowers}}</span> <span>Followers</span></span>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-lg px-0 mx-0 mx-lg-1">
+              <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-2 my-0" *ngIf="displayName && !isCurrentUser">
+                <span id="scribe-btn-text">Scribe to</span>
+              </button>
+            </div>
+            <div class="col-12 col-lg px-0 mx-0 mx-lg-1">
+              <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-2 my-0" *ngIf="displayName && !isCurrentUser">
+                <span id="scribe-btn-text">Message</span>
+              </button>
             </div>
           </div>
-          <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-1" *ngIf="displayName && !isCurrentUser">
-            <span id="scribe-btn-text">Scribe to {{displayName | slice:0:16}}<span *ngIf="displayName.length > 16">...</span></span>
-          </button>
+        </div>
       </div>
       <div id="user-posts" class="col-12 col-md-6 mt-2 mt-md-0 px-0" *ngIf="showPosts">
         <app-add-post [userURL]="photoURL" *ngIf="isCurrentUser"></app-add-post>
