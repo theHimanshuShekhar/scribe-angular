@@ -9,7 +9,7 @@
     <div id="nav-links" class="col-5 col-md-5 col-lg-6 d-none d-md-inline-block order-2" *ngIf="isUser">
       <span class="p-1 d-none d-lg-inline-block" (click)="sendTo('home')"><a><i class="fa fa-home mx-2" aria-hidden="true"></i>Home</a></span>
       <span class="p-1" (click)="sendTo('messages')"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages</a></span>
-      <span class="p-1" (click)="sendTo('groups')"><a><i class="fa fa-users mx-2" aria-hidden="true"></i>Groups</a></span>
+      <span class="p-1" [ngbPopover]="notif" placement="bottom"><a><i class="fa fa-bell mx-2" aria-hidden="true"></i>Notifications</a></span>
     </div>
     <div id="search-container" class="col-10 col-sm-6 offset-sm-3 offset-md-0 col-md-4 col-lg-4 order-2" *ngIf="isUser">
       <app-search></app-search>
@@ -46,4 +46,8 @@
 </nav>
 
 <ng-template #showLogin>
+</ng-template>
+
+<ng-template #notif>
+  Notifications List
 </ng-template>
