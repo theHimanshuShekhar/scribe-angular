@@ -1,15 +1,13 @@
 <div class="container py-3">
-  <div class="jumbotron bg-white py-3">
+  <div class="jumbotron bg-white px-0 py-3">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-4">
-          <h4 class="pb-0">Messages</h4>
-          <app-search></app-search>
-          <div id="roomList">
+      <h4 class="pb-0">Messages</h4>
+      <app-search></app-search>
+      <div class="my-3">
+        <div id="roomList" *ngFor="let room of chatrooms">
+          <div id="roomListItem">
+            <app-chatroomlist [room]="room"></app-chatroomlist>
           </div>
-        </div>
-        <div id="chatroom-container" class="col-8">
-          <app-chatroom></app-chatroom>
         </div>
       </div>
     </div>

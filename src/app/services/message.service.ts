@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from './auth.service';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class MessageService {
@@ -10,7 +11,7 @@ export class MessageService {
     private auth: AuthService
   ) { }
 
-  getProfileUserRooms(uid) {
+  getChatrooms(uid) {
     return this.afs.collection('/users/' + uid + '/messaging').valueChanges();
   }
 
@@ -28,16 +29,13 @@ export class MessageService {
     });
   }
 
-  getChatroom(rid) {
-    return this.afs.doc('messaging/' + rid).valueChanges();
-  }
-
   createChatroom(profileuid) {
     this.auth.getAuthState().subscribe(
       curruser => {
         const rid = this.afs.createId();
         const roomData = {
           rid: rid,
+          lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
         };
         this.afs.doc('messaging/' + rid).set(roomData)
         .then(() => {
@@ -51,5 +49,23 @@ export class MessageService {
           this.afs.doc('messaging/' + rid + '/users/' + curruser.uid).set(data);
         });
       });
+  }
+
+  getMessages(rid) {
+    return this.afs.collection('messaging/' + rid + '/messages', ref => ref.orderBy('timestamp')).valueChanges();
+  }
+
+  sendMessage(msgData) {
+    this.auth.getAuthState().subscribe(curruser => {
+      const mid = this.afs.createId();
+      const msg = {
+        mid: mid,
+        rid: msgData.rid,
+        uid: curruser.uid,
+        text: msgData.text,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      this.afs.doc('messaging/' + msgData.rid + '/messages/' + mid).set(msg);
+    });
   }
 }

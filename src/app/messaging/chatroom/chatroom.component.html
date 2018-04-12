@@ -1,5 +1,12 @@
-<div id="room-header">
-  <h3 class="mb-0">Room Name</h3>
-</div><hr class="my-1 text-primary">
-<div id="room-body"></div>
-<div id="add-message"></div>
+<div id="room-header" class="py-3 px-4 bg-primary text-white">
+  <img [src]="room.photoURL" class="circle border border-white" height="50px" width="50px">
+  <span id="roomNameContainer" class="mx-2">{{room.displayName}}</span>
+</div>
+<div id="room-body" class="px-2">
+  <div class="msg-container" *ngFor="let msg of msgs">
+    <app-message [messageData]="msg"></app-message>
+  </div>
+</div>
+<div id="add-message" class="py-3 px-2">
+  <input type="text" [(ngModel)]="msgText" placeholder="Type a message" id="add-msg" class="form-control" (keyup.enter)="sendMsg()">
+</div>

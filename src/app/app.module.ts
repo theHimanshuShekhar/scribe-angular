@@ -50,6 +50,8 @@ import { CreateGroupComponent } from './create-group/create-group.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ChatroomComponent } from './messaging/chatroom/chatroom.component';
 import { MessageService } from './services/message.service';
+import { ChatroomlistComponent } from './messaging/chatroomlist/chatroomlist.component';
+import { MessageComponent } from './messaging/chatroom/message/message.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -133,7 +135,9 @@ const routes: Routes = [
     AddCommentComponent,
     CreateGroupComponent,
     MessagingComponent,
-    ChatroomComponent
+    ChatroomComponent,
+    ChatroomlistComponent,
+    MessageComponent
     ],
   imports: [
     BrowserModule,

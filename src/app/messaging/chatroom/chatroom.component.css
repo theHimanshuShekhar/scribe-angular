@@ -1,0 +1,22 @@
+#roomNameContainer {
+  font-weight: 450;
+  font-size: 1.8 rem;
+}
+#room-header > img {
+  border: 20px solid white;
+}
+#room-body {
+  min-height: 300px;
+  overflow: scroll;
+  max-height: calc(100vh - 100px);
+  background-color: #E6ECF0
+}
+#add-message {
+  background-color: #E6ECF0;
+}
+.form-control {
+  border-radius: 100px;
+}
+#add-message {
+  border-top: 1px solid #E6ECF0;
+}

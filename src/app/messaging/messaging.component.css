@@ -2,3 +2,6 @@
     width: 100%;
     border-left: 2px solid #E83F6F;
 }
+#roomListItem:hover {
+  cursor: pointer;
+}
