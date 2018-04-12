@@ -3,13 +3,15 @@
   font-size: 1.8 rem;
 }
 #room-header > img {
-  border: 20px solid white;
+  border: 3px solid white!important;
 }
 #room-body {
+  overflow-wrap: break-word;
   min-height: 300px;
   overflow: scroll;
-  max-height: calc(100vh - 100px);
-  background-color: #E6ECF0
+  max-height: calc(100vh - 250px)!important;
+  height: calc(100vh - 250px)!important;
+  background-color: #E6ECF0;
 }
 #add-message {
   background-color: #E6ECF0;
@@ -19,4 +21,7 @@
 }
 #add-message {
   border-top: 1px solid #E6ECF0;
+}
+#roomContainer {
+  max-width: 100vh;
 }

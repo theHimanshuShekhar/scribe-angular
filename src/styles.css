@@ -33,6 +33,9 @@ body {
 .bg-primary {
   background-color: #E83F6F!important;
 }
+.border-secondary {
+  border: 1px solid rgba(63, 196, 232, 0.726)!important;
+}
 ::-webkit-scrollbar {
   width: 0px;  /* remove scrollbar space */
 }

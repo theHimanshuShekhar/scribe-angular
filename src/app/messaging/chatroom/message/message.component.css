@@ -1,6 +1,9 @@
-#msg-container {
-  max-width: 80%!important;
+.text-right , .text-left {
+  width: 60%;
 }
 .text-right {
-  float: right;
+  margin-left: 40%;
+}
+.text-left {
+  margin-right: 40%;
 }
