@@ -13,6 +13,7 @@ interface User {
   displayName?: string;
   photoURL?: string;
   status?: string;
+  joinDate?: any;
 }
 
 @Injectable()
@@ -154,6 +155,7 @@ export class AuthService {
             photoURL: user.photoURL ? user.photoURL : 'https://scribe-angular.firebaseapp.com/assets/images/default-profile.jpg',
             status: 'Hi, I am using Scribe',
             userName: user.userName,
+            joinDate: firebase.firestore.FieldValue.serverTimestamp()
           };
           this.getAuth().currentUser.sendEmailVerification().then(() => {
             this.logout();

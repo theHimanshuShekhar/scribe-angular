@@ -7,6 +7,7 @@ import { DomSanitizer, Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
 import { AddPostComponent } from '../add-post/add-post.component';
 import { LikesService } from '../services/likes.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-profile',
@@ -57,7 +58,8 @@ export class ProfileComponent implements OnInit {
     private titleService: Title,
     private auth: AuthService,
     private follow: FollowService,
-    private likeService: LikesService
+    private likeService: LikesService,
+    private msgService: MessageService
   ) { }
 
   ngOnInit() {
@@ -76,6 +78,7 @@ export class ProfileComponent implements OnInit {
           this.status = uservar.status;
           this.photoURL = uservar.photoURL;
           this.userid = uservar.uid;
+          this.joinDate = uservar.joinDate ? uservar.joinDate : this.joinDate;
           this.totalScribes = uservar.totalScribes ? uservar.totalScribes : 0;
           this.totalFollowing = uservar.totalFollowing ? uservar.totalFollowing : 0;
           this.totalFollowers = uservar.totalFollowers ? uservar.totalFollowers : 0;
