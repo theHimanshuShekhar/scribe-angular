@@ -4,6 +4,29 @@ import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 const afs = admin.firestore();
 
+exports.onCreateRoom = functions.firestore
+  .document('messaging/{rid}/users/{uid}')
+  .onCreate(event => {
+    const rid = event.params.rid;
+    const uid = event.params.uid;
+    afs.collection('messaging/' + rid + '/users').get()
+    .then(userList => {
+      if (userList) {
+        userList.forEach(user => {
+          const otheruser = user.data();
+          if (otheruser.uid !== uid) {
+            const roomData = {
+              rid: rid,
+              uid: otheruser.uid
+            };
+            afs.doc('/users/' + uid + '/messaging/' + rid).set(roomData);
+          }
+        });
+      }
+    })
+    .catch((err) => console.log(err));
+  });
+
 exports.onSub = functions.firestore
   .document('groups/{gid}/members/{uid}')
   .onCreate(event => {

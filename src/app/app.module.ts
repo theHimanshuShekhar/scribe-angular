@@ -49,6 +49,7 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ChatroomComponent } from './messaging/chatroom/chatroom.component';
+import { MessageService } from './services/message.service';
 
 
 firebase.initializeApp(environment.firebase);
@@ -154,7 +155,8 @@ const routes: Routes = [
     LikesService,
     GroupService,
     DateFormatPipe,
-    LinkifyPipe
+    LinkifyPipe,
+    MessageService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

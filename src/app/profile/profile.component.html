@@ -41,7 +41,7 @@
               </button>
             </div>
             <div class="col-12 col-lg px-0 mx-0 mx-lg-1">
-              <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-2 my-0" *ngIf="displayName && !isCurrentUser">
+              <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-2 my-0" *ngIf="displayName && !isCurrentUser" (click)="openChatroom()">
                 <span id="scribe-btn-text">Message</span>
               </button>
             </div>

@@ -186,7 +186,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getActiveTabStyle(tabName){
+  getActiveTabStyle(tabName) {
     const style = 'col-2 p-1 px-3 my-0 align-self-center';
     if (this.showPosts && tabName === 'posts') {
       return style + ' current';
@@ -215,5 +215,9 @@ export class ProfileComponent implements OnInit {
         this.likes = likes;
         this.totalLikes = likes.length;
       });
+  }
+
+  openChatroom() {
+    this.msgService.checkChatroom(this.userid);
   }
 }

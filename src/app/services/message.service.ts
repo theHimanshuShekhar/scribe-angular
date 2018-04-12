@@ -14,18 +14,17 @@ export class MessageService {
     return this.afs.collection('/users/' + uid + '/messaging').valueChanges();
   }
 
-  getCommonRoom(uid) {
-    this.getProfileUserRooms(uid).subscribe(ProfileUsersChatrooms => {
-      if (ProfileUsersChatrooms) {
-        ProfileUsersChatrooms.forEach(room:any => {
-          this.getChatroom(room.rid).subscribe(
-            chatroom => {
-              if (chatroom) {
-                
-              }
-            });
-        });
-      }
+  checkChatroom(profileuid) {
+    this.auth.getAuthState().subscribe(curruser => {
+      const currentuid = curruser.uid;
+      this.afs.collection('users/' + curruser.uid + '/messaging', ref => ref.where('uid', '==', profileuid)).valueChanges()
+      .subscribe(chatroom => {
+        if (chatroom.length === 1) {
+          console.log('open chatroom modal');
+        } else {
+          this.createChatroom(profileuid);
+        }
+      });
     });
   }
 
@@ -39,12 +38,18 @@ export class MessageService {
         const rid = this.afs.createId();
         const roomData = {
           rid: rid,
-          user1: curruser.uid,
-          user2: profileuid
         };
-        this.afs.doc('messaging/' + rid).set(roomData);
+        this.afs.doc('messaging/' + rid).set(roomData)
+        .then(() => {
+          let data = {
+            uid: profileuid
+          };
+          this.afs.doc('messaging/' + rid + '/users/' + profileuid).set(data);
+          data = {
+            uid: curruser.uid
+          }
+          this.afs.doc('messaging/' + rid + '/users/' + curruser.uid).set(data);
+        });
       });
   }
-  
-
 }
