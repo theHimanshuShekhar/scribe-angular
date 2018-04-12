@@ -3,6 +3,7 @@
 }
 .text-right {
   margin-left: 40%;
+  text-align: left!important;
 }
 .text-left {
   margin-right: 40%;
