@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
     this.userService.retrieveUserDocumentFromID(this.uid).subscribe(
       user => {
         if (user) {
+          console.log(user);
           this.username = user.userName;
           this.displayname = user.displayName;
           this.status = user.status;
