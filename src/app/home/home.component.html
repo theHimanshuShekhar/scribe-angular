@@ -45,10 +45,7 @@
     </div>
     <div id="right-panel" class="col-md-3 px-0 my-0">
       <div id="suggested" class="bg-white mb-2 pb-2">
-        <h5 class="pt-1 mx-2">Who to follow</h5><hr class="p-0 my-1">
-        <div *ngFor="let feed of feedPosts" class="mx-2">
-          User
-        </div>
+        <app-suggested></app-suggested>
       </div>
       <div id="alt-footer" class="mx-auto text-justify">
         <span (click)="sendTo('custom', 'about')">About</span>
