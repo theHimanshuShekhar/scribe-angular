@@ -34,4 +34,8 @@ export class MessagingComponent implements OnInit {
     });
   }
 
+  createRoom() {
+
+  }
+
 }
