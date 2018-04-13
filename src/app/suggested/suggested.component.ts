@@ -18,7 +18,13 @@ export class SuggestedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.auth.getAuthState().subscribe(user => this.currentuser = user.uid);
+    this.auth.getAuthState().subscribe(user => {
+      if (user) {
+        this.currentuser = user.uid;
+      } else {
+        this.currentuser = null;
+      }
+    });
     this.userService.getSuggestedUsers().subscribe(userlist => {
       this.users = userlist;
     });

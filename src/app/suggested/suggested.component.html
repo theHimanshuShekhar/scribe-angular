@@ -2,18 +2,20 @@
   <h5 id="title" class="pt-1 px-2">You may like</h5>
   <hr class="p-0 my-1">
   <div *ngFor="let user of users">
-    <div id="user-block" class="px-0 px-md-1 py-2" *ngIf="checkCurrent(user.uid)" routerLink="/user/{{user.userName}}">
-     <div class="container-fluid">
-      <div class="row justify-content-between">
-        <span class="col-4 col-lg-3">
-          <img [src]="user.photoURL" class="circle" height="50px" width="50px">
-        </span>
-        <span class="col-8 col-lg-9">
-          {{user.displayName}} <br>
-          <small class="text-muted">@{{user.userName}}</small>
-        </span>
-      </div>
-     </div>
+    <div *ngIf="checkCurrent(user.uid)">
+      <div id="user-block" class="px-0 px-md-1 py-2"  routerLink="/user/{{user.userName}}">
+        <div class="container-fluid">
+          <div class="row justify-content-between">
+            <span class="col-4 col-lg-3">
+              <img [src]="user.photoURL" class="circle" height="50px" width="50px">
+            </span>
+            <span class="col-8 col-lg-9">
+              {{user.displayName}} <br>
+              <small class="text-muted">@{{user.userName}}</small>
+            </span>
+          </div>
+        </div>
+        </div>
     </div>
   </div>
 </div>

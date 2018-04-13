@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../services/message.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-messaging',
@@ -15,7 +16,8 @@ export class MessagingComponent implements OnInit {
   constructor(
     private msgService: MessageService,
     private auth: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -24,6 +26,8 @@ export class MessagingComponent implements OnInit {
         this.msgService.getChatrooms(curruser.uid).subscribe(chatrooms => {
           this.chatrooms = chatrooms;
         });
+      } else {
+        this.router.navigateByUrl('/start');
       }
     });
   }
