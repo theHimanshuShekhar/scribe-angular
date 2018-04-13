@@ -3,7 +3,7 @@
     <img [src]="room.photoURL" class="circle border border-white" height="50px" width="50px">
     <span id="roomNameContainer" class="mx-2">{{room.displayName}}</span>
   </div>
-  <div id="room-body" class="px-3 py-1">
+  <div id="room-body" class="px-3 py-1" ngx-auto-scroll lock-y-offset="10" observe-attributes>
     <div id="msg-container" *ngFor="let msg of msgs">
       <app-message [messageData]="msg"></app-message>
     </div>
