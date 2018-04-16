@@ -1,5 +1,5 @@
-<input id="nav-search" type="text" class="form-control" placeholder="Search" [(ngModel)]="searchterm" (keydown)="search($event)">
-<div id="results-container" *ngIf="searchterm" class="text-dark mx-1">
+<input id="nav-search" type="text" class="form-control" placeholder="Search" [(ngModel)]="searchterm" (keydown)="search($event)" (focus)="hide = false" (blur)="hideResults()">
+<div id="results-container" *ngIf="users && !hide" class="text-dark mx-1">
   <h6 class="p-1 mb-0 align-self-center">Users</h6><hr class="my-0">
   <div *ngFor="let user of users">
     <div id="search-result" class="p-1 row" *ngIf="user" (click)="sendToProfile(user.userName)">

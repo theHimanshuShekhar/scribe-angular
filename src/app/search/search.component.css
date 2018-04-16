@@ -29,6 +29,7 @@ input:-ms-input-placeholder {
  width: 90%;
  margin-top: 0px;
  background-color: white;
+ border: 0.5px solid rgba(232, 63, 111, 0.541);
 }
 @media (max-width: 575px ) {
   #results-container {

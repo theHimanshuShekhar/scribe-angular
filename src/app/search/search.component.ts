@@ -15,6 +15,8 @@ export class SearchComponent implements OnInit {
   searchterm;
   users;
 
+  hide = false;
+
   startAt = new Subject();
   endAt = new Subject();
 
@@ -34,7 +36,9 @@ export class SearchComponent implements OnInit {
       value => {
         this.doQuery(value[0], value[1]).subscribe(
           users => {
-            this.users = users;
+            if (users) {
+              this.users = users;
+            }
           });
       });
   }
@@ -47,6 +51,12 @@ export class SearchComponent implements OnInit {
     const q = $event.target.value;
     this.startAt.next(q);
     this.endAt.next(q + '\uf8ff');
+  }
+
+  hideResults() {
+    setTimeout(() => {
+      this.hide = true;
+    }, 100);
   }
 
   sendToProfile(username) {
