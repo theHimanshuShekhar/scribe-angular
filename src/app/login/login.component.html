@@ -13,7 +13,7 @@
           <div *ngIf="email.errors.required">An Email is required.</div>
         </small>
 
-        <input formControlName="password" class="form-control form-control-md" type="text" placeholder="Password">
+        <input formControlName="password" class="form-control form-control-md" type="password" placeholder="Password">
         <small class="mt-0 mb-1 text-danger" *ngIf="password.touched && password.errors">
             <div *ngIf="password.errors.minlength">Password should be minimum 6 characters.</div>
           <div *ngIf="password.errors.required">A Password is required is required.</div>
