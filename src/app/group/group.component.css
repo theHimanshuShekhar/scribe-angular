@@ -31,3 +31,6 @@
     margin-right: 11px;
   }
 }
+small {
+  cursor: pointer;
+}

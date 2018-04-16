@@ -5,6 +5,7 @@ import { PostsService } from '../services/posts.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GroupService } from '../services/group.service';
 import { DateFormatPipe } from '../services/date.pipe';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-group',
@@ -24,6 +25,7 @@ export class GroupComponent implements OnInit {
   isInvalid;
   isSubbed = false;
   isLoggedin;
+  isLoaded = false;
 
   posts;
 
@@ -32,7 +34,8 @@ export class GroupComponent implements OnInit {
     private auth: AuthService,
     private route: ActivatedRoute,
     private groupService: GroupService,
-    private datePipe: DateFormatPipe
+    private datePipe: DateFormatPipe,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -45,9 +48,11 @@ export class GroupComponent implements OnInit {
               this.gname = groupDoc.gname;
               this.desc = groupDoc.desc;
               this.createDate = groupDoc.createDate;
+              this.isLoaded = true;
             } else {
               console.log('invalid');
               this.isInvalid = true;
+              this.isLoaded = true;
             }
           });
       this.groupService.getFeed(this.gid).subscribe(
@@ -100,5 +105,9 @@ export class GroupComponent implements OnInit {
 
   getDate() {
     return this.datePipe.transform(this.createDate, 'month');
+  }
+
+  open(content) {
+    this.modalService.open(content);
   }
 }

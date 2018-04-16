@@ -1,43 +1,46 @@
-<div class="container-fluid px-0 pt-0 pt-lg-2 mb-5" *ngIf="gname; else Invalid">
-  <div id="banner-image"></div>
-  <div class="container-fluid">
-    <div id="name-bar" class="bg-white p-2 row mb-2 justify-content-between">
-      <span class="col-10 col-md-10"><h2>{{gname}}</h2></span>
-      <span id="btnEdit" class="btn col-2 text-white bg-primary align-self-center"><h6>Edit</h6></span>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-7 m-0 pr-0 order-2 order-md-1 px-0">
-        <app-add-post type="group" [id]="gid"></app-add-post>
-        <div class="mt-2">
-          <div *ngFor="let post of posts">
-            <app-post [inputPostID]="post.pid" *ngIf="post"></app-post>
-          </div>
-        </div>
+<div *ngIf="isLoaded; else Loading">
+  <div class="container-fluid px-0 pt-0 pt-lg-2 mb-5" *ngIf="gname; else Invalid">
+    <div id="banner-image"></div>
+    <div class="container-fluid">
+      <div id="name-bar" class="bg-white p-2 row mb-2 justify-content-between">
+        <span class="col-10 col-md-10"><h2>{{gname}}</h2></span>
+        <span id="btnEdit" class="btn col-2 text-white bg-primary align-self-center"><h6>Edit</h6></span>
       </div>
-      <div class="col-12 col-md-5 order-1 order-md-2 px-0 pl-md-2">
-        <div id="login-check" *ngIf="isLoggedin; else Login">
-          <div *ngIf="isSubbed == false; else Unsub">
-            <div id="joinPanel" class="text-center btn mb-2 text-white bg-primary" (click)="subscribe()">
-              <h6 class="mx-auto">Subscribe to {{gname}}</h6>
+    </div>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-7 m-0 pr-0 order-2 order-md-1 px-0">
+          <app-add-post type="group" [id]="gid"></app-add-post>
+          <div class="mt-2">
+            <div *ngFor="let post of posts">
+              <app-post [inputPostID]="post.pid" *ngIf="post"></app-post>
             </div>
           </div>
         </div>
-        <div class="bg-white px-2 py-2 mb-1" id="about">
-          <h4>About</h4><hr class="mt-1">
-          <p>{{desc}}</p>
-          <p>Created on {{getDate()}}</p>
-        </div>
-        <div class="bg-white px-2 py-2 mb-1" id="member-list" *ngIf="members">
-          <h4>Members - {{members.length}}</h4><hr class="mt-1 d-none d-md-inline-block">
-            <div class="container-fluid d-none d-md-inline-block">
-            <div class="row">
-              <div *ngFor="let member of members" class="col-2 user-block p-0">
-                <app-user [uid]="member.uid" type='member'></app-user>
+        <div class="col-12 col-md-5 order-1 order-md-2 px-0 pl-md-2">
+          <div id="login-check" *ngIf="isLoggedin; else Login">
+            <div *ngIf="isSubbed == false; else Unsub">
+              <div id="joinPanel" class="text-center btn mb-2 text-white bg-primary" (click)="subscribe()">
+                <h6 class="mx-auto">Subscribe to {{gname}}</h6>
               </div>
             </div>
-            </div>
+          </div>
+          <div class="bg-white px-2 py-2 mb-1" id="about">
+            <h4>About</h4><hr class="mt-1">
+            <p>{{desc}}</p>
+            <p>Created on {{getDate()}}</p>
+          </div>
+          <div class="bg-white px-2 py-2 mb-1" id="member-list" *ngIf="members">
+            <h4>Members - {{members.length}}</h4><hr class="mt-1 d-none d-md-inline-block">
+              <div class="container-fluid d-none d-md-inline-block">
+                <div class="row mb-2">
+                  <div *ngFor="let member of members; let i = index" class="col-2 user-block p-0">
+                    <span *ngIf="i<10"><app-user [uid]="member.uid" type='member'></app-user></span>
+                  </div>
+                </div>
+              </div>
+              <small (click)="open(MemberList)" class="text-primary">All Members</small>
+          </div>
         </div>
       </div>
     </div>
@@ -63,5 +66,17 @@
 <ng-template #Loading>
   <div class="text-center pt-5">
     <i class="fa fa-spinner fa-3x fa-spin text-primary" aria-hidden="true"></i>
+  </div>
+</ng-template>
+
+<ng-template #MemberList let-c="close" let-d="dismiss">
+  <div class="p-2">
+    <h5>
+      Member List
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </h5>
+    <app-user-list [users]="members"></app-user-list>
   </div>
 </ng-template>
