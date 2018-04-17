@@ -1,8 +1,21 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import * as firebase from 'firebase/app';
 
 admin.initializeApp(functions.config().firebase);
 const afs = admin.firestore();
+
+exports.onMessage = functions.firestore
+  .document('messaging/{rid}/messages/{mid}')
+  .onCreate(event => {
+    const msg = event.data.data();
+    const rid = event.params.rid;
+    const update = {
+      lastUpdate: msg.timestamp
+    };
+    afs.doc('messaging/' + rid).update(update)
+    .catch(err => console.log(err));
+  });
 
 exports.onCreateRoom = functions.firestore
   .document('messaging/{rid}/users/{uid}')
@@ -15,9 +28,11 @@ exports.onCreateRoom = functions.firestore
         userList.forEach(user => {
           const otheruser = user.data();
           if (otheruser.uid !== uid) {
+            const time = admin.firestore.FieldValue.serverTimestamp();
             const roomData = {
               rid: rid,
-              uid: otheruser.uid
+              uid: otheruser.uid,
+              lastupdate: time
             };
             afs.doc('/users/' + uid + '/messaging/' + rid).set(roomData);
           }
@@ -58,10 +73,20 @@ exports.onPost = functions.firestore
     if (post.type === 'group') {
       const gid = post.to;
       updateGroupFeed(pid, gid);
+      updateUserGroup(gid, post.uid);
     }
     updateFollowerFeeds(currentuid, pid, date);
     updateTotalScribes(currentuid);
 });
+
+function updateUserGroup(gid, uid) {
+  const timestamp = admin.firestore.FieldValue.serverTimestamp();
+  const gData = {
+    last: timestamp
+  };
+  afs.doc('user/groups/' + gid).update(gData)
+  .catch(err => console.log(err));
+}
 
 function updateGroupFeed(pid, gid) {
   const date = admin.firestore.FieldValue.serverTimestamp();
