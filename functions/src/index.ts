@@ -84,7 +84,7 @@ function updateUserGroup(gid, uid) {
   const gData = {
     last: timestamp
   };
-  afs.doc('user/groups/' + gid).update(gData)
+  afs.doc('users/' + uid + '/groups/' + gid).update(gData)
   .catch(err => console.log(err));
 }
 

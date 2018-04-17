@@ -25,7 +25,7 @@ export class UserService {
   }
 
   getUserGroups(uid) {
-    return this.afs.collection('users/' + uid + '/groups', ref => ref.limit(10).orderBy('last', 'desc')).valueChanges();
+    return this.afs.collection('users/' + uid + '/groups', ref => ref.orderBy('last', 'desc')).valueChanges();
   }
 
   getSuggestedUsers() {

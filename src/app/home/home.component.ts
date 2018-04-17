@@ -1,3 +1,4 @@
+import { PlatformLocation } from '@angular/common';
 import { GroupService } from './../services/group.service';
 import { PostsService } from './../services/posts.service';
 import { Component, OnInit } from '@angular/core';
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AngularFirestore } from 'angularfire2/firestore';
-import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbActiveModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { CreateGroupComponent } from '../create-group/create-group.component';
 
 @Component({
@@ -26,6 +27,9 @@ export class HomeComponent implements OnInit {
   totalFollowing;
   totalScribes;
 
+  modalRef;
+  closeResult;
+
   feedPosts;
 
   groups = [];
@@ -39,8 +43,16 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     private sanitizer: DomSanitizer,
     private modalService: NgbModal,
-    private groupService: GroupService
-  ) { }
+    private groupService: GroupService,
+    private location: PlatformLocation
+  ) {
+    location.onPopState((event) => {
+      // ensure that modal is opened
+      if (this.modalRef !== undefined) {
+          this.modalRef.close();
+      }
+    });
+  }
 
   getStyle() {
     if (this.bannerURL) {
@@ -114,5 +126,30 @@ export class HomeComponent implements OnInit {
       size: 'lg',
       windowClass: 'modal-style'
     });
+  }
+
+  open(content) {
+    this.modalRef = this.modalService.open(content, {
+      size: 'sm',
+      windowClass: 'modal-style'
+    });
+    // push new state to history
+    history.pushState(null, null, '/user/' + this.userName + '/groups');
+    this.modalRef.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    history.back();
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 }

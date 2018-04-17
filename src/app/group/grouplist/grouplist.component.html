@@ -1,0 +1,8 @@
+<div id="groupListContainer" class="container-fluid" class="py-2 px-3">
+  <h3>Groups</h3><hr class="my-2">
+  <div id="groupList" *ngFor="let group of groups" class="py-2">
+    <div class="container-fluid" routerLink="/group/{{group.gid}}" (click)="close()">
+      <h6 class="mx-2">{{group.gname}}</h6><small>{{group.desc}}</small>
+    </div>
+  </div>
+</div>

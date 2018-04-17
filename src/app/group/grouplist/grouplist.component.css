@@ -1,0 +1,17 @@
+h6 {
+  font-weight: 400;
+  font-size: 1.3rem;
+  display: inline-block;
+}
+#groupList {
+  border-bottom: 1px solid lightgray;
+}
+#groupList:hover {
+  background-color: #E83F6F;
+  color: white;
+  cursor: pointer;
+}
+#groupListContainer {
+  max-height: 500px;
+  overflow: scroll;
+}

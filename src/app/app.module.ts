@@ -56,6 +56,7 @@ import { MessageComponent } from './messaging/chatroom/message/message.component
 import { SuggestedComponent } from './suggested/suggested.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { AdminComponent } from './admin/admin.component';
+import { GrouplistComponent } from './group/grouplist/grouplist.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -152,7 +153,8 @@ const routes: Routes = [
     MessageComponent,
     SuggestedComponent,
     FeedbackComponent,
-    AdminComponent
+    AdminComponent,
+    GrouplistComponent
     ],
   imports: [
     BrowserModule,

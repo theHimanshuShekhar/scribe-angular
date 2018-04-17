@@ -31,9 +31,10 @@
         </div>
         <hr class="p-0 my-1">
         <div *ngIf="groups; else noGroups" class="mt-2">
-          <div *ngFor="let group of groups" class="mx-3">
-            <p class="grouplistitem my-1" (click)="sendTo('group', group.gid)">{{group.gname}}</p>
+          <div *ngFor="let group of groups; let i = index" class="mx-3">
+            <p class="grouplistitem my-1" (click)="sendTo('group', group.gid)" *ngIf="i<5">{{group.gname}}</p>
           </div>
+          <small (click)="open(GroupList)" class="mx-3 my-2 text-primary pointer">See More...</small>
         </div>
       </div>
     </div>
@@ -66,4 +67,8 @@
     <i class="fa fa-spinner fa-4x fa-spin" aria-hidden="true"></i>
     <h2 class="pt-1">loading your feed...</h2>
   </div>
+</ng-template>
+
+<ng-template #GroupList>
+  <app-grouplist [groups]="groups" [modalRef]="modalRef"></app-grouplist>
 </ng-template>
