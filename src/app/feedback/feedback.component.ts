@@ -29,7 +29,8 @@ export class FeedbackComponent implements OnInit {
       const feedback = {
         fid: fid,
         subject: this.subject,
-        feedback: this.text
+        feedback: this.text,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       };
       this.afs.doc('feedback/' + fid).set(feedback).then(()=> {
         this.showSuccess = 'Feedback successfully submitted';
