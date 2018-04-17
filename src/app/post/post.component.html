@@ -63,7 +63,7 @@
             <div ngbDropdown class="col-1 d-inline-block align-self-start" placement="bottom-right">
                 <button class="btn" id="dropdownBasic1" ngbDropdownToggle></button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button class="dropdown-item" (click)="delete()" *ngIf="isCurrentUser">Delete</button>
+                  <button class="dropdown-item" (click)="delete()" *ngIf="isCurrentUser || isAdmin">Delete</button>
                   <button class="dropdown-item" (click)="delete()" *ngIf="!isCurrentUser">Report</button>
                 </div>
               </div>

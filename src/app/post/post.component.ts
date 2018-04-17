@@ -1,3 +1,4 @@
+import { AngularFirestore } from 'angularfire2/firestore';
 import { GroupService } from './../services/group.service';
 import { LikesService } from './../services/likes.service';
 import { PostsService } from './../services/posts.service';
@@ -27,6 +28,7 @@ export class PostComponent implements OnInit {
   modalRef;
 
   currentuser;
+  currentuid;
   showContext = true;
 
   isLoggedIn = false;
@@ -68,7 +70,8 @@ export class PostComponent implements OnInit {
     private modalService: NgbModal,
     private location: PlatformLocation,
     private likeService: LikesService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private afs: AngularFirestore
   ) {
     location.onPopState((event) => {
       // ensure that modal is opened
@@ -82,6 +85,8 @@ export class PostComponent implements OnInit {
     this.auth.getAuthState().subscribe(user => {
       if (user) {
         this.isLoggedIn = true;
+        this.currentuid = user.uid;
+        this.checkAdmin();
       } else {
         this.isLoggedIn = false;
       }
@@ -319,6 +324,14 @@ export class PostComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  checkAdmin() {
+    this.afs.doc('global/admins/admins/' + this.currentuid).valueChanges().subscribe(admin => {
+      if (admin) {
+        this.isCurrentUser = true;
+      }
+    });
   }
 
 }
