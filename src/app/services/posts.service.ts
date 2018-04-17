@@ -112,5 +112,20 @@ export class PostsService {
   public deletePost (pid) {
     this.afs.doc<any>('posts/' + pid).delete();
   }
+
+  // Report post
+  public reportPost (pid) {
+    this.auth.getAuthState().subscribe(curruser => {
+      if (curruser) {
+        const repid = this.afs.createId();
+        const report = {
+          repid: repid,
+          pid: pid,
+          uid: curruser.uid
+        };
+        this.afs.doc('reports/' + repid).set(report).then(() => console.log('Report submitted for post ' + pid));
+      }
+    });
+  }
 }
 

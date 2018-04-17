@@ -235,7 +235,7 @@ export class PostComponent implements OnInit {
   }
 
   report() {
-    alert('Reporting is not implemented yet');
+    this.postService.reportPost(this.pid);
   }
 
   retrieveDate(date, type?) {
