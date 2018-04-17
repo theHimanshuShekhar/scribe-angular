@@ -11,7 +11,7 @@
               <span class="col-9 col-md-9" id="user-text" routerLink="/user/{{username}}">
                 <span class="font-weight-bold">{{displayname}}</span><span class="text-muted"> @{{username}}</span> <br> {{status}} <br>
               </span>
-              <span class="col-2 col-md-3 align-self-start">
+              <span class="col-2 col-md-3 align-self-start" *ngIf="!isCurrentUser">
                 <button class="btn bg-primary btn-round text-white font-weight-bold mr-4" (click)="follow()">{{btnFollow}}</button>
               </span>
             </div>

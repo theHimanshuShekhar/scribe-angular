@@ -18,6 +18,8 @@ export class UserComponent implements OnInit {
   photoURL;
   status;
 
+  isCurrentUser = false;
+
   btnFollow = 'Follow';
 
   constructor(
@@ -42,13 +44,17 @@ export class UserComponent implements OnInit {
   checkFollowing() {
     this.auth.getAuthState().subscribe(user => {
       if (user) {
-        this.followService.isFollowing(this.uid, user.uid).subscribe(followinguser => {
-          if (followinguser.length > 0) {
-            this.btnFollow = 'Following';
-          } else {
-            this.btnFollow = 'Follow';
-          }
-        });
+        if (user.uid === this.uid) {
+          this.isCurrentUser = true;
+        } else {
+          this.followService.isFollowing(this.uid, user.uid).subscribe(followinguser => {
+            if (followinguser.length > 0) {
+              this.btnFollow = 'Following';
+            } else {
+              this.btnFollow = 'Follow';
+            }
+          });
+        }
       }
     });
   }
