@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
 
   searchterm;
   users;
+  groups;
 
   hide = false;
 
@@ -40,11 +41,21 @@ export class SearchComponent implements OnInit {
               this.users = users;
             }
           });
+          this.doGroupQuery(value[0], value[1]).subscribe(
+            groups => {
+              if (groups) {
+                this.groups = groups;
+              }
+            });
       });
   }
 
   doQuery(start, end) {
     return this.afs.collection('users', ref => ref.limit(3).orderBy('userName').startAt(start).endAt(end)).valueChanges();
+  }
+
+  doGroupQuery(start, end) {
+    return this.afs.collection('groups', ref => ref.limit(3).orderBy('gname').startAt(start).endAt(end)).valueChanges();
   }
 
   search($event) {
