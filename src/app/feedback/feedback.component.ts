@@ -1,0 +1,45 @@
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+
+@Component({
+  selector: 'app-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.css']
+})
+export class FeedbackComponent implements OnInit {
+
+  text;
+  subject;
+  showSuccess;
+  requiredErr;
+
+  constructor(
+    private afs: AngularFirestore,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+  }
+
+  submit() {
+    if (this.text && this.subject) {
+      this.requiredErr = false;
+      const fid = this.afs.createId();
+      const feedback = {
+        fid: fid,
+        subject: this.subject,
+        feedback: this.text
+      };
+      this.afs.doc('feedback/' + fid).set(feedback).then(()=> {
+        this.showSuccess = 'Feedback successfully submitted';
+        setTimeout(() => {
+          this.router.navigateByUrl('/home');
+        }, 2000);
+      });
+    } else {
+      this.requiredErr = true;
+    }
+  }
+
+}

@@ -54,6 +54,7 @@ import { MessageService } from './services/message.service';
 import { ChatroomlistComponent } from './messaging/chatroomlist/chatroomlist.component';
 import { MessageComponent } from './messaging/chatroom/message/message.component';
 import { SuggestedComponent } from './suggested/suggested.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -105,6 +106,10 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
+    path: 'feedback',
+    component: FeedbackComponent
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -140,7 +145,8 @@ const routes: Routes = [
     ChatroomComponent,
     ChatroomlistComponent,
     MessageComponent,
-    SuggestedComponent
+    SuggestedComponent,
+    FeedbackComponent
     ],
   imports: [
     BrowserModule,

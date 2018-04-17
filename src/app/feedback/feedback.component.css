@@ -1,0 +1,12 @@
+#feedback-card {
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+#btnSubmit, .form-control {
+  border-radius: 100px;
+  cursor: pointer;
+}
+textarea {
+  border-radius: 20px!important;
+}
