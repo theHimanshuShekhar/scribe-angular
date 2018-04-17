@@ -121,7 +121,8 @@ export class PostsService {
         const report = {
           repid: repid,
           pid: pid,
-          uid: curruser.uid
+          uid: curruser.uid,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
         };
         this.afs.doc('reports/' + repid).set(report).then(() => console.log('Report submitted for post ' + pid));
       }
