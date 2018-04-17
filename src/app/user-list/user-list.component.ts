@@ -9,6 +9,7 @@ export class UserListComponent implements OnInit {
 
   @Input() users: any;
   @Input() title: string;
+  @Input() modalRef;
 
   constructor() { }
 

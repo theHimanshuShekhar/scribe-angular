@@ -5,7 +5,8 @@ import { PostsService } from '../services/posts.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GroupService } from '../services/group.service';
 import { DateFormatPipe } from '../services/date.pipe';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-group',
@@ -28,6 +29,8 @@ export class GroupComponent implements OnInit {
   isLoaded = false;
 
   posts;
+  modalRef;
+  closeResult;
 
   constructor(
     private afs: AngularFirestore,
@@ -35,8 +38,16 @@ export class GroupComponent implements OnInit {
     private route: ActivatedRoute,
     private groupService: GroupService,
     private datePipe: DateFormatPipe,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private location: PlatformLocation
+  ) {
+    location.onPopState((event) => {
+      // ensure that modal is opened
+      if (this.modalRef !== undefined) {
+          this.modalRef.close();
+      }
+    });
+  }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -108,6 +119,23 @@ export class GroupComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content);
+    this.modalRef = this.modalService.open(content);
+    history.pushState(null, null, '/group/members');
+    this.modalRef.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    history.back();
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 }

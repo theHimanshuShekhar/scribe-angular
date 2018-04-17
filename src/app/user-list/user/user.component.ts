@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
 
   @Input() uid: string;
   @Input() type: string;
+  @Input() modalRef;
 
   username;
   displayname;
@@ -64,6 +65,12 @@ export class UserComponent implements OnInit {
       this.followService.unfollow(this.uid);
     } else {
       this.followService.follow(this.uid);
+    }
+  }
+
+  close() {
+    if (this.modalRef) {
+      this.modalRef.close();
     }
   }
 

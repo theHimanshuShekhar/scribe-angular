@@ -8,7 +8,7 @@
         <span class="col-7 col-md-8 align-self-start ml-2 ml-md-1">
           <div class="container-fluid">
             <div class="row justify-content-between">
-              <span class="col-9 col-md-9" id="user-text" routerLink="/user/{{username}}">
+              <span class="col-9 col-md-9" id="user-text" routerLink="/user/{{username}}" (click)="close()">
                 <span class="font-weight-bold">{{displayname}}</span><span class="text-muted"> @{{username}}</span> <br> {{status}} <br>
               </span>
               <span class="col-2 col-md-3 align-self-start" *ngIf="!isCurrentUser">
