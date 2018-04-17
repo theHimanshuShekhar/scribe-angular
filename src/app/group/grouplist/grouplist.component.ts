@@ -26,7 +26,8 @@ export class GrouplistComponent implements OnInit {
       this.route.params.subscribe(router => {
         this.username = router.username;
         this.userService.retrieveUserDocumentFromUsername(this.username).subscribe(currentuser => {
-          this.userService.getUserGroups(currentuser[0].uid).subscribe(userGroups => {
+          const curruser: any = currentuser[0];
+          this.userService.getUserGroups(curruser.uid).subscribe(userGroups => {
             if (userGroups) {
               this.groups = [];
               userGroups.forEach((groupData: any) => {
