@@ -1,5 +1,7 @@
+import { FollowService } from './../../services/follow.service';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -16,8 +18,12 @@ export class UserComponent implements OnInit {
   photoURL;
   status;
 
+  btnFollow = 'Follow';
+
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private auth: AuthService,
+    private followService: FollowService
   ) { }
 
   ngOnInit() {
@@ -28,8 +34,31 @@ export class UserComponent implements OnInit {
           this.displayname = user.displayName;
           this.status = user.status;
           this.photoURL = user.photoURL;
+          this.checkFollowing();
         }
     });
+  }
+
+  checkFollowing() {
+    this.auth.getAuthState().subscribe(user => {
+      if (user) {
+        this.followService.isFollowing(this.uid, user.uid).subscribe(followinguser => {
+          if (followinguser.length > 0) {
+            this.btnFollow = 'Following';
+          } else {
+            this.btnFollow = 'Follow';
+          }
+        });
+      }
+    });
+  }
+
+  follow() {
+    if (this.btnFollow === 'Following') {
+      this.followService.unfollow(this.uid);
+    } else {
+      this.followService.follow(this.uid);
+    }
   }
 
 }
