@@ -3,8 +3,12 @@ h6 {
   font-size: 1.3rem;
   display: inline-block;
 }
+h3 {
+  color: black;
+}
 #groupList {
   border-bottom: 1px solid lightgray;
+  color: black;
 }
 #groupList:hover {
   background-color: #E83F6F;

@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl('messaging');
     }
     if (path === 'groups') {
-      this.router.navigateByUrl('groups');
+      this.router.navigateByUrl('user/' + this.userName + '/groups');
     }
   }
   getUserData() {

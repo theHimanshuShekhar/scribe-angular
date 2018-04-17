@@ -116,6 +116,10 @@ const routes: Routes = [
     component: AdminComponent
   },
   {
+    path: 'user/:username/groups',
+    component: GrouplistComponent
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'
