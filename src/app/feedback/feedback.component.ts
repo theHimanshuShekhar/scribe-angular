@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-feedback',
