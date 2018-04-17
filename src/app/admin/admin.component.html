@@ -1,0 +1,39 @@
+<div class="container" *ngIf="adminDetails; else Loading">
+  <div class="container-fluid pt-md-3">
+    <div class="row justify-content-between">
+      <div class="col-12 col-md-6 py-2 px-0" *ngIf="reports; else NoReports">
+        <h3><u>Reported Posts</u>- {{reports.length}}</h3>
+        <div *ngFor="let report of reports">
+          <app-post [inputPostID]="report.pid"></app-post>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 py-2 px-0" *ngIf="feedbacks; else NoFeedback">
+        <div id="feeback-panel" class="ml-md-1">
+          <h3><u>User Feedback</u></h3>
+          <div *ngFor="let feedback of feedbacks">
+            <div id="feedback-container" class="bg-white px-3 py-2">
+              <h6>{{feedback.subject}}</h6><hr class="my-1">
+              <p>{{feedback.feedback}}</p>
+              <small>{{feedback.timestamp | dateFormatPipe}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #NoReports>
+  <h3>No Reports yet.</h3>
+</ng-template>
+
+<ng-template #NoFeedback>
+  <h3>No Feedback yet.</h3>
+</ng-template>
+
+<ng-template #Loading>
+  <div class="text-center pt-5">
+    <i class="fa fa-spinner fa-3x fa-spin text-primary" aria-hidden="true"></i>
+    <h3 class="text-primary mt-2">Checking Priveleges</h3>
+  </div>
+</ng-template>
