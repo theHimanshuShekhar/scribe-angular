@@ -75,6 +75,9 @@ exports.onPost = functions.firestore
       updateGroupFeed(pid, gid);
       updateUserGroup(gid, post.uid);
     }
+    if (post.type === 'comment') {
+      updatePostTotalComments(post.to);
+    }
     updateFollowerFeeds(currentuid, pid, date);
     updateTotalScribes(currentuid);
 });
@@ -130,12 +133,33 @@ exports.onLike = functions.firestore
                 date: postDate
             };
             afs.doc('users/' + uid + '/likes/' + pid).set(data)
-            .then(() => updateUserLikes(uid))
+            .then(() => {
+              updateUserLikes(uid);
+              updatePostTotalLikes(pid);
+              if (postData.data().type === 'group' && postData.data().totalLikes) {
+                // Update Group feed total likes
+                const likeDoc = {
+                  totalLikes: postData.data().totalLikes
+                };
+                afs.doc('groups/' + postData.data().gid + '/feed/' + pid).update(likeDoc).catch(err => console.log(err));
+              }
+            })
             .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
 
     });
+
+    function updatePostTotalLikes(pid) {
+      afs.collection('posts/' + pid + '/likes').get()
+      .then(likes => {
+        const postDoc = {
+          totalLikes: likes.size
+        };
+        afs.doc('posts/' + pid).update(postDoc);
+      })
+      .catch(err => console.log(err));
+    }
 
 exports.onUnLike = functions.firestore
 .document('posts/{postID}/likes/{userID}')
@@ -144,6 +168,7 @@ exports.onUnLike = functions.firestore
     const pid = event.params.postID;
     afs.doc('users/' + uid + '/likes/' + pid).delete()
     .then(() => updateUserLikes(uid))
+    .then(() => updatePostTotalLikes(pid))
     .catch(err => console.log(err));
 });
 
@@ -165,10 +190,22 @@ exports.onDelete = functions.firestore
     if (deletedPost.type = 'comment') {
       const parentid = deletedPost.to;
       afs.doc('/posts/' + parentid + '/comments/' + deletedPost.pid).delete()
+      .then(() => updatePostTotalComments(deletedPost.to))
       .catch((err) => console.log(err));
     }
     deleteFeedPosts(deletedPost.uid, deletedPost.pid);
   })
+
+  function updatePostTotalComments(pid) {
+    afs.collection('posts/' + pid + '/comments').get()
+    .then(comments => {
+      const postDoc = {
+        totalComments: comments.size
+      };
+      afs.doc('posts/' + pid).update(postDoc);
+    })
+    .catch(err => console.log(err));
+  }
 
   exports.onFollow = functions.firestore
   .document('users/{userID}/followers/{followerID}')
