@@ -1,4 +1,4 @@
 <div id="msg-container" [class]="style">
   <div id="msg-text" class="mb-1" [innerHTML]="messageData.text | linkify"></div>
-  <small>{{messageData.timestamp | dateFormatPipe}}</small>
+  <small id="msg-date">{{messageData.timestamp | dateFormatPipe}}</small>
 </div>

@@ -1,13 +1,16 @@
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FollowService } from './../services/follow.service';
 import { PostsService } from './../services/posts.service';
 import { UserService } from './../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
 import { AddPostComponent } from '../add-post/add-post.component';
 import { LikesService } from '../services/likes.service';
 import { MessageService } from '../services/message.service';
+import { PlatformLocation } from '@angular/common';
+import { CheckType } from '@angular/core/src/view';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +18,11 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  @ViewChild('modalContainer') modalContent: ElementRef;
+  modalRef;
+  closeResult;
+  room;
 
   displayName;
   userName;
@@ -59,8 +67,17 @@ export class ProfileComponent implements OnInit {
     private auth: AuthService,
     private follow: FollowService,
     private likeService: LikesService,
-    private msgService: MessageService
-  ) { }
+    private msgService: MessageService,
+    private modalService: NgbModal,
+    private location: PlatformLocation
+  ) {
+    location.onPopState((event) => {
+      // ensure that modal is opened
+      if (this.modalRef !== undefined) {
+          this.modalRef.close();
+      }
+    });
+   }
 
   ngOnInit() {
 
@@ -218,6 +235,37 @@ export class ProfileComponent implements OnInit {
   }
 
   openChatroom() {
-    this.msgService.checkChatroom(this.userid);
-  }
+      this.msgService.getChatroom(this.userid, this.currentuid).subscribe(chatroom => {
+        if (chatroom[0]) {
+          this.room = chatroom[0];
+          this.open();
+        } else {
+          this.msgService.createChatroom(this.userid);
+        }
+      });
+    }
+
+    open() {
+      this.modalRef = this.modalService.open(this.modalContent, {
+        size: 'lg',
+        windowClass: 'modal-style'
+      });
+      history.pushState(null, null, 'chatroom/' + this.room.rid);
+      this.modalRef.result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
+
+    private getDismissReason(reason: any): string {
+      history.back();
+      if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+      } else {
+        return  `with: ${reason}`;
+      }
+    }
 }

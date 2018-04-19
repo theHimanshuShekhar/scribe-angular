@@ -8,3 +8,6 @@
 .text-left {
   margin-right: 40%;
 }
+#msg-date {
+  font-size: 0.6rem;
+}

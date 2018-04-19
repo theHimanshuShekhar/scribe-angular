@@ -12,7 +12,7 @@ export class MessageService {
   ) { }
 
   getChatrooms(uid) {
-    return this.afs.collection('/users/' + uid + '/messaging').valueChanges();
+    return this.afs.collection('/users/' + uid + '/messaging', ref => ref.orderBy('lastUpdate')).valueChanges();
   }
 
   checkChatroom(profileuid) {
@@ -45,7 +45,7 @@ export class MessageService {
           this.afs.doc('messaging/' + rid + '/users/' + profileuid).set(data);
           data = {
             uid: curruser.uid
-          }
+          };
           this.afs.doc('messaging/' + rid + '/users/' + curruser.uid).set(data);
         });
       });
@@ -67,5 +67,9 @@ export class MessageService {
       };
       this.afs.doc('messaging/' + msgData.rid + '/messages/' + mid).set(msg);
     });
+  }
+
+  getChatroom(profileuid, currentuid) {
+    return this.afs.collection('users/' + currentuid + '/messaging', ref => ref.where('uid', '==', profileuid)).valueChanges();
   }
 }
