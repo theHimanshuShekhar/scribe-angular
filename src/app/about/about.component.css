@@ -7,5 +7,24 @@
     border-bottom-right-radius: 10px;
 }
 #about-brand {
-    height: 200px;
+    padding: 0px;
+    height: auto!important;
+    max-height: 200px;
+    max-width: 394.14px;
+}
+#user-text {
+  margin-top: -70px;
+  padding-left: 135px!important;
+}
+.mb-1 > h6 {
+  display: inline-block;
+}
+#group-container {
+  margin-top: 151px!important;
+}
+@media (max-width: 490px) {
+  #about-brand {
+    max-height: 150px;
+    max-width: 250px;
+  }
 }
