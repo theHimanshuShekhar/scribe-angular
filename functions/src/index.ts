@@ -53,6 +53,7 @@ exports.onSub = functions.firestore
       last: date
     };
     afs.doc('users/' + userid + '/groups/' + gid).set(gdata).catch(err => console.log(err));
+    updateGroupTotalMembers(gid);
   });
 
   exports.onUnSub = functions.firestore
@@ -61,7 +62,19 @@ exports.onSub = functions.firestore
     const gid = event.params.gid;
     const userid = event.params.uid;
     afs.doc('users/' + userid + '/groups/' + gid).delete().catch(err => console.log(err));
+    updateGroupTotalMembers(gid);
   });
+
+  function updateGroupTotalMembers(gid) {
+    afs.collection('groups/' + gid + '/members').get()
+    .then(members => {
+      const groupDoc = {
+        totalMembers: members.size
+      };
+      afs.doc('groups/' + gid).update(groupDoc)
+      .catch(err => console.log(err));
+    }).catch(err => console.log(err));
+  }
 
 exports.onPost = functions.firestore
   .document('posts/{postId}')
