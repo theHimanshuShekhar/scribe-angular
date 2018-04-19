@@ -1,7 +1,6 @@
 #landing-wrapper{
   background-color: #794BC4;
   margin-bottom: 0px;
-  height: calc(100vh - 108px);
   border-radius: 0px;
 }
 #landing-logo {
@@ -12,22 +11,26 @@
 }
 #landing-nav-wrapper {
   margin: 0 auto;
+  max-width: 500px;
 }
 #landing-nav-wrapper > .btn {
   margin: 0 auto;
   color: white;
 }
 .btn-round {
-  width: 200px;
+  width: 100%;
   padding: 10px;
   color: white;
   background-color: #E83F6F
 }
-#landing-text-wrapper > h2, h3 {
-  line-height: 2px;
-  font-size: 1.5rem;
-  color: white;
-}
 button {
   cursor: pointer;
+}
+@media (min-width: 768px) {
+  #left-section {
+    height: calc(100vh - 108px);
+  }
+  #landing-wrapper {
+    height: calc(100vh - 108px);
+  }
 }
