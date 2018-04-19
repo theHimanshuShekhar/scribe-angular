@@ -9,6 +9,9 @@ import { Title } from '@angular/platform-browser';
 })
 export class LandingComponent implements OnInit {
 
+  mostLiked;
+  mostCommented;
+
   constructor(
     private auth: AuthService,
     private titleService: Title
@@ -17,5 +20,7 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Scribe | Get started!');
   }
+
+
 
 }

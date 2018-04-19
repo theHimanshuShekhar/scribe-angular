@@ -22,12 +22,6 @@ interface QueryConfig {
 @Injectable()
 export class PostsService {
 
-  // New Post update
-  private _updatedPost = new BehaviorSubject<any>(null);
-  updatedPost = this._updatedPost.asObservable();
-
-  private query: QueryConfig;;
-
   constructor(
     private afs: AngularFirestore,
     private auth: AuthService,
@@ -127,6 +121,14 @@ export class PostsService {
         this.afs.doc('reports/' + repid).set(report).then(() => console.log('Report submitted for post ' + pid));
       }
     });
+  }
+
+  getMostLikedPosts() {
+    return this.afs.collection('posts', ref => ref.orderBy('totalLikes', 'desc').limit(3)).valueChanges();
+  }
+
+  getMostCommentedPosts() {
+    return this.afs.collection('posts', ref => ref.orderBy('totalComments', 'desc').limit(3)).valueChanges();
   }
 }
 

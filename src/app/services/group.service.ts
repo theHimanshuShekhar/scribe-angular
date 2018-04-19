@@ -80,4 +80,8 @@ export class GroupService {
     return this.afs.collection('groups/' + gid + '/members', ref => ref.orderBy('date')).valueChanges();
   }
 
+  getMostSubbed() {
+    return this.afs.collection('groups', ref => ref.orderBy('totalMembers', 'desc')).valueChanges();
+  }
+
 }

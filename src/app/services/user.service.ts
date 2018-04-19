@@ -18,7 +18,7 @@ export class UserService {
   }
 
   retrieveUserDocumentFromUsername(username) {
-    return this.afs.collection('users/', ref => ref.where('userName', '==', username)).valueChanges();
+    return this.afs.collection('users', ref => ref.where('userName', '==', username)).valueChanges();
   }
   retrieveUserDocumentFromID(uid) {
     return this.afs.doc<any>('users/' + uid).valueChanges();
@@ -29,6 +29,6 @@ export class UserService {
   }
 
   getSuggestedUsers() {
-    return this.afs.collection('users/', ref => ref.orderBy('totalFollowers', 'desc').limit(5)).valueChanges();
+    return this.afs.collection('users', ref => ref.orderBy('totalFollowers', 'desc').limit(5)).valueChanges();
   }
 }
