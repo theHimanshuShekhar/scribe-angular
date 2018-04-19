@@ -33,18 +33,11 @@
               <span (click)="showTab('followers')"><span class="font-weight-bold ml-2">{{totalFollowers}}</span> <span>Followers</span></span>
           </div>
         </div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12 col-lg px-0 mx-0 mx-lg-1">
-              <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-2 my-0" *ngIf="displayName && !isCurrentUser">
-                <span id="scribe-btn-text">Scribe to</span>
-              </button>
-            </div>
-            <div class="col-12 col-lg px-0 mx-0 mx-lg-1">
-              <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-2 my-0" *ngIf="displayName && !isCurrentUser" (click)="openChatroom()">
-                <span id="scribe-btn-text">Message</span>
-              </button>
-            </div>
+        <div class="container-fluid px-0">
+          <div class="px-0 mx-0">
+            <button id="scribe-btn" class="btn my-2 bg-primary text-white btn-round px-2 my-0" *ngIf="displayName && !isCurrentUser" (click)="openChatroom()">
+              <span id="scribe-btn-text">Message</span>
+            </button>
           </div>
         </div>
       </div>
