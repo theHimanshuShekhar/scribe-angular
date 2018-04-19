@@ -1,7 +1,7 @@
 <div id="roomContainer">
   <div id="room-header" class="py-3 px-4 bg-primary text-white">
     <img [src]="room.photoURL" class="circle border border-white" height="50px" width="50px" *ngIf="room.photoURL">
-    <span id="roomNameContainer" class="mx-2">{{room.displayName}}</span>
+    <span id="roomNameContainer" class="mx-2 pointer" (click)="sendToProfile()">{{room.displayName}}</span>
   </div>
   <div id="room-body" class="px-3 py-1" ngx-auto-scroll lock-y-offset="10" observe-attributes>
     <div id="msg-container" *ngFor="let msg of msgs">

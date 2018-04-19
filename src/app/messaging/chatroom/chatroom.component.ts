@@ -12,6 +12,7 @@ import { UserService } from '../../services/user.service';
 export class ChatroomComponent implements OnInit {
 
   @Input() room;
+  @Input() modalRef;
 
   msgText;
 
@@ -56,6 +57,13 @@ export class ChatroomComponent implements OnInit {
       };
       this.msgText = '';
       this.msgService.sendMessage(data);
+    }
+  }
+
+  sendToProfile() {
+    if (this.modalRef) {
+      this.modalRef.close();
+      this.router.navigateByUrl('user/' + this.room.userName);
     }
   }
 }
