@@ -14,8 +14,22 @@ exports.onMessage = functions.firestore
       lastUpdate: msg.timestamp
     };
     afs.doc('messaging/' + rid).update(update)
+    .then(() => updateUserLastUpdate(rid, update))
     .catch(err => console.log(err));
   });
+
+  function updateUserLastUpdate(rid, update) {
+    afs.collection('messaging/' + rid + '/users').get()
+    .then(users => {
+      const userList = users;
+      userList.forEach(user => {
+        const useruid = user.data().uid;
+        afs.doc('users/' + useruid.uid + '/messaging/' + rid).update(update)
+        .catch(err => console.log(err));
+      });
+    })
+    .catch(err => console.log(err));
+  }
 
 exports.onCreateRoom = functions.firestore
   .document('messaging/{rid}/users/{uid}')
