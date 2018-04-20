@@ -1,6 +1,6 @@
 .jumbotron {
     border-radius: 0px;
-    background-color: #4F6EEC;
+    background-color: #794BC4;
 }
 .container-fluid {
     border-bottom-left-radius: 10px;
@@ -20,7 +20,7 @@
   display: inline-block;
 }
 #group-container {
-  margin-top: 151px!important;
+  margin-top: 49px!important;
 }
 @media (max-width: 490px) {
   #about-brand {

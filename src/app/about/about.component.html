@@ -45,10 +45,10 @@
             </div>
           </div>
       </div>
-      <div class="col-12 col-md-6">
+      <div id="group-container" class="col-12 col-md-6">
         <h3 class="text-white text-center py-2">Most Subscribed Group</h3>
         <div *ngFor="let group of mostSubbed; let i = index">
-            <div class="group-container" *ngIf="i == 0" class="bg-white px-3 py-2">
+            <div *ngIf="i == 0" class="bg-white px-3 py-2">
               <h4>{{group.gname}}</h4>
               <small class="text-muted">{{group.desc}}</small>
               <span class="mb-1 d-block"><h6>Members</h6> {{group.totalMembers}}</span>
