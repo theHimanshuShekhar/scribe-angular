@@ -241,6 +241,7 @@ export class ProfileComponent implements OnInit {
           this.open();
         } else {
           this.msgService.createChatroom(this.userid);
+          this.open();
         }
       });
     }
@@ -250,7 +251,9 @@ export class ProfileComponent implements OnInit {
         size: 'lg',
         windowClass: 'modal-style'
       });
-      history.pushState(null, null, 'chatroom/' + this.room.rid);
+      if (this.room) {
+        history.pushState(null, null, 'chatroom/' + this.room.rid);
+      }
       this.modalRef.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {

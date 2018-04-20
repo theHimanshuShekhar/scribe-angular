@@ -80,11 +80,11 @@
 </ng-template>
 
 <ng-template #Loading>
-  <div class="text-center pt-5">
+  <div class="text-center py-5">
     <i class="fa fa-spinner fa-3x fa-spin text-primary" aria-hidden="true"></i>
   </div>
 </ng-template>
 
 <ng-template #modalContainer>
-  <app-chatroom [room]="room" [modalRef]="modalRef"></app-chatroom>
+  <app-chatroom [room]="room" [modalRef]="modalRef" *ngIf="room; else Loading"></app-chatroom>
 </ng-template>
