@@ -104,10 +104,33 @@ exports.onPost = functions.firestore
     }
     if (post.type === 'comment') {
       updatePostTotalComments(post.to);
+      notifyComment(post);
     }
     updateFollowerFeeds(currentuid, pid, date);
     updateTotalScribes(currentuid);
 });
+
+function notifyComment(data) {
+  afs.doc('posts/' + data.to).get()
+  .then(postDoc => {
+    const parentpost = postDoc.data();
+    if (data.uid !== parentpost.uid) {
+      const notif = {
+        uid: data.uid,
+        type: 'comment',
+        pid: data.pid,
+        timestamp: data.date
+      };
+      afs.doc('users/' + parentpost.uid + '/notifications/' + notif.pid).set(notif)
+      .then(() => {
+        afs.doc('users/' + parentpost.uid + '/unread/' + notif.pid).set(notif)
+        .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+    }
+  })
+  .catch(err => console.log(err));
+}
 
 function updateUserGroup(gid, uid) {
   const timestamp = admin.firestore.FieldValue.serverTimestamp();
