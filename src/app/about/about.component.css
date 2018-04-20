@@ -12,15 +12,11 @@
     max-height: 200px;
     max-width: 394.14px;
 }
-#user-text {
-  margin-top: -70px;
-  padding-left: 135px!important;
-}
 .mb-1 > h6 {
   display: inline-block;
 }
-#group-container {
-  margin-top: 49px!important;
+#group-text {
+  min-height: 136px!important;
 }
 @media (max-width: 490px) {
   #about-brand {

@@ -16,7 +16,7 @@
   </div>
   <div class="container-fluid col-12 order-4 pt-2 bg-primary" *ngIf="mostCommented && mostLiked">
     <div class="row justify-content-between pt-2 pb-4 px-4">
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-lg-6">
         <h3 class="text-center text-white py-2">Most Liked Post</h3>
         <div *ngFor="let post of mostLiked; let i = index">
           <div class="post-container" *ngIf="i == 0">
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-lg-6">
         <h3 class="text-white text-center py-2">Most Commented Post</h3>
         <div *ngFor="let post of mostCommented; let i = index">
             <div class="post-container" *ngIf="i == 0">
@@ -32,24 +32,32 @@
             </div>
           </div>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-lg-6" >
         <h3 class="text-white text-center py-2">Most Followed User</h3>
-        <div *ngFor="let user of mostFollowed; let i = index">
-            <div class="user-container" *ngIf="i == 0">
-              <img [src]="user.photoURL" class="circle ml-1" height="120px" width="120px">
-              <div id="user-text" class="bg-white px-3 py-2">
-                <h5 class="mb-0">{{user.displayName}}</h5><p class="text-muted mb-2">@{{user.userName}}</p>
-                <span class="mb-1 mx-2"><h6>Total Posts</h6> {{user.totalScribes}}</span>
-                <span class="mb-1 mx-2"><h6>Total Followers</h6> {{user.totalFollowers}}</span>
+        <div id="user-container" *ngFor="let user of mostFollowed; let i = index">
+            <div *ngIf="i == 0">
+              <div id="user-text" class="bg-white px-3 py-2" routerLink="/user/{{user.userName}}">
+                <div class="container-fluid">
+                  <div class="row justify-content-between">
+                    <div class="col-4">
+                      <img [src]="user.photoURL" class="circle ml-1" height="120px" width="120px">
+                    </div>
+                    <div class="col-8">
+                      <h3 class="mb-0">{{user.displayName}}</h3><p class="text-muted mb-2">@{{user.userName}}</p>
+                      <span class="mb-1 mx-2"><h6>Total Posts</h6> {{user.totalScribes}}</span>
+                      <span class="mb-1 mx-2"><h6>Total Followers</h6> {{user.totalFollowers}}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
       </div>
-      <div id="group-container" class="col-12 col-md-6">
+      <div class="col-12 col-lg-6 pt-5 pt-lg-0" id="group-container">
         <h3 class="text-white text-center py-2">Most Subscribed Group</h3>
         <div *ngFor="let group of mostSubbed; let i = index">
-            <div *ngIf="i == 0" class="bg-white px-3 py-2">
-              <h4>{{group.gname}}</h4>
+            <div id="group-text" *ngIf="i == 0" class="bg-white px-3 py-2 pointer" routerLink="/group/{{group.gid}}">
+              <h3>{{group.gname}}</h3>
               <small class="text-muted">{{group.desc}}</small>
               <span class="mb-1 d-block"><h6>Members</h6> {{group.totalMembers}}</span>
             </div>
