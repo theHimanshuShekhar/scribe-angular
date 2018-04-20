@@ -8,3 +8,13 @@
 #title {
   display: inline-block;
 }
+#messaging-container {
+  max-height: calc(100vh - 175px);
+  overflow: scroll;
+}
+@media (max-width: 768px) {
+  #messaging-container {
+    max-height: calc(100vh - 108px);
+    margin-bottom: 0px;
+  }
+}
