@@ -12,7 +12,7 @@ export class MessageService {
   ) { }
 
   getChatrooms(uid) {
-    return this.afs.collection('/users/' + uid + '/messaging', ref => ref.orderBy('lastUpdate')).valueChanges();
+    return this.afs.collection('/users/' + uid + '/messaging', ref => ref.orderBy('lastUpdate', 'desc')).valueChanges();
   }
 
   checkChatroom(profileuid) {

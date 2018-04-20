@@ -24,7 +24,7 @@ exports.onMessage = functions.firestore
       const userList = users;
       userList.forEach(user => {
         const useruid = user.data().uid;
-        afs.doc('users/' + useruid.uid + '/messaging/' + rid).update(update)
+        afs.doc('users/' + useruid + '/messaging/' + rid).update(update)
         .catch(err => console.log(err));
       });
     })
