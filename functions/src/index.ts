@@ -46,7 +46,7 @@ exports.onCreateRoom = functions.firestore
             const roomData = {
               rid: rid,
               uid: otheruser.uid,
-              lastupdate: time
+              lastUpdate: time
             };
             afs.doc('/users/' + uid + '/messaging/' + rid).set(roomData);
           }

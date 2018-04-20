@@ -18,10 +18,12 @@ export class MessageComponent implements OnInit {
 
   ngOnInit() {
     this.auth.getAuthState().subscribe(curruser => {
-      if (this.messageData.uid === curruser.uid) {
-        this.style = 'text-right bg-white rounded mt-1 mb-2 py-2 px-3 border-primary';
-      } else {
-        this.style = 'text-left bg-white rounded mt-1 mb-2 py-2 px-3';
+      if (curruser) {
+        if (this.messageData.uid === curruser.uid) {
+          this.style = 'text-right bg-white rounded mt-1 mb-2 py-2 px-3 border-primary';
+        } else {
+          this.style = 'text-left bg-white rounded mt-1 mb-2 py-2 px-3';
+        }
       }
     });
   }
