@@ -1,3 +1,6 @@
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -15,8 +18,17 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private title: Title,
-    private auth: AuthService
+    private auth: AuthService,
+    private afs: AngularFirestore
   ) {}
+
+  isTaken = false;
+
+  startAt = new Subject();
+  endAt = new Subject();
+
+  startObs = this.startAt.asObservable();
+  endAtObs = this.endAt.asObservable();
 
   emailform = new FormGroup({
     username: new FormControl('', [
@@ -56,6 +68,7 @@ export class RegisterComponent implements OnInit {
     }
  }
 
+
   get googleusername() {
     return this.googleform.get('googleusername');
   }
@@ -76,9 +89,28 @@ export class RegisterComponent implements OnInit {
     this.title.setTitle('Signup');
   }
 
+  search($event) {
+    const q = $event.target.value;
+    this.checkUsername(q);
+  }
+
+  checkUsername(q) {
+    this.afs.collection('users', ref => ref.where('userName', '==', q)).valueChanges().subscribe(user => {
+      if (user[0]) {
+        this.isTaken = true;
+      } else {
+        this.isTaken = false;
+      }
+    });
+  }
+
+  doQuery(start, end) {
+    return this.afs.collection('users', ref => ref.limit(3).orderBy('userName').startAt(start).endAt(end)).valueChanges();
+  }
+
 
   register(type) {
-    if (type === 'google' && this.googleusername.value) {
+    if (type === 'google' && this.googleusername.value && !this.isTaken) {
       const data = {
         type: 'google',
         username: this.googleusername.value
@@ -86,7 +118,11 @@ export class RegisterComponent implements OnInit {
       this.auth.register(data);
 
     }
-    if (type === 'email' && !this.password.errors && !this.username.errors && !this.displayname.errors && !this.email.errors) {
+    if (type === 'email'
+      && !this.password.errors
+      && !this.username.errors
+      && !this.displayname.errors
+      && !this.email.errors && !this.isTaken) {
       const data = {
         username: this.username.value,
         displayname: this.displayname.value,

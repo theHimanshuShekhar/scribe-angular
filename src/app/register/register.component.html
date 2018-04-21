@@ -8,12 +8,14 @@
           <form [formGroup]="emailform">
             <h2 class="mb-3">Email</h2>
 
-            <input type="text" formControlName="username" class="form-control form-control-md" type="text" placeholder="Username">
+            <input type="text" formControlName="username" class="form-control form-control-md" type="text" placeholder="Username" (blur)="search($event)">
             <small class="mt-0 mb-1 text-danger" *ngIf="username.touched && username.errors">
               <div *ngIf="username.errors.required">A Username is required.</div>
               <div *ngIf="username.errors.minlength">Username should be minimum {{username.errors.minlength.requiredLength}} characters.</div>
               <div *ngIf="username.errors.cannotContainSpace">Username cannot contain space.</div>
-              <div *ngIf="username.errors.shouldBeUnique">Username already taken.</div>
+            </small>
+            <small class="mt-0 mb-1 text-danger" *ngIf="username.touched && isTaken">
+              <div>Username already taken.</div>
             </small>
 
             <input formControlName="displayname" class="form-control form-control-md" type="text" placeholder="Display Name">
@@ -47,12 +49,15 @@
         <div id="google-register-form" class="register-form text-center py-3">
           <form [formGroup]="googleform">
             <h2 class="mb-3">Google</h2>
-            <input formControlName="googleusername" class="form-control form-control-md" type="text" placeholder="Username">
+            <input formControlName="googleusername" class="form-control form-control-md" type="text" placeholder="Username" (blur)="search($event)">
             <small class="mt-0 mb-1 text-danger" *ngIf="googleusername.touched && googleusername.errors">
               <div *ngIf="googleusername.errors.required">A Username is required.</div>
               <div *ngIf="googleusername.errors.minlength">Username should be minimum 3 characters.</div>
               <div *ngIf="googleusername.errors.cannotContainSpace">Username cannot contain space.</div>
               <div *ngIf="googleusername.errors.shouldBeUnique">Username already taken.</div>
+            </small>
+            <small class="mt-0 mb-1 text-danger" *ngIf="googleusername.touched && isTaken">
+              <div>Username already taken.</div>
             </small>
           </form>
           <button id="google-register-btn" class="register-btn btn btn-dark btn-disabled py-2" (click)="register('google')">Signup</button>
