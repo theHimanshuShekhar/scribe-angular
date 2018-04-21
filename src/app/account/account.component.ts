@@ -4,6 +4,9 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { UploadService } from '../services/upload.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsernameValidators } from '../validators/username.validators';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-account',
@@ -18,16 +21,50 @@ export class AccountComponent implements OnInit {
   status = 'Enter status';
   uid;
 
+  currentusername;
+
   filename = 'Change Picture';
   inputFile;
+
+  isTaken = false;
 
   constructor(
     private auth: AuthService,
     private userService: UserService,
     private router: Router,
     private titleService: Title,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private afs: AngularFirestore
   ) { }
+
+  accountForm = new FormGroup({
+    username: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      UsernameValidators.cannotContainSpace,
+      Validators.maxLength(15)
+    ]),
+    displayname: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(30)
+    ]),
+    inputstatus: new FormControl('', [
+      Validators.minLength(5),
+      Validators.required,
+      Validators.maxLength(100)
+    ])
+  });
+
+  get username() {
+    return this.accountForm.get('username');
+  }
+  get displayname() {
+    return this.accountForm.get('displayname');
+  }
+  get inputstatus() {
+    return this.accountForm.get('inputstatus');
+  }
 
   ngOnInit() {
     this.titleService.setTitle('Account');
@@ -38,6 +75,7 @@ export class AccountComponent implements OnInit {
             user => {
               if (user) {
                 this.displayName = user.displayName;
+                this.currentusername = user.userName;
                 this.userName = user.userName;
                 this.photoURL = user.photoURL;
                 this.status = user.status;
@@ -50,9 +88,27 @@ export class AccountComponent implements OnInit {
       });
   }
 
+  search($event) {
+    const q = $event.target.value;
+    this.checkUsername(q);
+  }
+
+  checkUsername(q) {
+    this.afs.collection('users', ref => ref.where('userName', '==', q)).valueChanges().subscribe(user => {
+      const searchuser: any = user[0];
+      if (user[0] && this.currentusername !== searchuser.userName) {
+          this.isTaken = true;
+      } else {
+        this.isTaken = false;
+      }
+    });
+  }
+
   update() {
-    this.auth.updateUser(this.displayName, this.userName, this.status).then(
-      () => console.log('User details updated'));
+    if (!this.isTaken && !this.username.errors && !this.displayname.errors && !this.inputstatus.errors) {
+      this.auth.updateUser(this.displayName, this.userName, this.status).then(
+        () => console.log('User details updated'));
+    }
   }
 
   processImage(event) {

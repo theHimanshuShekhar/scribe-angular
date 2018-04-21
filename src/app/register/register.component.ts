@@ -1,5 +1,3 @@
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -23,12 +21,6 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   isTaken = false;
-
-  startAt = new Subject();
-  endAt = new Subject();
-
-  startObs = this.startAt.asObservable();
-  endAtObs = this.endAt.asObservable();
 
   emailform = new FormGroup({
     username: new FormControl('', [
@@ -102,10 +94,6 @@ export class RegisterComponent implements OnInit {
         this.isTaken = false;
       }
     });
-  }
-
-  doQuery(start, end) {
-    return this.afs.collection('users', ref => ref.limit(3).orderBy('userName').startAt(start).endAt(end)).valueChanges();
   }
 
 
