@@ -28,6 +28,7 @@ import { PostsService } from './services/posts.service';
 import { UserService } from './services/user.service';
 import { FollowService } from './services/follow.service';
 import { LikesService } from './services/likes.service';
+import { NotificationService } from './services/notification.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -58,6 +59,7 @@ import { SuggestedComponent } from './suggested/suggested.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { AdminComponent } from './admin/admin.component';
 import { GrouplistComponent } from './group/grouplist/grouplist.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -159,7 +161,8 @@ const routes: Routes = [
     SuggestedComponent,
     FeedbackComponent,
     AdminComponent,
-    GrouplistComponent
+    GrouplistComponent,
+    NotificationComponent
     ],
   imports: [
     BrowserModule,
@@ -182,6 +185,7 @@ const routes: Routes = [
     FollowService,
     LikesService,
     GroupService,
+    NotificationService,
     DateFormatPipe,
     LinkifyPipe,
     MessageService

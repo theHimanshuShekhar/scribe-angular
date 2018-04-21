@@ -56,3 +56,7 @@ hr {
 #user-data > p {
   font-size: 15px;
 }
+#notif-list {
+  max-height: 300px;
+  overflow: scroll;
+}

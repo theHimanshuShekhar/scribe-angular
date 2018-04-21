@@ -9,7 +9,10 @@
     <div id="nav-links" class="col-5 col-md-5 col-lg-6 d-none d-md-inline-block order-2" *ngIf="isUser">
       <span class="p-1 d-none d-lg-inline-block" (click)="sendTo('home')"><a><i class="fa fa-home mx-2" aria-hidden="true"></i>Home</a></span>
       <span class="p-1" (click)="sendTo('messages')"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages</a></span>
-      <span class="p-1" [ngbPopover]="notif" placement="bottom"><a><i class="fa fa-bell mx-2" aria-hidden="true"></i>Notifications</a></span>
+      <span class="p-1" [ngbPopover]="notif" placement="bottom" #popover="ngbPopover" (click)="clearNotif()"><a>
+        <i class="fa fa-bell mx-2" aria-hidden="true"></i>
+        Notifications <span *ngIf="unread"><span *ngIf="unread.length > 0 && !popoverRef.isOpen()">{{unread.length}}</span></span>
+      </a></span>
     </div>
     <div id="search-container" class="col-10 col-sm-6 offset-sm-3 offset-md-0 col-md-4 col-lg-4 order-2" *ngIf="isUser">
       <app-search></app-search>
@@ -50,5 +53,11 @@
 </ng-template>
 
 <ng-template #notif>
-  Notifications List
+  <div id="notif-list">
+    <div *ngFor="let notif of unread">
+      <app-notification [notif]="notif" [popoverRef]="popoverRef"></app-notification>
+    </div>
+  </div>
+  <hr class="py-1">
+  <h6 class="text-center px-2">View all notifications</h6>
 </ng-template>

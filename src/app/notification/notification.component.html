@@ -1,0 +1,5 @@
+<div *ngIf="user" id="notif-container" class="py-2 px-2 text-center pointer" routerLink="/post/{{notif.pid}}" (click)="popoverRef.close()">
+  <img [src]="user.photoURL" height="25px" width="25px" class="circle">
+  <p class="d-inline">{{user.displayName}} replied to your post.</p>
+</div>
+

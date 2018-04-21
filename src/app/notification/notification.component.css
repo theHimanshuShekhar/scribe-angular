@@ -1,0 +1,6 @@
+#notif-container:hover {
+  background-color: lightgray;
+}
+#notif-container {
+  border-bottom: 1px solid lightgray;
+}

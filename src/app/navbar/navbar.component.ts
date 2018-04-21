@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { NotificationService } from '../services/notification.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,16 +14,22 @@ export class NavbarComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private notif: NotificationService
   ) { }
+
+  @ViewChild('popover') popoverRef;
 
   isUser: boolean;
   displayName;
+  uid;
   userName;
   photoURL = '../../assets/images/default-profile.jpg';
   totalFollowers;
   totalFollowing;
   totalScribes;
+
+  unread;
 
   ngOnInit() {
     this.isUser = false;
@@ -59,12 +66,20 @@ export class NavbarComponent implements OnInit {
                 this.totalFollowing = userDoc.totalFollowing;
                 this.totalFollowers = userDoc.totalFollowers;
                 this.totalScribes = userDoc.totalScribes;
+                this.uid = userDoc.uid;
+                this.notif.getUserUnread(userDoc.uid).subscribe(notifs => this.unread = notifs);
               }
             });
         } else {
           this.isUser = false;
         }
       });
+  }
+
+  clearNotif() {
+    if (!this.popoverRef.isOpen() === false && this.unread) {
+      this.notif.clearUnread(this.uid);
+    }
   }
 
   logout() {
