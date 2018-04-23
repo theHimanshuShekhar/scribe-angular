@@ -10,6 +10,10 @@ export class NotificationService {
     private auth: AuthService
   ) { }
 
+  getNotifs(uid) {
+    return this.afs.collection('users/' + uid + '/notifications', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
+  }
+
   getUserUnread(uid) {
     return this.afs.collection('users/' + uid + '/unread', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
   }

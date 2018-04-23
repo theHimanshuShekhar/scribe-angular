@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
   totalScribes;
 
   unread;
+  notifs;
 
   ngOnInit() {
     this.isUser = false;
@@ -68,6 +69,7 @@ export class NavbarComponent implements OnInit {
                 this.totalScribes = userDoc.totalScribes;
                 this.uid = userDoc.uid;
                 this.notif.getUserUnread(userDoc.uid).subscribe(notifs => this.unread = notifs);
+                this.notif.getNotifs(userDoc.uid).subscribe(notifs => this.notifs = notifs);
               }
             });
         } else {
@@ -77,7 +79,7 @@ export class NavbarComponent implements OnInit {
   }
 
   clearNotif() {
-    if (!this.popoverRef.isOpen() === false && this.unread) {
+    if (this.unread && this.unread.length > 0) {
       this.notif.clearUnread(this.uid);
     }
   }

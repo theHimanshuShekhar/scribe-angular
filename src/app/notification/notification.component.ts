@@ -9,7 +9,6 @@ import { UserService } from '../services/user.service';
 export class NotificationComponent implements OnInit {
 
   @Input() notif;
-  @Input() popoverRef;
   user;
 
   constructor(

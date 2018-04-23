@@ -56,7 +56,39 @@ hr {
 #user-data > p {
   font-size: 15px;
 }
-#notif-list {
+#notif-list, #unread-list {
   max-height: 300px;
   overflow: scroll;
+}
+#notif-dropdown {
+  min-width: 350px;
+  max-width: 350px;
+  padding: 0px;
+}
+.dropdown-item {
+  max-width: 350px;
+  min-width: 100%;
+  padding: 0px;
+}
+.notif-item {
+  max-width: 350px;
+  min-width: 100%;
+}
+.dropdown-toggle::after {
+  display:none
+}
+#unread-count {
+    margin-left: -10px;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    border: 1px solid #343A40;
+
+    -moz-border-radius: 20%;
+    border-radius: 20%;
+
+    background-color: #3fc4e8;
+    color: white;
+    text-align: center;
 }
