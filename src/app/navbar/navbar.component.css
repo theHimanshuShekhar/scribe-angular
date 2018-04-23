@@ -78,16 +78,14 @@ hr {
   display:none
 }
 #unread-count {
-    margin-left: -10px;
+    margin-left: -2px;
     display: inline-block;
     height: 20px;
     width: 20px;
-    line-height: 20px;
-    border: 1px solid #343A40;
-
+    line-height: 15px;
+    text-shadow: #E83F6F;
     -moz-border-radius: 20%;
     border-radius: 20%;
-
     background-color: #3fc4e8;
     color: white;
     text-align: center;
