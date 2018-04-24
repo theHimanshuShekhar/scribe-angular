@@ -9,12 +9,22 @@
     <ngb-alert type="danger" *ngIf="requiredErr">Please complete the feedback form!</ngb-alert>
     <div class="form-group mt-4 mb-2">
       <label for="InputTitle">Subject</label>
-      <input type="text" class="form-control" id="InputSubject" [(ngModel)]="subject">
+      <input type="text" class="form-control" id="InputSubject" [(ngModel)]="subject" #Subject="ngModel" required minlength="5" maxlength="30">
       <small class="form-text text-muted">Specifying a subject makes it easier for us to categorize.</small>
+      <div class="text-danger" *ngIf="Subject.invalid && (Subject.dirty || Subject.touched)">
+        <small class="form-text" *ngIf="Subject.errors.required">Subject is required.</small>
+        <small class="form-text" *ngIf="Subject.errors.maxlength">Subject must be maximum 30 characters.</small>
+        <small class="form-text" *ngIf="Subject.errors.minlength">Subject must be minimum 5 characters.</small>
+      </div>
     </div>
     <div class="form-group mb-2">
       <label for="InputUsername">Feedback</label>
-      <textarea type="text" class="form-control" id="InputText" [(ngModel)]="text" rows="5"></textarea>
+      <textarea type="text" class="form-control" #Text="ngModel" id="InputText" [(ngModel)]="text" rows="5" required minlength="20" maxlength="500"></textarea>
       <small class="form-text text-muted">Your feedback is important to us. We value and appreciate your compliments, suggestions or complaints in order to improve our services.</small>
+      <div class="text-danger" *ngIf="Text.invalid && (Text.dirty || Text.touched)">
+        <small class="form-text" *ngIf="Text.errors.required">Feedback is required.</small>
+        <small class="form-text" *ngIf="Text.errors.maxlength">Feedback must be maximum 500 characters.</small>
+        <small class="form-text" *ngIf="Text.errors.minlength">Feedback must be minimum 20 characters.</small>
+      </div>
     </div>
 </div>

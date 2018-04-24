@@ -29,6 +29,18 @@ export class MessageService {
     });
   }
 
+  clearUnread(rid) {
+    this.auth.getAuthState().subscribe(curruser => {
+      if (curruser) {
+        this.afs.doc('users/' + curruser.uid + '/messaging/' + rid).update({unread: false});
+      }
+    });
+  }
+
+  getChatroomFromRID(rid, uid) {
+    return this.afs.doc('users/' + uid + '/messaging/' + rid).valueChanges();
+  }
+
   createChatroom(profileuid) {
     this.auth.getAuthState().subscribe(
       curruser => {
@@ -49,6 +61,10 @@ export class MessageService {
           this.afs.doc('messaging/' + rid + '/users/' + curruser.uid).set(data);
         });
       });
+  }
+
+  getUnread(uid) {
+    return this.afs.collection('users/' + uid + '/messaging', ref => ref.where('unread', '==', true)).valueChanges();
   }
 
   getMessages(rid) {

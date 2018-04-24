@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -17,10 +18,12 @@ export class FeedbackComponent implements OnInit {
 
   constructor(
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Feeback');
   }
 
   submit() {

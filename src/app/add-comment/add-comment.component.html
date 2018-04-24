@@ -4,7 +4,10 @@
       <div id="buttons" [class]="buttonsClass">
         <div class="container-fluid">
           <div class="row justify-content-end mx-1">
-            <input type="file" id="inputImage" #inputImage>
+            <input type="file" id="inputImage" #inputImage (change)="processImage($event)" accept="image/*">
+            <div class="container-fluid">
+              <div *ngIf="filename" class="p-2 py-0 align-self-center text-primary">{{filename}}</div>
+            </div>
             <button class="btn col-2 bg-none attachment-btn text-primary rounded p-2 mx-3 text-center align-self-center" (click)="inputImage.click()"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
             <button class="btn col-auto bg-primary text-white btn-round py-0 m-0 px-4 align-self-center" id="btnSubmit" (click)="addPost()">Comment</button>
           </div>

@@ -1,5 +1,6 @@
-<div *ngIf="user" id="notif-container" class="py-2 px-2 text-center pointer" routerLink="/post/{{notif.pid}}">
-  <img [src]="user.photoURL" height="25px" width="25px" class="circle" *ngIf="user.photoURL">
-  <p class="d-inline">{{user.displayName}} replied to your post.</p>
+<div class="container-fluid px-0">
+  <div *ngIf="user" [id]="modalRef ? 'notif-container-large' : 'notif-container'" class="py-2 px-2 text-center pointer" routerLink="/post/{{notif.pid}}">
+    <img [src]="user.photoURL" height="25px" width="25px" class="circle" *ngIf="user.photoURL">
+    <p class="d-inline">{{user.displayName}} {{notif.type === 'comment' ? 'replied to your' : 'liked your'}} post.</p>
+  </div>
 </div>
-

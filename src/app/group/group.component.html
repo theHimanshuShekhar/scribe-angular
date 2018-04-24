@@ -1,10 +1,13 @@
 <div *ngIf="isLoaded; else Loading">
   <div class="container-fluid px-0 pt-0 pt-lg-2 mb-5" *ngIf="gname; else Invalid">
-    <div id="banner-image"></div>
+    <div id="banner-image" [style]="getStyle()">
+      <button class="btn btn-banner" id="edit-btn" *ngIf="isAdmin" (click)="inputBanner.click()">{{filename ? filename : 'Edit Banner'}}</button>
+      <input class="d-none" type="file" id="inputBanner" #inputBanner accept="image/*" (change)="processImage($event)">
+    </div>
     <div class="container-fluid">
       <div id="name-bar" class="bg-white p-2 row mb-2 justify-content-between">
         <span class="col-10 col-md-10"><h2>{{gname}}</h2></span>
-        <span id="btnEdit" class="btn col-2 text-white bg-primary align-self-center"><h6>Edit</h6></span>
+        <span id="btnEdit" class="btn col-2 text-white bg-primary align-self-center" (click)="open(EditGroup)" *ngIf="isAdmin"><h6>Edit</h6></span>
       </div>
     </div>
     <div class="container-fluid">
@@ -79,4 +82,9 @@
     </h5>
     <app-user-list [users]="members" [modalRef]="modalRef"></app-user-list>
   </div>
+</ng-template>
+
+
+<ng-template #EditGroup>
+  <app-create-group [groupDetails]="{gid: gid, desc: desc, gname: gname}" [modalRef]="modalRef"></app-create-group>
 </ng-template>

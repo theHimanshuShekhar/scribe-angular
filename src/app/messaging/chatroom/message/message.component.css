@@ -11,3 +11,11 @@
 #msg-date {
   font-size: 0.6rem;
 }
+i {
+  position: relative;
+  float: right;
+  top: 0px;
+  right: 0px;
+  color: #E83F6F;
+  cursor: pointer;
+}

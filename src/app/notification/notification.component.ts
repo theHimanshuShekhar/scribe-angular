@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 })
 export class NotificationComponent implements OnInit {
 
+  @Input() modalRef;
   @Input() notif;
   user;
 

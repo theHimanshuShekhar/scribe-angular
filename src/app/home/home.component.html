@@ -25,15 +25,15 @@
         <div class="container-fluid">
           <div class="row">
             <h5 class="pt-1 col-5">Groups</h5>
-            <i id="btnCreateGroup" class="fa fa-plus-square fa-2x align-self-center text-primary col-3 mr-1 col-lg-2 ml-auto" (click)="createGroup()"></i>
+            <i id="btnCreateGroup" class="fa fa-plus-square fa-2x align-self-center text-primary col-3 mr-1 col-lg-2 ml-auto" (click)="open(CreateGroup)"></i>
           </div>
         </div>
         <hr class="p-0 my-1">
-        <div *ngIf="groups; else noGroups" class="mt-2">
+        <div *ngIf="groups && groups.length > 0; else noGroups" class="mt-2">
           <div *ngFor="let group of groups; let i = index" class="mx-3">
             <p class="grouplistitem my-1" (click)="sendTo('group', group.gid)" *ngIf="i<5">{{group.gname}}</p>
           </div>
-          <small (click)="open(GroupList)" class="mx-3 my-2 text-primary pointer">See More...</small>
+          <small (click)="open(GroupList, 'grouplist')" class="mx-3 my-2 text-primary pointer" *ngIf="groups && groups.length > 5">See More...</small>
         </div>
       </div>
     </div>
@@ -41,6 +41,9 @@
       <app-add-post [userURL]="photoURL" [showAvatar]="true"></app-add-post>
       <div id="feed-posts" *ngFor="let feedPost of feedPosts" style="overflow-y: hidden">
         <app-post [inputPostID]="feedPost.pid"></app-post>
+      </div>
+      <div class="text-muted text-center py-4" *ngIf="feedPosts && feedPosts.length < 1">
+        Follow a user or subscribe to a group to get feed scribes.
       </div>
     </div>
     <div id="right-panel" class="col-md-3 px-0 my-0">
@@ -58,7 +61,7 @@
   </div>
 </div>
 <ng-template #noGroups>
-  <p class="mx-1 text-center">You are not a member of any groups</p>
+  <p class="mx-1 text-center text-muted">You are not a member of any groups</p>
 </ng-template>
 
 <ng-template #Loading>
@@ -70,4 +73,8 @@
 
 <ng-template #GroupList>
   <app-grouplist [groups]="groups" [modalRef]="modalRef"></app-grouplist>
+</ng-template>
+
+<ng-template #CreateGroup>
+  <app-create-group [modalRef]="modalRef"></app-create-group>
 </ng-template>

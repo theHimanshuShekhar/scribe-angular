@@ -3,6 +3,7 @@ import { MessageService } from '../services/message.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-messaging',
@@ -17,10 +18,12 @@ export class MessagingComponent implements OnInit {
     private msgService: MessageService,
     private auth: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Messaging');
     this.auth.getAuthState().subscribe(curruser => {
       if (curruser) {
         this.msgService.getChatrooms(curruser.uid).subscribe(chatrooms => {
@@ -36,10 +39,6 @@ export class MessagingComponent implements OnInit {
     this.userService.retrieveUserDocumentFromID(uid).subscribe(userDetails => {
       return userDetails.userName;
     });
-  }
-
-  createRoom() {
-
   }
 
 }

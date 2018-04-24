@@ -1,3 +1,5 @@
+import { UploadService } from './../services/upload.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { PostsService } from './../services/posts.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -26,11 +28,18 @@ export class AddPostComponent implements OnInit {
   // Post Data
   postBody;
   imgURL;
+  pid;
+
+  // Image Data
+  inputFile;
+  filename;
 
   constructor(
     private postService: PostsService,
     private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private afs: AngularFirestore,
+    private uploadService: UploadService
   ) { }
 
   ngOnInit() {
@@ -71,25 +80,45 @@ export class AddPostComponent implements OnInit {
   addPost() {
     this.contract();
     if (!this.type) {
-      if (this.postBody) {
+      if (this.postBody || this.inputFile.size < 2000000) {
+        this.pid = this.afs.createId();
         const newPost = {
           body: this.postBody,
-          imgURL: this.imgURL ? this.imgURL : null
+          imgURL: this.imgURL ? this.imgURL : null,
+          pid: this.pid
         };
         this.postService.addPost(newPost);
+        if (this.inputFile) {
+          this.uploadService.pushUpload(this.inputFile, 'post', this.pid);
+        }
         this.postBody = null;
       }
     }
     if (this.type === 'group') {
-      if (this.postBody) {
+      if (this.postBody && this.inputFile.size < 2000000) {
+        this.pid = this.afs.createId();
         const newPost = {
           body: this.postBody,
           imgURL: this.imgURL ? this.imgURL : null,
           to: this.id,
-          type: 'group'
+          type: 'group',
+          pid: this.pid
         };
+        this.uploadService.pushUpload(this.inputFile, 'post', this.pid);
         this.postService.addPost(newPost);
         this.postBody = null;
+      }
+    }
+  }
+
+  processImage(event) {
+    this.inputFile = event.target.files[0];
+    this.filename = this.inputFile.name;
+    if (this.inputFile.size > 2000000) {
+      this.filename = 'Max Filesize 2Mb!';
+    } else {
+      if (this.filename.length > 25) {
+        this.filename = this.filename.slice(0, 10) + '...' + this.filename.slice(this.filename.length - 3);
       }
     }
   }

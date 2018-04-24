@@ -121,29 +121,33 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  createGroup() {
-    const modalRef = this.modalService.open(CreateGroupComponent, {
+  createGroup(content) {
+    this.modalRef = this.modalService.open(content, {
       size: 'lg',
       windowClass: 'modal-style'
     });
   }
 
-  open(content) {
+  open(content, type?) {
     this.modalRef = this.modalService.open(content, {
       size: 'sm',
       windowClass: 'modal-style'
     });
-    // push new state to history
-    history.pushState(null, null, '/user/' + this.userName + '/groups');
+    if (type === 'grouplist') {
+      // push new state to history
+      history.pushState(null, null, '/user/' + this.userName + '/groups');
+    }
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeResult = `Dismissed ${this.getDismissReason(reason, type)}`;
     });
   }
 
-  private getDismissReason(reason: any): string {
-    history.back();
+  private getDismissReason(reason: any, type?): string {
+    if (type === 'grouplist') {
+      history.back();
+    }
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

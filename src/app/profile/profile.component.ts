@@ -1,3 +1,5 @@
+import { UploadService } from './../services/upload.service';
+import { DateFormatPipe } from './../services/date.pipe';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FollowService } from './../services/follow.service';
 import { PostsService } from './../services/posts.service';
@@ -56,6 +58,8 @@ export class ProfileComponent implements OnInit {
   showFollowing: boolean;
   showLikes: boolean;
 
+  filename;
+
   profileInfoClass = 'row justify-content-center ml-md-2 ml-lg-auto justify-content-lg-end';
 
   constructor(
@@ -69,7 +73,9 @@ export class ProfileComponent implements OnInit {
     private likeService: LikesService,
     private msgService: MessageService,
     private modalService: NgbModal,
-    private location: PlatformLocation
+    private location: PlatformLocation,
+    private datePipe: DateFormatPipe,
+    private uploadService: UploadService
   ) {
     location.onPopState((event) => {
       // ensure that modal is opened
@@ -99,6 +105,7 @@ export class ProfileComponent implements OnInit {
           this.totalScribes = uservar.totalScribes ? uservar.totalScribes : 0;
           this.totalFollowing = uservar.totalFollowing ? uservar.totalFollowing : 0;
           this.totalFollowers = uservar.totalFollowers ? uservar.totalFollowers : 0;
+          this.bannerURL = uservar.bannerURL ? uservar.bannerURL : null;
           this.isLoaded = true;
           this.titleService.setTitle(this.displayName + ' @' + this.userName);
           this.checkCurrentUser();
@@ -246,6 +253,10 @@ export class ProfileComponent implements OnInit {
       });
     }
 
+    getJoinDate() {
+      return this.datePipe.transform(this.joinDate, 'month');
+    }
+
     open() {
       this.modalRef = this.modalService.open(this.modalContent, {
         size: 'lg',
@@ -269,6 +280,16 @@ export class ProfileComponent implements OnInit {
         return 'by clicking on a backdrop';
       } else {
         return  `with: ${reason}`;
+      }
+    }
+
+    processImage(event) {
+      const file = event.target.files[0];
+      if (file.size > 2000000) {
+        this.filename = 'Max Filesize 2Mb!';
+      } else {
+        this.filename = 'Edit Banner';
+        this.uploadService.pushUpload(file, 'banner', this.userid);
       }
     }
 }

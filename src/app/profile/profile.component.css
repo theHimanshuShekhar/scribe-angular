@@ -2,6 +2,9 @@
 .container-fluid {
   overflow-y: scroll;
 }
+.container {
+  max-width: 1500px!important;
+}
 #user-posts , #user-likes{
   overflow: hidden;
   min-height: 500px;
@@ -126,4 +129,21 @@ h4 {
 }
 .btn {
   cursor: pointer;
+}
+#edit-btn {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  z-index: 2;
+}
+#user-banner {
+  z-index: -1;
+}
+.btn-banner {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+.btn-banner:hover {
+  background: #E83F6F!important;
 }

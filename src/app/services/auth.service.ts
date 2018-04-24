@@ -157,9 +157,11 @@ export class AuthService {
             userName: user.userName,
             joinDate: firebase.firestore.FieldValue.serverTimestamp()
           };
-          this.getAuth().currentUser.sendEmailVerification().then(() => {
-            this.logout();
-          });
+          if (this.afAuth.auth.currentUser) {
+            this.getAuth().currentUser.sendEmailVerification().then(() => {
+              this.logout();
+            });
+          }
           return userRef.set(data);
         });
   }

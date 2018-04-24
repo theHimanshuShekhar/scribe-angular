@@ -1,3 +1,6 @@
+import { DomSanitizer, Title } from '@angular/platform-browser';
+import { UploadService } from './../services/upload.service';
+import { CreateGroupComponent } from './../create-group/create-group.component';
 import { AuthService } from './../services/auth.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Component, OnInit } from '@angular/core';
@@ -22,15 +25,20 @@ export class GroupComponent implements OnInit {
   totalPosts;
   createDate;
   members;
+  admin;
+  bannerURL;
 
   isInvalid;
   isSubbed = false;
   isLoggedin;
   isLoaded = false;
+  isAdmin = false;
 
   posts;
   modalRef;
   closeResult;
+
+  filename;
 
   constructor(
     private afs: AngularFirestore,
@@ -39,7 +47,10 @@ export class GroupComponent implements OnInit {
     private groupService: GroupService,
     private datePipe: DateFormatPipe,
     private modalService: NgbModal,
-    private location: PlatformLocation
+    private location: PlatformLocation,
+    private uploadService: UploadService,
+    private sanitizer: DomSanitizer,
+    private titleService: Title
   ) {
     location.onPopState((event) => {
       // ensure that modal is opened
@@ -51,15 +62,19 @@ export class GroupComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(
-      group => {
-        this.gid = group.gid;
+      routeurl => {
+        this.gid = routeurl.gid;
         this.groupService.getGroup(this.gid).subscribe(
           groupDoc => {
             if (groupDoc) {
               this.gname = groupDoc.gname;
               this.desc = groupDoc.desc;
               this.createDate = groupDoc.createDate;
+              this.admin = groupDoc.admin ? groupDoc.admin : null;
               this.isLoaded = true;
+              this.bannerURL = groupDoc.bannerURL ? groupDoc.bannerURL : null;
+              this.titleService.setTitle(this.gname + ' | ' + this.desc);
+              this.checkAdmin();
             } else {
               console.log('invalid');
               this.isInvalid = true;
@@ -79,12 +94,30 @@ export class GroupComponent implements OnInit {
     });
   }
 
+  getStyle() {
+    if (this.bannerURL) {
+      return this.sanitizer.bypassSecurityTrustStyle(`background-image: url(${this.bannerURL})`);
+    }
+  }
+
   checkLogin() {
     this.auth.getAuthState().subscribe(user => {
       if (user) {
         this.isLoggedin = true;
       } else {
         this.isLoggedin = false;
+      }
+    });
+  }
+
+  checkAdmin() {
+    this.auth.getAuthState().subscribe(curruser => {
+      if (curruser) {
+        if (this.admin === curruser.uid) {
+          this.isAdmin = true;
+        } else {
+          this.isAdmin = false;
+        }
       }
     });
   }
@@ -120,7 +153,6 @@ export class GroupComponent implements OnInit {
 
   open(content) {
     this.modalRef = this.modalService.open(content);
-    history.pushState(null, null, '/group/members');
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -129,13 +161,22 @@ export class GroupComponent implements OnInit {
   }
 
   private getDismissReason(reason: any): string {
-    history.back();
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
       return  `with: ${reason}`;
+    }
+  }
+
+  processImage(event) {
+    const file = event.target.files[0];
+    if (file.size > 2000000) {
+      this.filename = 'Max Filesize 2Mb!';
+    } else {
+      this.filename = 'Edit Banner';
+      this.uploadService.pushUpload(file, 'group', this.gid);
     }
   }
 }

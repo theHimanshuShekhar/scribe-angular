@@ -52,6 +52,7 @@ export class PostComponent implements OnInit {
   likes;
   type;
   comments;
+  postPhotoURL;
 
   parentUsername;
   parentUID;
@@ -99,6 +100,7 @@ export class PostComponent implements OnInit {
       this.date = this.inputPost.date;
       this.pid = this.inputPost.pid;
       this.type = this.inputPost.type;
+      this.postPhotoURL = this.inputPost.photoURL;
       if (this.type === 'comment') {
         this.parentPid = this.inputPost.to;
         this.postService.getPost(this.parentPid).subscribe(

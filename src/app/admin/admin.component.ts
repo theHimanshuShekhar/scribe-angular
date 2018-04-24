@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -17,10 +18,12 @@ export class AdminComponent implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Admin Dashboard');
     this.auth.getAuthState().subscribe(curruser => {
       if (curruser) {
         this.afs.doc('global/admins/admins/' + curruser.uid).valueChanges().subscribe(admin => {

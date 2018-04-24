@@ -1,4 +1,5 @@
 <div id="msg-container" [class]="style">
+  <i class="fa fa-trash" *ngIf="curruser" (click)="delete()"></i>
   <div id="msg-text" class="mb-1" [innerHTML]="messageData.text | linkify"></div>
   <small id="msg-date">{{messageData.timestamp | dateFormatPipe}}</small>
 </div>

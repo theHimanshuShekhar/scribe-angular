@@ -1,6 +1,8 @@
+import { UploadService } from './../services/upload.service';
 import { PostsService } from './../services/posts.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-add-comment',
@@ -18,15 +20,22 @@ export class AddCommentComponent implements OnInit {
   containerStyle;
   route;
 
+  // Image Data
+  inputFile;
+  filename;
+
   // Post Data
   postBody;
   imgURL;
+  pid;
 
   @Input() showAvatar;
 
   constructor(
     private postService: PostsService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private uploadService: UploadService,
+    private afs: AngularFirestore
   ) { }
 
   ngOnInit() {
@@ -46,15 +55,31 @@ export class AddCommentComponent implements OnInit {
 
   addPost() {
     this.contract();
-    if (this.postBody) {
+    if (this.postBody && this.inputFile.size < 2000000) {
+      this.pid = this.afs.createId();
       const newPost = {
         body: this.postBody,
         type: 'comment',
         to: this.parentpid,
-        imgURL: this.imgURL ? this.imgURL : null
+        imgURL: this.imgURL ? this.imgURL : null,
+        pid: this.pid
       };
+      this.uploadService.pushUpload(this.inputFile, 'post', this.pid);
       this.postService.addComment(newPost);
       this.postBody = null;
+    }
+  }
+
+  processImage(event) {
+    this.inputFile = event.target.files[0];
+    this.filename = this.inputFile.name;
+    if (this.inputFile.size > 2000000) {
+      this.filename = 'Max Filesize 2Mb!';
+    } else {
+      if (this.filename.length > 20) {
+        this.filename = this.filename.slice(0, 20) + '...' + this.filename.slice(this.filename.length - 3);
+        console.log(this.filename);
+      }
     }
   }
 }

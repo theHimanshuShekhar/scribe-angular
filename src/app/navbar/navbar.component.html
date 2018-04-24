@@ -8,7 +8,7 @@
     </div>
     <div id="nav-links" class="col-5 col-md-5 col-lg-6 d-none d-md-inline-block order-2" *ngIf="isUser">
       <span class="p-1 d-none d-lg-inline-block" (click)="sendTo('home')"><a><i class="fa fa-home mx-2" aria-hidden="true"></i>Home</a></span>
-      <span class="p-1" (click)="sendTo('messages')"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages</a></span>
+      <span class="p-1" (click)="sendTo('messages')"><a><i class="fa fa-envelope mx-2" aria-hidden="true"></i>Messages<i class="fa fa-exclamation-circle" *ngIf="unreadmsgs && unreadmsgs.length > 0"></i></a></span>
       <span class="p-1" ngbDropdown class="d-inline-block" placement="bottom" (click)="clearNotif()">
         <a ngbDropdownToggle><i class="fa fa-bell mx-2" aria-hidden="true"></i>Notifications<span *ngIf="unread">
           <span *ngIf="unread.length > 0" id="unread-count">{{unread.length}}</span>
@@ -16,11 +16,11 @@
         <div ngbDropdownMenu *ngIf="unread && notifs" id="notif-dropdown">
           <div id="notif-list">
             <div *ngFor="let notif of notifs; let i = index" class="notif-item">
-              <button class="dropdown-item" *ngIf="i <= unread.length || i <= 10"><app-notification [notif]="notif"></app-notification></button>
+              <button class="dropdown-item" *ngIf="unread.length > 0 ? i <= unread.length : 10"><app-notification [notif]="notif"></app-notification></button>
             </div>
           </div>
           <hr class="py-0">
-          <h6 class="text-center px-2">View all notifications</h6>
+          <h6 class="text-center px-2" (click)="open(notifModal)">View all notifications</h6>
         </div>
       </span>
     </div>
@@ -35,7 +35,7 @@
       <div ngbDropdown class="d-inline-block">
         <img height="40px" width="40px" class="circle" [src]="photoURL" id="dropdownBasic1" ngbDropdownToggle>
         <div id="ngb-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <div id="user-container" class="mx-2">
+          <div id="user-container" class="mx-2" routerLink="/user/{{userName}}">
             <img height="50px" width="50px" class="circle" [src]="photoURL" id="dropdownBasic2" ngbDropdownToggle>
             <h6 class="mb-0">{{displayName}}</h6>
             <p class="text-muted mb-1">@{{userName}}</p>
@@ -48,6 +48,7 @@
           <hr>
           <button class="dropdown-item p-2 d-lg-none" (click)="sendTo('home')">Home</button>
           <button class="dropdown-item p-2" (click)="sendTo('profile')">Profile</button>
+          <button class="dropdown-item p-2 d-md-none" (click)="open(notifModal); clearNotif()">Notifications<span *ngIf="unread && unread.length > 0" id="unread-count-small">{{unread.length}}</span></button>
           <button class="dropdown-item p-2" (click)="sendTo('messages')">Messages</button>
           <button class="dropdown-item p-2" (click)="sendTo('groups')">Groups</button>
           <hr>
@@ -58,3 +59,13 @@
     </div>
   </div>
 </nav>
+
+<ng-template #notifModal>
+    <div id="notif-list">
+      <h3 class="mx-3 my-2">Notifications</h3>
+      <hr class="mx-3 my-1 py-1">
+      <div *ngFor="let notif of notifs; let i = index" class="notif-item">
+        <button class="dropdown-item" *ngIf="i <= unread.length || i <= 10"><app-notification [notif]="notif" [modalRef]="modalRef"></app-notification></button>
+      </div>
+    </div>
+</ng-template>

@@ -1,5 +1,5 @@
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+
+  @ViewChild('myDrop') searchDrop;
 
   searchterm;
   users;
@@ -39,6 +41,7 @@ export class SearchComponent implements OnInit {
           users => {
             if (users) {
               this.users = users;
+              this.searchDrop.open();
             }
           });
           this.doGroupQuery(value[0], value[1]).subscribe(
@@ -62,12 +65,6 @@ export class SearchComponent implements OnInit {
     const q = $event.target.value;
     this.startAt.next(q);
     this.endAt.next(q + '\uf8ff');
-  }
-
-  hideResults() {
-    setTimeout(() => {
-      this.hide = true;
-    }, 100);
   }
 
   sendToProfile(username) {

@@ -4,6 +4,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MessagingComponent } from '../messaging.component';
 import { ChatroomComponent } from '../chatroom/chatroom.component';
 import { PlatformLocation } from '@angular/common';
+import { MessageService } from '../../services/message.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chatroomlist',
@@ -18,6 +20,7 @@ export class ChatroomlistComponent implements OnInit {
   roomName;
   photoURL;
   roomData;
+  unread;
 
   modalRef;
   closeResult;
@@ -25,7 +28,9 @@ export class ChatroomlistComponent implements OnInit {
   constructor(
     private userService: UserService,
     private modalService: NgbModal,
-    private location: PlatformLocation
+    private location: PlatformLocation,
+    private msgService: MessageService,
+    private auth: AuthService
   ) {
     location.onPopState((event) => {
       // ensure that modal is opened
@@ -37,14 +42,26 @@ export class ChatroomlistComponent implements OnInit {
 
   ngOnInit() {
     this.userService.retrieveUserDocumentFromID(this.room.uid).subscribe(user => {
-      this.roomName = user.displayName + '@' + user.userName;
-      this.photoURL = user.photoURL;
-      this.roomData = {
-        displayName: user.displayName,
-        userName: user.userName,
-        rid: this.room.rid,
-        photoURL: this.photoURL
-      };
+      if (user) {
+        this.roomName = user.displayName + '@' + user.userName;
+        this.photoURL = user.photoURL;
+        this.roomData = {
+          displayName: user.displayName,
+          userName: user.userName,
+          rid: this.room.rid,
+          photoURL: this.photoURL
+        };
+        this.getUnread();
+      }
+    });
+  }
+
+  getUnread() {
+    this.auth.getAuthState().subscribe(curruser => {
+      this.msgService.getChatroomFromRID(this.room.rid, curruser.uid).subscribe(roomDoc => {
+        const roomdocument: any = roomDoc;
+        this.unread = roomdocument.unread;
+      });
     });
   }
 
@@ -59,6 +76,7 @@ export class ChatroomlistComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    this.msgService.clearUnread(this.roomData.rid);
   }
 
   private getDismissReason(reason: any): string {

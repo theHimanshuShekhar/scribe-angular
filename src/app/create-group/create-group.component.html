@@ -1,24 +1,32 @@
 <div id="create-group-card" class="bg-white rounded p-2 px-4">
   <div id="create-group-header" class="row justify-content-between mt-2 mt-md-3 mr-3">
     <h3 class="col-auto align-self-center">Group</h3>
-    <button class="col-auto btn bg-primary text-white font-weight-bold px-4 py-2 align-self-center" id="btnCreate" (click)="createGroup()">Create Group</button>
+    <button class="col-auto btn bg-primary text-white font-weight-bold px-4 py-2 align-self-center" id="btnCreate" (click)="createOrEdit()">{{ groupDetails ? 'Edit Group' : 'Create Group'}}</button>
   </div>
   <hr>
-  <div class="form-group mt-4 mb-2">
-    <label for="InputGroupName">Group Name</label>
-    <input type="text" class="form-control" id="InputDisplayName" aria-describedby="emailHelp" [(ngModel)]="gname">
-    <small class="form-text text-muted">The group name must be unique. (Max 30 characters)</small>
-  </div>
-  <div class="form-group mb-2">
-    <label for="InputDesc">Description</label>
-    <input type="text" class="form-control" id="InputStatus" aria-describedby="emailHelp" [(ngModel)]="description">
-    <small class="form-text text-muted">Tell everyone what the group is about. (Max 150 characters)</small>
-  </div>
-  <div class="row mb-5">
-    <div class="form-group pt-4 col-12 col-sm-6 mb-1 align-self-center">
-      <input type="file" id="InputPhoto" class="inputfile" (change)="processImage($event)" accept="image/*">
-      <label for="InputPhoto" class="mx-0 text-center"><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{filename}}</label>
+  <form [formGroup]="groupForm">
+    <div class="form-group mt-4 mb-2">
+      <label for="InputGroupName">Group Name</label>
+      <input type="text" class="form-control" id="InputDisplayName" aria-describedby="emailHelp" [(ngModel)]="gname" formControlName="gname" (blur)="checkName($event)">
+      <small class="form-text text-muted">The group name must be unique. (Max 30 characters)</small>
+      <div class="text-danger" *ngIf="Gname.touched && Gname.errors">
+        <small class="form-text" *ngIf="Gname.errors.minlength">Group name should be minimum 5 characters.</small>
+        <small class="form-text" *ngIf="Gname.errors.maxlength">Group name should be maximum 30 characters.</small>
+        <small class="form-text" *ngIf="Gname.errors.required">Group name is required.</small>
+      </div>
+      <div class="text-danger">
+        <small class="form-text" *ngIf="Gname.touched && gnameExists">Group name already exists.</small>
+      </div>
     </div>
-    <span class="col-auto p-0 ml-3"><img id="displayPhoto" class="circle align-self-center" *ngIf="photoURL" [src]="photoURL"></span>
-  </div>
+    <div class="form-group mb-2">
+      <label for="InputDesc">Description</label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="description" formControlName="desc">
+      <small class="form-text text-muted">Tell everyone what the group is about. (Max 150 characters)</small>
+      <div *ngIf="Desc.touched && Desc.errors">
+        <small class="form-text text-danger" *ngIf="Desc.errors.minlength">Description should be minimum 5 characters.</small>
+        <small class="form-text text-danger" *ngIf="Desc.errors.maxlength">Description should be maximum 150 characters.</small>
+        <small class="form-text text-danger" *ngIf="Desc.errors.required">Description is required.</small>
+      </div>
+    </div>
+  </form>
 </div>

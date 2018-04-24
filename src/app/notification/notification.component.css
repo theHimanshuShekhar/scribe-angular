@@ -3,10 +3,13 @@
 }
 #notif-container {
   border-bottom: 1px solid lightgray;
-  max-width: 350px;
   word-wrap: break-word;
 }
 p, .d-inline {
   max-width: 300px!important;
   word-wrap: break-word;
+}
+
+#notif-container-large {
+  font-size: 1.2rem;
 }

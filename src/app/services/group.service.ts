@@ -9,6 +9,8 @@ interface Group {
   gid: string;
   desc: string;
   createDate;
+  admin?: string;
+  bannerURL?: string;
 }
 
 @Injectable()
@@ -28,11 +30,13 @@ export class GroupService {
       gname: data.gname,
       desc: data.desc,
       createDate: firebase.firestore.FieldValue.serverTimestamp(),
-      gid: gid
+      gid: gid,
     };
     this.afs.doc('groups/' + gid).set(GData).then(() => {
      this.auth.getAuthState().subscribe(user => {
       this.currentuser = user;
+      const adminData = {admin: this.currentuser.uid};
+      this.afs.doc('groups/' + GData.gid).update(adminData);
       const guserdata = {
         gid: gid,
         last: firebase.firestore.FieldValue.serverTimestamp()
@@ -45,6 +49,14 @@ export class GroupService {
       this.afs.doc('groups/' + gid + '/members/' + this.currentuser.uid).set(ugroupdata);
      });
     });
+  }
+
+  editGroup(data) {
+    const GData = {
+      gname: data.gname,
+      desc: data.desc,
+    };
+    return this.afs.doc('groups/' + data.gid).update(GData);
   }
 
   subscribe(gid) {
@@ -82,6 +94,14 @@ export class GroupService {
 
   getMostSubbed() {
     return this.afs.collection('groups', ref => ref.orderBy('totalMembers', 'desc')).valueChanges();
+  }
+
+  updateBannerURL(url, gid) {
+    const data = {
+      bannerURL: url
+    };
+    this.afs.doc('groups/' + gid).update(data)
+    .then(() => console.log('Group banner updated'));
   }
 
 }

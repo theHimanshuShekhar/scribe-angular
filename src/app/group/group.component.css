@@ -34,3 +34,20 @@
 small {
   cursor: pointer;
 }
+#edit-btn {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+#user-banner {
+  z-index: -1;
+}
+.btn-banner {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+.btn-banner:hover {
+  background: #E83F6F!important;
+}

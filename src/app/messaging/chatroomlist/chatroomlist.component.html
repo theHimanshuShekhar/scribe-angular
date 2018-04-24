@@ -1,6 +1,7 @@
 <div class="my-1 px-3 py-2" id="list-item-container" (click)="openChatroom()" *ngIf="roomName">
   <img [src]="photoURL" class="circle" height="50px" width="50px">
   <h6 class="d-inline">{{roomData.displayName}}</h6> <span class="text-muted">@{{roomData.userName}}</span>
+  <i class="fa fa-exclamation-circle text-primary" *ngIf="unread"></i>
 </div>
 
 <ng-template #modalContainer>

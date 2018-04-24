@@ -90,3 +90,22 @@ hr {
     color: white;
     text-align: center;
 }
+#unread-count-small {
+  margin-left: 5px;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  line-height: 15px;
+  text-shadow: #E83F6F;
+  -moz-border-radius: 20%;
+  border-radius: 20%;
+  background-color: #3fc4e8;
+  color: white;
+  text-align: center;
+}
+
+.fa-exclamation-circle {
+  color: #3fc4e8;
+  font-size: 1.2rem;
+  margin-left: 2px;
+}

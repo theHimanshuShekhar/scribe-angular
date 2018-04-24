@@ -37,10 +37,9 @@ export class PostsService {
   addPost(newPost) {
     this.auth.getAuthState().subscribe(
       currentuser => {
-        const pid = this.afs.createId();
         const date = firebase.firestore.FieldValue.serverTimestamp();
         const post = {
-          pid: pid,
+          pid: newPost.pid,
           uid: currentuser.uid,
           date: date,
           body: newPost.body,
@@ -48,10 +47,10 @@ export class PostsService {
           to: newPost.to ? newPost.to : null,
           type: newPost.type ? newPost.type : 'user'
         };
-        const postRef = this.afs.collection('posts').doc(pid);
+        const postRef = this.afs.collection('posts').doc(newPost.pid);
         return postRef.set(post)
           .then(() => {
-            console.log('Post Successful -', pid);
+            console.log('Post Successful -', newPost.pid);
           });
       });
   }
@@ -60,10 +59,9 @@ export class PostsService {
   addComment(newPost) {
     this.auth.getAuthState().subscribe(
       currentuser => {
-        const pid = this.afs.createId();
         const date = firebase.firestore.FieldValue.serverTimestamp();
         const post = {
-          pid: pid,
+          pid: newPost.pid,
           uid: currentuser.uid,
           date: date,
           body: newPost.body,
@@ -71,15 +69,15 @@ export class PostsService {
           to: newPost.to ? newPost.to : null,
           type: newPost.type ? newPost.type : 'user'
         };
-        const postRef = this.afs.collection('posts').doc(pid);
+        const postRef = this.afs.collection('posts').doc(newPost.pid);
         return postRef.set(post)
           .then(() => {
             const comment = {
-              pid: pid,
+              pid: newPost.pid,
               timestamp: firebase.firestore.FieldValue.serverTimestamp()
             };
-            this.afs.doc('posts/' + newPost.to + '/comments/' + pid).set(comment);
-            console.log('Comment Successful -', pid);
+            this.afs.doc('posts/' + newPost.to + '/comments/' + newPost.pid).set(comment);
+            console.log('Comment Successful -', newPost.pid);
           });
       });
   }
@@ -129,6 +127,20 @@ export class PostsService {
 
   getMostCommentedPosts() {
     return this.afs.collection('posts', ref => ref.orderBy('totalComments', 'desc').limit(3)).valueChanges();
+  }
+
+  updatePhotoURL(url, pid) {
+    const data = {
+      photoURL: url
+    };
+    this.afs.doc('posts/' + pid).update(data);
+  }
+
+  updateBannerURL(url, uid) {
+    const data = {
+      bannerURL: url
+    };
+    this.afs.doc('users/' + uid).update(data);
   }
 }
 

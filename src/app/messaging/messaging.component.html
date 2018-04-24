@@ -4,13 +4,15 @@
       <div class="col-12 col-lg-8 p-0">
         <div class="jumbotron bg-white px-3 py-3" id="messaging-container">
           <h3 id="title" class="pb-0">Messages</h3>
-          <i id="btnCreateChatroom" class="fa fa-plus-square fa-2x align-self-center text-primary col-3 mr-1 col-lg-2 ml-auto" (click)="createRoom()"></i>
           <hr class="mt-1">
           <div class="my-3">
             <div id="roomList" *ngFor="let room of chatrooms">
               <div id="roomListItem">
                 <app-chatroomlist [room]="room"></app-chatroomlist>
               </div>
+            </div>
+            <div class="text-muted text-center py-4" *ngIf="chatrooms && chatrooms.length < 1">
+              Go to a user's profile and send them a message.
             </div>
           </div>
         </div>
