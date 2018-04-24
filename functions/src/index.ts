@@ -14,18 +14,33 @@ exports.onMessage = functions.firestore
       lastUpdate: msg.timestamp
     };
     afs.doc('messaging/' + rid).update(update)
-    .then(() => updateUserLastUpdate(rid, update))
+    .then(() => updateUserLastUpdate(rid, update, msg))
+    .then(() => msgNotif(msg, rid))
     .catch(err => console.log(err));
   });
 
-  function updateUserLastUpdate(rid, update) {
+  function msgNotif(msg, rid) {
+    const msguser = msg.uid;
+  }
+
+  function updateUserLastUpdate(rid, update, msg) {
     afs.collection('messaging/' + rid + '/users').get()
     .then(users => {
       const userList = users;
       userList.forEach(user => {
-        const useruid = user.data().uid;
-        afs.doc('users/' + useruid + '/messaging/' + rid).update(update)
-        .catch(err => console.log(err));
+        if (user.data().uid !== msg.uid) {
+          const useruid = user.data().uid;
+          const notifupdate = {
+            lastUpdate: msg.timestamp,
+            unread: true
+          };
+          afs.doc('users/' + useruid + '/messaging/' + rid).update(notifupdate)
+          .catch(err => console.log(err));
+        } else {
+          const useruid = user.data().uid;
+          afs.doc('users/' + useruid + '/messaging/' + rid).update(update)
+          .catch(err => console.log(err));
+        }
       });
     })
     .catch(err => console.log(err));
@@ -191,14 +206,33 @@ exports.onLike = functions.firestore
                 const likeDoc = {
                   totalLikes: postData.data().totalLikes
                 };
-                afs.doc('groups/' + postData.data().gid + '/feed/' + pid).update(likeDoc).catch(err => console.log(err));
+                afs.doc('groups/' + postData.data().to + '/feed/' + pid).update(likeDoc).catch(err => console.log(err));
               }
             })
             .catch(err => console.log(err));
+            notifyLike(postData.data(), uid);
         })
         .catch(err => console.log(err));
 
     });
+
+    function notifyLike(data, likerid) {
+        const parentpost = data;
+        if (likerid !== parentpost.uid) {
+          const notif = {
+            uid: likerid,
+            type: 'like',
+            pid: parentpost.pid,
+            timestamp: parentpost.date
+          };
+          afs.doc('users/' + parentpost.uid + '/notifications/' + notif.pid).set(notif)
+          .then(() => {
+            afs.doc('users/' + parentpost.uid + '/unread/' + notif.pid).set(notif)
+            .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
+        }
+    }
 
     function updatePostTotalLikes(pid) {
       afs.collection('posts/' + pid + '/likes').get()
