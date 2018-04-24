@@ -2,9 +2,6 @@
 .container-fluid {
   overflow-y: scroll;
 }
-.container {
-  max-width: 1500px!important;
-}
 #user-posts , #user-likes{
   overflow: hidden;
   min-height: 500px;
