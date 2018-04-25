@@ -4,6 +4,7 @@
   height: 70px;
   background-color: #E83F6F;
   background-size: cover;
+  border: 4px solid white;
 }
 #home-avatar {
   margin-top: -25px;

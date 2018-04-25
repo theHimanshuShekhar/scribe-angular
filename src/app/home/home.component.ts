@@ -93,6 +93,7 @@ export class HomeComponent implements OnInit {
                 this.totalScribes = userDoc.totalScribes ? userDoc.totalScribes : 0;
                 this.totalFollowers = userDoc.totalFollowers ? userDoc.totalFollowers : 0;
                 this.totalFollowing = userDoc.totalFollowing ? userDoc.totalFollowing : 0;
+                this.bannerURL = userDoc.bannerURL ? userDoc.bannerURL : null;
 
                 // Get pids from user feed
                 this.postsService.getFeed(this.userid).subscribe(
